@@ -3,7 +3,12 @@ export interface Pagina {
 }
 
 export interface HeroProps {
-  title: string;
+  titulo: string;
   image: string;
   button: string;
+}
+
+export interface TestimonialsProps {
+  titulo: string;
+  imagen: string;
 }

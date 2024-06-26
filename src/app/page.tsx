@@ -1,3 +1,5 @@
+"use client";
+
 // Sections
 import { Hero } from "@/components/Hero";
 
@@ -8,7 +10,7 @@ const Home = () => {
   return (
     <Layout>
       <Hero
-        title="Unique music that stands out and ENGAGES"
+        titulo="Unique music that stands out and ENGAGES"
         image=""
         button=""
       />

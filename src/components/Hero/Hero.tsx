@@ -17,10 +17,10 @@ const StyledHero = styled.section`
 `;
 
 export const Hero = (props: HeroProps) => {
-  const { title, image } = props;
+  const { titulo, image } = props;
   return (
     <StyledHero>
-      <h1>{title}</h1>
+      <h1>{titulo}</h1>
     </StyledHero>
   );
 };
