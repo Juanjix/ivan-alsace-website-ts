@@ -15,6 +15,22 @@ const StyledLayout = styled.div`
   h1 {
     font-size: 40px;
   }
+
+  h2 {
+    font-size: 42px;
+  }
+
+  @media screen and (max-width: 920px) {
+  }
+
+  .titulo {
+    color: #e0c68f;
+  }
+
+  section {
+    text-align: center;
+    padding: 120px 0px;
+  }
 `;
 
 const RootLayout: React.FC<PropsWithChildren> = (props) => {

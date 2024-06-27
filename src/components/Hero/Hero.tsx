@@ -10,9 +10,6 @@ const StyledHero = styled.section<{ imagen: string }>`
   height: 100vh;
   text-align: center;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-image: url(${(props) => props.imagen});
   background-size: cover;
   background-position: center;
