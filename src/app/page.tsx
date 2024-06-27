@@ -11,7 +11,7 @@ const Home = () => {
     <Layout>
       <Hero
         titulo="Unique music that stands out and ENGAGES"
-        image=""
+        imagen="images/hero-image.png"
         button=""
       />
     </Layout>

@@ -4,7 +4,7 @@ export interface Pagina {
 
 export interface HeroProps {
   titulo: string;
-  image: string;
+  imagen: string;
   button: string;
 }
 
