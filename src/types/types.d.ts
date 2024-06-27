@@ -12,3 +12,8 @@ export interface TestimonialsProps {
   titulo: string;
   imagen: string;
 }
+
+export interface ButtonProps {
+  texto: string;
+  url: string;
+}

@@ -31,6 +31,11 @@ const StyledLayout = styled.div`
     text-align: center;
     padding: 120px 0px;
   }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
 `;
 
 const RootLayout: React.FC<PropsWithChildren> = (props) => {

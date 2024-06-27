@@ -1,10 +1,13 @@
 "use client";
 
-// props
+// Props
 import { HeroProps } from "@/types/types";
 
-// Components
+// Styled
 import styled from "styled-components";
+
+// Components
+import { Button } from "../Button";
 
 const StyledHero = styled.section<{ imagen: string }>`
   height: 100vh;
@@ -16,6 +19,11 @@ const StyledHero = styled.section<{ imagen: string }>`
 
   @media screen and (max-width: 1200px) {
   }
+
+  & .prueba-1,
+  & .prueba-2 {
+    margin-top: 200px;
+  }
 `;
 
 const GradientText = styled.h1`
@@ -24,6 +32,10 @@ const GradientText = styled.h1`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+
+  & a {
+    margin-top: 100px;
+  }
 `;
 
 export const Hero = (props: HeroProps) => {
@@ -31,6 +43,9 @@ export const Hero = (props: HeroProps) => {
   return (
     <StyledHero imagen={imagen}>
       <GradientText>{titulo}</GradientText>
+      <div>
+        <Button texto="Give it a try" url="/" />
+      </div>
     </StyledHero>
   );
 };

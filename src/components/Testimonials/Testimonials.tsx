@@ -6,11 +6,12 @@ import Image from "next/image";
 
 // Styled
 import styled from "styled-components";
+import { Button } from "../Button";
 
 const StyledTestominals = styled.section`
   .image-container {
     max-width: 420px;
-    margin: 0 auto;
+    margin: 0 auto 100px auto;
   }
 `;
 
@@ -31,6 +32,7 @@ export const Testimonials = (props: TestimonialsProps) => {
           height={300}
         />
       </div>
+      <Button texto="Give it a try" url="/" />
     </StyledTestominals>
   );
 };
