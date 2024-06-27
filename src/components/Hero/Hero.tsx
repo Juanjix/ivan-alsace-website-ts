@@ -18,15 +18,22 @@ const StyledHero = styled.section<{ imagen: string }>`
   background-position: center;
 
   @media screen and (max-width: 1200px) {
-    // Estilos responsivos aquí
   }
+`;
+
+const GradientText = styled.h1`
+  background: linear-gradient(to right, #e6d680 0%, #9f883c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 `;
 
 export const Hero = (props: HeroProps) => {
   const { titulo, imagen } = props;
   return (
     <StyledHero imagen={imagen}>
-      <h1>{titulo}</h1>
+      <GradientText>{titulo}</GradientText>
     </StyledHero>
   );
 };

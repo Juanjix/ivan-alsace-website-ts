@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <Layout>
       <Hero
-        titulo="Unique music that stands out and ENGAGES"
+        titulo='"Unique music that stands out and ENGAGES"'
         imagen="images/hero-image.png"
         button=""
       />
