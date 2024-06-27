@@ -3,6 +3,9 @@
 import { useEffect } from "react";
 import { PropsWithChildren } from "react";
 
+// Sections
+import { Footer } from "@/components/Footer";
+
 // Styled
 import styled from "styled-components";
 
@@ -11,6 +14,7 @@ import AOS from "aos";
 
 const StyledLayout = styled.div`
   background-color: black;
+  color: white;
 
   h1 {
     font-size: 40px;
@@ -20,16 +24,17 @@ const StyledLayout = styled.div`
     font-size: 42px;
   }
 
-  @media screen and (max-width: 920px) {
-  }
-
   .titulo {
     color: #e0c68f;
   }
 
   section {
     text-align: center;
-    padding: 120px 0px;
+    padding: 80px 16px;
+
+    @media screen and (min-width: 920px) {
+      padding: 120px 0;
+    }
   }
 
   a {

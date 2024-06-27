@@ -13,20 +13,12 @@ const StyledHero = styled.div<{ imagen: string }>`
   height: 100vh;
   text-align: center;
   color: white;
-  background-image: url(${(props) => props.imagen});
+  background-image: url(${(props) => (props.imagen ? props.imagen : "")});
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @media screen and (max-width: 1200px) {
-  }
-
-  & .prueba-1,
-  & .prueba-2 {
-    margin-top: 200px;
-  }
 `;
 
 const GradientText = styled.h1`
