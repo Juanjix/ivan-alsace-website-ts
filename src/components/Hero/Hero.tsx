@@ -9,13 +9,16 @@ import styled from "styled-components";
 // Components
 import { Button } from "../Button";
 
-const StyledHero = styled.section<{ imagen: string }>`
+const StyledHero = styled.div<{ imagen: string }>`
   height: 100vh;
   text-align: center;
   color: white;
   background-image: url(${(props) => props.imagen});
   background-size: cover;
   background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media screen and (max-width: 1200px) {
   }
@@ -32,19 +35,18 @@ const GradientText = styled.h1`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-
-  & a {
-    margin-top: 100px;
-  }
+  margin-bottom: 100px;
 `;
 
 export const Hero = (props: HeroProps) => {
   const { titulo, imagen } = props;
   return (
     <StyledHero imagen={imagen}>
-      <GradientText>{titulo}</GradientText>
       <div>
-        <Button texto="Give it a try" url="/" />
+        <GradientText>{titulo}</GradientText>
+        <div>
+          <Button texto="Give it a try" url="/" />
+        </div>
       </div>
     </StyledHero>
   );
