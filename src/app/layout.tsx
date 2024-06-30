@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { PropsWithChildren } from "react";
 
-// Sections
-import { Footer } from "@/components/Footer";
+// app/layout.tsx
+import { Providers } from "./providers";
 
 // Styled
 import styled from "styled-components";
@@ -58,7 +58,9 @@ const RootLayout: React.FC<PropsWithChildren> = (props) => {
   return (
     <html lang="es">
       <body data-aos="fade-in" data-aos-duration="600">
-        <StyledLayout>{children}</StyledLayout>
+        <StyledLayout>
+          <Providers>{children}</Providers>
+        </StyledLayout>
       </body>
     </html>
   );

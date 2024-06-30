@@ -1,5 +1,5 @@
 // Props
-import { TestimonialsProps } from "@/types/types";
+import { TestimoniosProps } from "@/types/types";
 
 // Imagen
 import Image from "next/image";
@@ -8,17 +8,17 @@ import Image from "next/image";
 import styled from "styled-components";
 import { Button } from "../Button";
 
-const StyledTestominals = styled.section`
+const StyledTestimonios = styled.section`
   .image-container {
     max-width: 420px;
     margin: 0 auto 100px auto;
   }
 `;
 
-export const Testimonials = (props: TestimonialsProps) => {
+export const Testimonios = (props: TestimoniosProps) => {
   const { titulo, imagen } = props;
   return (
-    <StyledTestominals>
+    <StyledTestimonios>
       <h2 className="titulo">{titulo}</h2>
       <div className="image-container">
         <Image
@@ -33,6 +33,6 @@ export const Testimonials = (props: TestimonialsProps) => {
         />
       </div>
       <Button texto="Give it a try" url="/" />
-    </StyledTestominals>
+    </StyledTestimonios>
   );
 };

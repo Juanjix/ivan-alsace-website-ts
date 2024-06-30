@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 // Icons
 import Facebook from "@/../public/icons/facebook";
-import Tiktok from "@/../public/icons/tiktok";
 import Twitter from "@/../public/icons/twitter";
 import Soundcloud from "@/../public/icons/soundcloud";
 

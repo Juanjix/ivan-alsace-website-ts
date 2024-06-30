@@ -5,10 +5,10 @@ export interface Pagina {
 export interface HeroProps {
   titulo: string;
   imagen: string;
-  button: string;
+  boton: string;
 }
 
-export interface TestimonialsProps {
+export interface TestimoniosProps {
   titulo: string;
   imagen: string;
 }
@@ -16,4 +16,14 @@ export interface TestimonialsProps {
 export interface ButtonProps {
   texto: string;
   url: string;
+}
+
+export interface VideoProps {
+  titulo: string;
+  url: string;
+}
+
+export interface PreguntasFrecuentesProps {
+  pregunta: string;
+  respuesta: string;
 }
