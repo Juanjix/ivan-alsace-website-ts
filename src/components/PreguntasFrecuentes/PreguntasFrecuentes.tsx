@@ -46,15 +46,18 @@ export const PreguntasFrecuentes = () => {
   ];
   return (
     <StyledPreguntasFrecuentes>
-      {Informacion.map((info, key) => {
-        return (
-          <Acordeon
-            pregunta={info.pregunta}
-            respuesta={info.respuesta}
-            key={info.pregunta}
-          />
-        );
-      })}
+      <div className="container">
+        <h2 className="titulo">Componente Preguntas Frecuentes</h2>
+        {Informacion.map((info, key) => {
+          return (
+            <Acordeon
+              pregunta={info.pregunta}
+              respuesta={info.respuesta}
+              key={key}
+            />
+          );
+        })}
+      </div>
     </StyledPreguntasFrecuentes>
   );
 };

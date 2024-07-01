@@ -37,6 +37,12 @@ const StyledLayout = styled.div`
     }
   }
 
+  .container {
+    max-width: 920px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   a {
     color: black;
     text-decoration: none;

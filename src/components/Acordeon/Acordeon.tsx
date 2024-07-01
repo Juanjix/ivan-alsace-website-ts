@@ -22,7 +22,7 @@ export const Acordeon = (props: PreguntasFrecuentesProps) => {
     <StyledAcordeon>
       <Accordion allowToggle>
         <AccordionItem>
-          <h2>
+          <h2 className="title">
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
                 {pregunta}
