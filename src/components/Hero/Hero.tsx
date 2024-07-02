@@ -59,12 +59,7 @@ export const Hero = (props: HeroProps) => {
 
   return (
     <StyledHero imagen={imagen}>
-      <motion.div
-        initial={{ y: 32, opacity: 0, scale: 0.99 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.6,
-        }}>
+      <div>
         <motion.h1
           initial={{ y: 32, opacity: 0, scale: 0.99 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -85,7 +80,7 @@ export const Hero = (props: HeroProps) => {
         <div>
           <Button texto="Give it a try" url="/" />
         </div>
-      </motion.div>
+      </div>
     </StyledHero>
   );
 };

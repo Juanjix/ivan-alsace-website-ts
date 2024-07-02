@@ -9,6 +9,14 @@ const StyledVideo = styled.section`
 
   iframe {
     margin: 20px auto;
+    max-width: 720px;
+    width: 100%;
+    height: 400px;
+    border-radius: 18px;
+
+    &:hover {
+      border: 1px solid #e0c68f;
+    }
   }
 `;
 
