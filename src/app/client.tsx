@@ -14,4 +14,20 @@ const client = createClient({
   accessToken: accessToken,
 });
 
-export default client;
+// This is a Contentful client that's been configured
+// to fetch drafts and unpublished content.
+const previewClient = createClient({
+  space: spaceId,
+  accessToken: accessToken,
+  host: "preview.contentful.com",
+});
+
+// This little helper will let us switch between the two
+// clients easily:
+export default function contentfulClient({ preview = false }) {
+  if (preview) {
+    return previewClient;
+  }
+
+  return client;
+}

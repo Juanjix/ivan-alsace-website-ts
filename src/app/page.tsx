@@ -13,8 +13,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 // Layout
 import Layout from "./layout";
 
-// Next
-
 const Home = () => {
   return (
     <ChakraProvider>

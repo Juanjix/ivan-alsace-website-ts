@@ -27,3 +27,11 @@ export interface PreguntasFrecuentesProps {
   pregunta: string;
   respuesta: string;
 }
+
+export interface HeroEntrySkeleton {
+  contentTypeId: "hero";
+  fields: {
+    titulo: contentful.EntryFieldTypes.Text;
+    imagen: contentful.EntryFieldTypes.AssetLink;
+  };
+}
