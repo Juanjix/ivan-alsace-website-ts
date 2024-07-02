@@ -1,3 +1,4 @@
+import { Acordeon } from "../components/Acordeon/Acordeon";
 export interface Pagina {
   ruta: string;
 }
@@ -23,9 +24,17 @@ export interface VideoProps {
   url: string;
 }
 
-export interface PreguntasFrecuentesProps {
+export interface AcordeonProps {
   pregunta: string;
   respuesta: string;
+}
+
+export interface PreguntasFrecuentesEntrySkeleton {
+  contentTypeId: "preguntasFrecuentes";
+  fields: {
+    pregunta: string;
+    respuesta: string;
+  };
 }
 
 export interface HeroEntrySkeleton {

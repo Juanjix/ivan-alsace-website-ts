@@ -1,10 +1,6 @@
-// Props
-import { PreguntasFrecuentesProps } from "@/types/types";
-
-// Styles
+// components/Acordeon.tsx
+import React from "react";
 import styled from "styled-components";
-
-//Chakra
 import {
   Accordion,
   AccordionItem,
@@ -16,8 +12,12 @@ import {
 
 const StyledAcordeon = styled.section``;
 
-export const Acordeon = (props: PreguntasFrecuentesProps) => {
-  const { pregunta, respuesta } = props;
+interface AcordeonProps {
+  pregunta: string;
+  respuesta: string;
+}
+
+export const Acordeon: React.FC<AcordeonProps> = ({ pregunta, respuesta }) => {
   return (
     <StyledAcordeon>
       <Accordion allowToggle>

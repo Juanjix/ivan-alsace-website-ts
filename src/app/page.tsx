@@ -4,7 +4,7 @@
 import { Hero } from "@/components/Hero";
 import { Testimonios } from "@/components/Testimonios";
 import { Video } from "@/components/Video";
-import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
+// import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
 import { Footer } from "@/components/Footer";
 
 // Chakra UI
@@ -27,9 +27,8 @@ const Home = () => {
           imagen="/images/image-testimonials.png"
         />
         <Video titulo="Componente Video" url="/" />
-        <PreguntasFrecuentes />
+        {/* <PreguntasFrecuentes /> */}
         <Footer />
-        <div></div>
       </Layout>
     </ChakraProvider>
   );
