@@ -11,7 +11,7 @@ import { Button } from "../Button";
 const StyledTestimonios = styled.section`
   .image-container {
     max-width: 420px;
-    margin: 0 auto 100px auto;
+    margin: 30px auto 100px auto;
   }
 `;
 

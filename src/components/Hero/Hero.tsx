@@ -27,7 +27,7 @@ const StyledHero = styled.div<{ imagen: string }>`
 
 const HeroText = [
   {
-    texto: 'DIFERENCIATE DE LO ESTÁNDAR" MUSICA UNICA PARA UN PROYECTO ÚNICO"',
+    texto: "Save time and effort with exclusive compositions",
   },
   {
     texto: "Enamora a tu audiencia",
@@ -62,9 +62,9 @@ export const Hero = (props: HeroProps) => {
       <div>
         <motion.h1
           initial={{ y: 32, opacity: 0, scale: 0.99 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
+          animate={{ y: 20, opacity: 15, scale: 1.5 }}
           transition={{
-            duration: 0.6,
+            duration: 2.5,
           }}
           style={{
             background: "linear-gradient(to right, #e6d680 0%, #9f883c 100%)",

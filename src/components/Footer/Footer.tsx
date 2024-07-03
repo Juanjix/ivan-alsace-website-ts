@@ -9,24 +9,40 @@ import Soundcloud from "@/../public/icons/soundcloud";
 const StyledFooter = styled.footer`
   text-align: center;
   padding: 20px 0;
+
+  .icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      margin-left: 12px;
+      margin-right: 12px;
+    }
+  }
+
   .line {
     border: 1px solid white;
     max-width: 1120px;
     display: flex;
-    margin: 0 auto;
+    margin: 22px auto;
   }
 `;
 
 export const Footer = () => {
   return (
     <StyledFooter>
-      <div>
+      <div className="icons">
+        <Facebook />
+        <Facebook />
         <Facebook />
         <Twitter />
         <Soundcloud />
-        <span className="line" />
-        <p>© 2024. All rights reserved.</p>
+        <Twitter />
+        <Soundcloud />
       </div>
+      <span className="line" />
+      <p>© 2024. All rights reserved.</p>
     </StyledFooter>
   );
 };
