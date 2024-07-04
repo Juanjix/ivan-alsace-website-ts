@@ -6,6 +6,7 @@ import { Testimonios } from "@/components/Testimonios";
 import { Video } from "@/components/Video";
 import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
 import { Footer } from "@/components/Footer";
+import Metrics from "../components/Metrics/Metrics";
 
 // Chakra UI
 import { ChakraProvider } from "@chakra-ui/react";
@@ -27,6 +28,7 @@ const Home = () => {
           imagen="/images/image-testimonials.png"
         />
         <Video titulo="Componente Video" url="/" />
+        <Metrics />
         <PreguntasFrecuentes />
         <Footer />
       </Layout>

@@ -43,6 +43,12 @@ const HeroText = [
   },
 ];
 
+const titleVariants = {
+  initial: { opacity: 0, x: -100 }, // Empieza desde la derecha
+  animate: { opacity: 1, x: 0 }, // Se posiciona en el centro
+  exit: { opacity: 2, x: 100, transition: { duration: 4.5 } }, // Se desvanece hacia la izquierda
+};
+
 export const Hero = (props: HeroProps) => {
   const { titulo, imagen } = props;
   const [index, setIndex] = useState(0);
@@ -60,11 +66,15 @@ export const Hero = (props: HeroProps) => {
   return (
     <StyledHero imagen={imagen}>
       <div>
-        <motion.h1
-          initial={{ y: 32, opacity: 0, scale: 0.99 }}
-          animate={{ y: 20, opacity: 15, scale: 1.5 }}
+        {/* <motion.h1
+          key={index}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={titleVariants}
           transition={{
-            duration: 2.5,
+            duration: 1.5,
+            ease: "easeInOut",
           }}
           style={{
             background: "linear-gradient(to right, #e6d680 0%, #9f883c 100%)",
@@ -73,10 +83,32 @@ export const Hero = (props: HeroProps) => {
             backgroundClip: "text",
             color: "transparent",
             marginBottom: "100px",
-          }}
-          key={index}>
+          }}>
           {HeroText[index].texto}
-        </motion.h1>
+        </motion.h1> */}
+        <motion.div
+          key={index}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={titleVariants}
+          transition={{
+            duration: 2.5,
+            ease: "easeInOut",
+            opacity: { duration: 5.2, ease: "easeInOut" }, // Duración de la transición de opacidad
+            x: { duration: 1.5, ease: "easeInOut" },
+            y: { duration: 1.5, ease: "easeInOut" },
+          }}
+          style={{
+            background: "linear-gradient(to right, #e6d680 0%, #9f883c 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            color: "transparent",
+            marginBottom: "100px",
+          }}>
+          <h1>{HeroText[index].texto}</h1>
+        </motion.div>
         <div>
           <Button texto="Give it a try" url="/" />
         </div>

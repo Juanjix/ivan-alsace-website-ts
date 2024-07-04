@@ -24,6 +24,10 @@ const StyledLayout = styled.div`
     font-size: 42px;
   }
 
+  h3 {
+    font-size: 32px;
+  }
+
   .titulo {
     color: #e0c68f;
   }
