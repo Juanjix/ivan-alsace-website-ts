@@ -1,16 +1,17 @@
-"use client";
+"use client"
 // React
-import { useEffect } from "react";
-import { PropsWithChildren } from "react";
+import { useEffect } from "react"
+import { PropsWithChildren } from "react"
 
 // app/layout.tsx
-import { Providers } from "./providers";
+import { Providers } from "./providers"
 
 // Styled
-import styled from "styled-components";
+import styled from "styled-components"
 
 // Animations
-import AOS from "aos";
+import AOS from "aos"
+import { Footer } from "@/components/Footer"
 
 const StyledLayout = styled.div`
   background-color: black;
@@ -51,29 +52,32 @@ const StyledLayout = styled.div`
     color: black;
     text-decoration: none;
   }
-`;
+`
 
 const RootLayout: React.FC<PropsWithChildren> = (props) => {
   // Initializes `AOS` plugin
   useEffect(() => {
     AOS.init({
       once: true,
-    });
-  }, []);
+    })
+  }, [])
   /**
    * PROPS
    */
-  const { children } = props;
+  const { children } = props
 
   return (
     <html lang="es">
       <body data-aos="fade-in" data-aos-duration="600">
         <StyledLayout>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            <Footer />
+          </Providers>
         </StyledLayout>
       </body>
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

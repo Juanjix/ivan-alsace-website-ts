@@ -1,39 +1,26 @@
-"use client";
-
 // Sections
-import { Hero } from "@/components/Hero";
-import { Testimonios } from "@/components/Testimonios";
-import { Video } from "@/components/Video";
-import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
-import { Footer } from "@/components/Footer";
-import Metrics from "../components/Metrics/Metrics";
 
 // Chakra UI
-import { ChakraProvider } from "@chakra-ui/react";
 
 // Layout
-import Layout from "./layout";
+import { getPaginaPorRuta } from "@/lib/utils"
+import Page from "@/templates/Page"
+import { notFound } from "next/navigation"
 
-const Home = () => {
+const Home = async () => {
+  const response = await getPaginaPorRuta("/")
+
+  if (response?.total === 0) {
+    notFound()
+  }
+
+  const data = response?.items[0]
+
   return (
-    <ChakraProvider>
-      <Layout>
-        <Hero
-          titulo='"Unique music that stands out and ENGAGES"'
-          imagen="images/hero-image.png"
-          boton=""
-        />
-        <Testimonios
-          titulo="Testimonials + CTA"
-          imagen="/images/image-testimonials.png"
-        />
-        <Video titulo="Componente Video" url="/" />
-        <Metrics />
-        <PreguntasFrecuentes />
-        <Footer />
-      </Layout>
-    </ChakraProvider>
-  );
-};
+    <>
+      <Page sections={data?.fields.sections} />
+    </>
+  )
+}
 
-export default Home;
+export default Home

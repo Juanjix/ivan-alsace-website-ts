@@ -1,3 +1,4 @@
+import { TypePaginasSkeleton } from "@/types/contentful-types"
 import { createClient } from "contentful"
 
 export const initClient = () => {
@@ -17,5 +18,20 @@ export const initClient = () => {
     )
   } catch (error) {
     throw error
+  }
+}
+
+export const getPaginaPorRuta = async (ruta: string) => {
+  try {
+    const client = initClient()
+
+    const pagina = await client.getEntries<TypePaginasSkeleton>({
+      content_type: "paginas",
+      "fields.ruta": ruta,
+    })
+
+    return pagina
+  } catch (error) {
+    console.error(error)
   }
 }

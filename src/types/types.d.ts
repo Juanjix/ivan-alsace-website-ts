@@ -1,46 +1,46 @@
-import { Acordeon } from "../components/Acordeon/Acordeon";
+import { Acordeon } from "../components/Acordeon/Acordeon"
 export interface Pagina {
-  ruta: string;
+  ruta: string
 }
 
 export interface HeroProps {
-  titulo: string;
-  imagen: string;
-  boton: string;
+  titulo: string
+  imagen: string
+  boton: string
 }
 
 export interface TestimoniosProps {
-  titulo: string;
-  imagen: string;
+  titulo: string
+  imagen: string
 }
 
 export interface ButtonProps {
-  texto: string;
-  url: string;
+  texto: string
+  url: string
 }
 
 export interface VideoProps {
-  titulo: string;
-  url: string;
+  titulo: string
+  url: string
 }
 
 export interface AcordeonProps {
-  pregunta: string;
-  respuesta: string;
+  pregunta: string
+  respuesta: string
 }
 
 export interface PreguntasFrecuentesEntrySkeleton {
-  contentTypeId: "preguntasFrecuentes";
+  contentTypeId: "preguntasFrecuentes"
   fields: {
-    pregunta: string;
-    respuesta: string;
-  };
+    pregunta: string
+    respuesta: string
+  }
 }
 
 export interface HeroEntrySkeleton {
-  contentTypeId: "hero";
+  contentTypeId: "hero"
   fields: {
-    titulo: contentful.EntryFieldTypes.Text;
-    imagen: contentful.EntryFieldTypes.AssetLink;
-  };
+    titulo: contentful.EntryFieldTypes.Text
+    imagen: contentful.EntryFieldTypes.AssetLink
+  }
 }

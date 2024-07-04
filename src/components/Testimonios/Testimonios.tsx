@@ -1,22 +1,24 @@
+"use client"
+
 // Props
-import { TestimoniosProps } from "@/types/types";
+import { TestimoniosProps } from "@/types/types"
 
 // Imagen
-import Image from "next/image";
+import Image from "next/image"
 
 // Styled
-import styled from "styled-components";
-import { Button } from "../Button";
+import styled from "styled-components"
+import { Button } from "../Button"
 
 const StyledTestimonios = styled.section`
   .image-container {
     max-width: 420px;
     margin: 30px auto 100px auto;
   }
-`;
+`
 
 export const Testimonios = (props: TestimoniosProps) => {
-  const { titulo, imagen } = props;
+  const { titulo, imagen } = props
   return (
     <StyledTestimonios>
       <h2 className="titulo">{titulo}</h2>
@@ -34,5 +36,5 @@ export const Testimonios = (props: TestimoniosProps) => {
       </div>
       <Button texto="Give it a try" url="/" />
     </StyledTestimonios>
-  );
-};
+  )
+}

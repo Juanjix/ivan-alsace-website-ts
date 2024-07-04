@@ -1,12 +1,14 @@
+"use client"
+
 // Props
-import { VideoProps } from "@/types/types";
+import { VideoProps } from "@/types/types"
 
 // Motion
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 
 // Styled
-import styled from "styled-components";
-import { Button } from "../Button";
+import styled from "styled-components"
+import { Button } from "../Button"
 
 const StyledVideo = styled.section`
   background-color: #051b19;
@@ -23,10 +25,10 @@ const StyledVideo = styled.section`
       border: 1px solid #e0c68f;
     }
   }
-`;
+`
 
 export const Video = (props: VideoProps) => {
-  const { titulo, url } = props;
+  const { titulo, url } = props
   return (
     <StyledVideo>
       <motion.div
@@ -34,7 +36,8 @@ export const Video = (props: VideoProps) => {
         animate={{ y: 0, opacity: 1, scale: 1 }}
         transition={{
           duration: 0.8,
-        }}>
+        }}
+      >
         <h2 className="titulo">{titulo}</h2>
       </motion.div>
 
@@ -42,7 +45,8 @@ export const Video = (props: VideoProps) => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 1 }}>
+        transition={{ delay: 1 }}
+      >
         <iframe
           width="560"
           height="315"
@@ -51,9 +55,10 @@ export const Video = (props: VideoProps) => {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen></iframe>
+          allowFullScreen
+        ></iframe>
       </motion.div>
       <Button texto="Give it a try" url="/" />
     </StyledVideo>
-  );
-};
+  )
+}
