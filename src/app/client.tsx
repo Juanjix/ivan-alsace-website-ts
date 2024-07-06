@@ -1,4 +1,3 @@
-import * as contentful from "contentful";
 import { createClient } from "contentful";
 import { Entry } from "contentful";
 import { PreguntasFrecuentesEntrySkeleton } from "@/types/types";
@@ -24,11 +23,3 @@ export async function getPreguntasFrecuentes() {
 
   return res.items;
 }
-
-// export async function getPreguntasFrecuentes() {
-//   const res = await client.getEntries<PreguntasFrecuentesEntrySkeleton>({
-//     content_type: "preguntasFrecuentes",
-//   });
-
-//   return res.items;
-// }

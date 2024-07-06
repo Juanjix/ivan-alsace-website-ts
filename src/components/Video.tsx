@@ -1,14 +1,17 @@
-"use client"
-
-// Props
-import { VideoProps } from "@/types/types"
+"use client";
 
 // Motion
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 // Styled
-import styled from "styled-components"
-import { Button } from "../Button"
+import styled from "styled-components";
+import { Button } from "./Button";
+import React from "react";
+
+interface VideoProps {
+  titulo: string;
+  videoCode: string;
+}
 
 const StyledVideo = styled.section`
   background-color: #051b19;
@@ -25,10 +28,12 @@ const StyledVideo = styled.section`
       border: 1px solid #e0c68f;
     }
   }
-`
+`;
 
-export const Video = (props: VideoProps) => {
-  const { titulo, url } = props
+export const Video: React.FC<VideoProps> = (props) => {
+  const { titulo, videoCode } = props;
+
+  const url = `https://www.youtube.com/embed/${videoCode}`;
   return (
     <StyledVideo>
       <motion.div
@@ -36,8 +41,7 @@ export const Video = (props: VideoProps) => {
         animate={{ y: 0, opacity: 1, scale: 1 }}
         transition={{
           duration: 0.8,
-        }}
-      >
+        }}>
         <h2 className="titulo">{titulo}</h2>
       </motion.div>
 
@@ -45,20 +49,18 @@ export const Video = (props: VideoProps) => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 1 }}
-      >
+        transition={{ delay: 1 }}>
         <iframe
           width="560"
           height="315"
-          src="https://www.youtube.com/embed/o_mMMiT27yQ?si=5Q7XiUQ4vHM13ul3"
+          src={url}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
+          allowFullScreen></iframe>
       </motion.div>
       <Button texto="Give it a try" url="/" />
     </StyledVideo>
-  )
-}
+  );
+};

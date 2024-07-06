@@ -56,7 +56,12 @@ const Hero: React.FC<HeroProps> = (props) => {
 
   return (
     <StyledHero imagen={imagenUrl}>
-      <div>
+      <motion.div
+        initial={{ y: 32, opacity: 0, scale: 0.99 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.6,
+        }}>
         <motion.div
           key={index}
           initial="initial"
@@ -83,7 +88,7 @@ const Hero: React.FC<HeroProps> = (props) => {
         <div>
           <Button texto="Give it a try" url="/" />
         </div>
-      </div>
+      </motion.div>
     </StyledHero>
   );
 };
