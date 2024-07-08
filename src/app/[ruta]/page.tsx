@@ -1,6 +1,6 @@
 import { getPaginaPorRuta, initClient } from "@/lib/utils";
 import { Pagina } from "@/types/types";
-import { EntrySkeletonType } from "contentful";
+import { Entry, EntrySkeletonType } from "contentful";
 import { notFound } from "next/navigation";
 
 interface Params {
@@ -11,7 +11,7 @@ interface Params {
 
 export const dynamicParams = false;
 
-export const generateStaticParams = async () => {
+export const generateStaticParams = async (): Promise<{ ruta: string }[]> => {
   try {
     const client = initClient();
 
@@ -19,14 +19,15 @@ export const generateStaticParams = async () => {
       content_type: "paginas",
     });
 
-    const rutas = paginas.items.map((pagina) => ({
-      ruta: pagina.fields.ruta,
-    }));
+    const rutas = paginas.items
+      .map((pagina) => pagina.fields.ruta) // Obtenemos solo las rutas
+      .filter((ruta) => typeof ruta === "string" && ruta.length > 0) // Filtramos cualquier ruta que no sea válida
+      .map((ruta) => ({ ruta })); // Mapeamos a objetos { ruta: string }
 
-    return rutas ?? [];
+    return rutas;
   } catch (error) {
-    console.error(error);
-    return [];
+    console.error("Error fetching static params:", error);
+    return []; // Retornar un array vacío en caso de error
   }
 };
 
