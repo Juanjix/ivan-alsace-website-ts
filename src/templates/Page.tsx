@@ -1,5 +1,6 @@
 "use client";
 
+// React
 import React, { useState, useEffect } from "react";
 
 // Types
@@ -8,7 +9,6 @@ import {
   TypePaginasFields,
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,
-  TypePreguntaFrecuenteSkeleton,
   TypePreguntasFrecuentesSkeleton,
 } from "@/types/contentful-types";
 
@@ -20,7 +20,7 @@ import { Entry } from "contentful";
 import { Video } from "@/components/Video";
 import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
 
-// Function
+// Funcion para resolver los LinkEntry
 import { resolveLinks } from "@/app/client";
 
 interface PageProps {
@@ -60,27 +60,29 @@ const Page: React.FC<PageProps> = (props) => {
       case "hero":
         const data = seccion as Entry<TypeHeroSkeleton>;
         const props = data.fields;
-        components.push(<Hero {...props} />);
+        components.push(<Hero key={seccion.sys.id} {...props} />);
         break;
 
       case "testimonios":
         const dato = seccion as Entry<TypeTestimoniosSkeleton>;
         const datos = dato.fields;
-        components.push(<Testimonios {...datos} />);
+        components.push(<Testimonios key={seccion.sys.id} {...datos} />);
         break;
 
       case "video":
         const dataVideo = seccion as Entry<TypeVideoSkeleton>;
         const dataVideos = dataVideo.fields;
-        components.push(<Video {...dataVideos} />);
+        components.push(<Video key={seccion.sys.id} {...dataVideos} />);
         break;
 
       case "preguntasFrecuentes":
-        components.push(<PreguntasFrecuentes faqs={resolvedFAQs} />);
+        components.push(
+          <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFAQs} />
+        );
         break;
 
       case "secciones":
-        components.push(<Seccion {...seccion.fields} />);
+        components.push(<Seccion key={seccion.sys.id} {...seccion.fields} />);
         break;
 
       default:
