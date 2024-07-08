@@ -1,4 +1,5 @@
 import { Acordeon } from "../components/Acordeon/Acordeon";
+
 export interface Pagina {
   ruta: string;
 }
