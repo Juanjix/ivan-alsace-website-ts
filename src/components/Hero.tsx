@@ -18,11 +18,11 @@ interface HeroProps {
   imagen: AssetLink;
 }
 
-const StyledHero = styled.div<{ imagen: string }>`
+const StyledHero = styled.div<{ $imagen: string }>`
   height: 100vh;
   text-align: center;
   color: white;
-  background-image: url(${(props) => (props.imagen ? props.imagen : "")});
+  background-image: url(${(props) => props.$imagen});
   background-size: cover;
   background-position: center;
   display: flex;
@@ -36,10 +36,9 @@ const titleVariants = {
   exit: { opacity: 2, x: 100, transition: { duration: 4.5 } }, // Se desvanece hacia la izquierda
 };
 
-const Hero: React.FC<HeroProps> = (props) => {
-  const { titulos, imagen } = props;
-
+const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
   const [index, setIndex] = useState(0);
+  const imagenURL = `https:${imagen.fields.file.url}`;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,13 +48,12 @@ const Hero: React.FC<HeroProps> = (props) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [titulos]);
 
   // Extraer la URL de la imagen desde el objeto AssetLink
-  const imagenUrl = imagen.fields.file.url;
 
   return (
-    <StyledHero imagen={imagenUrl}>
+    <StyledHero $imagen={imagenURL}>
       <motion.div
         initial={{ y: 32, opacity: 0, scale: 0.99 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}

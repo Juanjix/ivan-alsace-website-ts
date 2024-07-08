@@ -20,8 +20,9 @@ import { Entry } from "contentful";
 import { Video } from "@/components/Video";
 import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
 
-// Funcion para resolver los LinkEntry
 import { resolveLinks } from "@/app/client";
+import Metrics from "@/components/Metrics";
+import Pricing from "@/components/Pricing";
 
 interface PageProps {
   sections?: TypePaginasFields["sections"];
@@ -90,7 +91,13 @@ const Page: React.FC<PageProps> = (props) => {
     }
   });
 
-  return <main>{components.map((component) => component)}</main>;
+  return (
+    <main>
+      {components.map((component) => component)}
+      <Metrics />
+      <Pricing />
+    </main>
+  );
 };
 
 export default Page;

@@ -1,46 +1,47 @@
-import { getPaginaPorRuta, initClient } from "@/lib/utils"
-import { Pagina } from "@/types/types"
-import { Entry, EntrySkeletonType } from "contentful"
-import { notFound } from "next/navigation"
+import { getPaginaPorRuta, initClient } from "@/lib/utils";
+import { Pagina } from "@/types/types";
+import { EntrySkeletonType } from "contentful";
+import { notFound } from "next/navigation";
 
 interface Params {
   params: {
-    ruta: string
-  }
+    ruta: string;
+  };
 }
 
-export const dynamicParams = false
+export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
   try {
-    const client = initClient()
+    const client = initClient();
 
     const paginas = await client.getEntries<EntrySkeletonType<Pagina>>({
       content_type: "paginas",
-    })
+    });
 
     const rutas = paginas.items.map((pagina) => ({
       ruta: pagina.fields.ruta,
-    }))
+    }));
 
-    return rutas
+    return rutas ?? [];
   } catch (error) {
-    console.error(error)
+    console.error(error);
+    return [];
   }
-}
+};
 
 const Page = async ({ params }: Params) => {
-  const pagina = await getPaginaPorRuta(params.ruta)
+  const pagina = await getPaginaPorRuta(params.ruta);
 
   if (!pagina || pagina.total === 0) {
-    notFound()
+    notFound();
   }
 
-  const data: Pagina = pagina.items[0].fields
+  const data: Pagina = pagina.items[0].fields;
 
-  console.log(data)
+  console.log(data);
 
-  return <h1>{data.ruta}</h1>
-}
+  return <h1>{data.ruta}</h1>;
+};
 
-export default Page
+export default Page;
