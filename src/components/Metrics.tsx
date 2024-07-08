@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 // Style
-import styled from "styled-components"
+import styled from "styled-components";
 
 const StyledMetrics = styled.section`
   background-color: #051b19;
@@ -52,7 +52,7 @@ const StyledMetrics = styled.section`
       }
     }
   }
-`
+`;
 
 const Metrics = () => {
   return (
@@ -82,7 +82,7 @@ const Metrics = () => {
         </div>
       </div>
     </StyledMetrics>
-  )
-}
+  );
+};
 
-export default Metrics
+export default Metrics;

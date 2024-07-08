@@ -1,6 +1,5 @@
+import { TypePreguntasFrecuentesSkeleton } from "@/types/contentful-types";
 import { createClient } from "contentful";
-import { Entry } from "contentful";
-import { PreguntasFrecuentesEntrySkeleton } from "@/types/types";
 
 const spaceId = "n6x6565mhpza";
 const accessToken = "kT-6-ev291NF0w6ryyd_-txXi-6yBne4jVqK5TE8Nfo";
@@ -16,10 +15,11 @@ export const client = createClient({
   accessToken: accessToken,
 });
 
-export async function getPreguntasFrecuentes() {
-  const res = await client.getEntries<PreguntasFrecuentesEntrySkeleton>({
-    content_type: "preguntasFrecuentes",
-  });
-
-  return res.items;
+export async function resolveLinks(links: { sys: { id: string } }[]) {
+  const entries = await Promise.all(
+    links.map((link) =>
+      client.getEntry<TypePreguntasFrecuentesSkeleton>(link.sys.id)
+    )
+  );
+  return entries;
 }

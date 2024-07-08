@@ -42,7 +42,7 @@ export const Video: React.FC<VideoProps> = (props) => {
         transition={{
           duration: 0.8,
         }}>
-        <h2 className="titulo">{titulo}</h2>
+        <h2 className="titulo">{titulo ? titulo : ""}</h2>
       </motion.div>
 
       <motion.div
