@@ -1,15 +1,15 @@
 import { getPaginaPorRuta, initClient } from "@/lib/utils";
 import { Pagina } from "@/types/types";
 
-import { Entry, EntrySkeletonType } from "contentful";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import { EntrySkeletonType } from "contentful";
+
 import { notFound } from "next/navigation";
 
-// interface Params {
-//   params: {
-//     ruta: string;
-//   };
-// }
+interface Params {
+  params: {
+    ruta: string;
+  };
+}
 
 export const dynamicParams = false;
 
