@@ -1,5 +1,5 @@
 import { getPaginaPorRuta, initClient } from "@/lib/utils";
-import { Pagina } from "@/types/types";
+
 import { Entry, EntrySkeletonType } from "contentful";
 import { notFound } from "next/navigation";
 
@@ -7,6 +7,12 @@ interface Params {
   params: {
     ruta: string;
   };
+}
+
+// Define la interfaz Pagina con las propiedades esperadas
+interface Pagina {
+  ruta: string;
+  // Agrega aquí otras propiedades si las hay
 }
 
 export const dynamicParams = false;
@@ -21,7 +27,7 @@ export const generateStaticParams = async (): Promise<{ ruta: string }[]> => {
 
     const rutas = paginas.items
       .map((pagina) => pagina.fields.ruta) // Obtenemos solo las rutas
-      .filter((ruta) => typeof ruta === "string" && ruta.length > 0) // Filtramos cualquier ruta que no sea válida
+      .filter((ruta) => typeof ruta === "string" && ruta.lenght > 0) // Filtramos cualquier ruta que no sea válida
       .map((ruta) => ({ ruta })); // Mapeamos a objetos { ruta: string }
 
     return rutas;
