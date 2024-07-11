@@ -6,7 +6,6 @@ import React from "react";
 // Types
 import {
   TypeHeroSkeleton,
-  TypePaginasFields,
   TypePreguntasFrecuentesSkeleton,
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,

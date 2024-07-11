@@ -70,6 +70,11 @@ export type TypePreguntasFrecuentes<
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypePreguntasFrecuentesSkeleton, Modifiers, Locales>;
 
+export enum BackgroundColor {
+  Negro = "Negro",
+  Verde = "Verde",
+}
+
 export interface TypeSeccionesFields {
   nombreInterno: EntryFieldTypes.Symbol;
   backgroundColor: EntryFieldTypes.Symbol<"Negro" | "Verde">;

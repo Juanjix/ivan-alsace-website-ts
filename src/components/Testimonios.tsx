@@ -9,11 +9,11 @@ import Image from "next/image";
 // Styled
 import styled from "styled-components";
 import { Button } from "./Button";
-import { AssetLink } from "contentful";
+import { Asset } from "contentful";
 
 interface TestimonialsProps {
   titulo: string;
-  imagen: AssetLink;
+  imagen: Asset;
 }
 
 const StyledTestimonios = styled.section`

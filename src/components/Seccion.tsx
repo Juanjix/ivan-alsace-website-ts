@@ -1,32 +1,39 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
+import styled from "styled-components";
+import { TypeSeccionesFields } from "@/types/contentful-types";
 
-// Libraries
-import styled from "styled-components"
-
-// Types
-import { TypeSeccionesFields } from "@/types/contentful-types"
-
-const StyledSeccion = styled.section``
+const StyledSeccion = styled.section``;
 
 const Seccion: React.FC<TypeSeccionesFields> = (props) => {
-  /**
-   * PROPS
-   */
-  const { backgroundColor, nombreInterno } = props
+  const { backgroundColor, nombreInterno } = props;
 
-  const nombre = nombreInterno as string
+  // Aseguramos que el nombreInterno sea tratado como string
+  const nombre = nombreInterno as unknown as string;
+
+  // Utilizamos una función para manejar la conversión del color
+  const getBackgroundColor = (color: string): string => {
+    switch (color) {
+      case "Negro":
+        return "#000";
+      case "Verde":
+        return "green";
+      default:
+        return "transparent";
+    }
+  };
 
   return (
     <StyledSeccion
       style={{
-        backgroundColor: backgroundColor === "Negro" ? "#000" : "green",
-      }}
-    >
-      {nombreInterno}
+        backgroundColor: getBackgroundColor(
+          backgroundColor as unknown as string
+        ),
+      }}>
+      {nombre}
     </StyledSeccion>
-  )
-}
+  );
+};
 
-export default Seccion
+export default Seccion;
