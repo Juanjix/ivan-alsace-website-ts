@@ -28,11 +28,15 @@ const StyledPricing = styled.section`
       ul {
         list-style: none;
         padding-left: 0;
+
         li {
-          position: relative;
           margin-bottom: 25px;
           display: flex;
           justify-content: center;
+
+          &:last-of-type {
+            margin-bottom: 45px;
+          }
 
           svg {
             width: 20px;
@@ -65,23 +69,20 @@ const Pricing = () => {
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-          </ul>
-          <ul>
+
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-          </ul>
-          <ul>
+
             <li>
               {" "}
               <Check />
               ​Destroy beat block once and for all by having infinite
               inspiration at your fingertips
             </li>
-          </ul>
-          <ul>
+
             <li>
               {" "}
               <Check />
@@ -99,23 +100,20 @@ const Pricing = () => {
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-          </ul>
-          <ul>
+
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-          </ul>
-          <ul>
+
             <li>
               {" "}
               <Check />
               ​Destroy beat block once and for all by having infinite
               inspiration at your fingertips
             </li>
-          </ul>
-          <ul>
+
             <li>
               {" "}
               <Check />
@@ -133,23 +131,20 @@ const Pricing = () => {
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-          </ul>
-          <ul>
+
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-          </ul>
-          <ul>
+
             <li>
               {" "}
               <Check />
               ​Destroy beat block once and for all by having infinite
               inspiration at your fingertips
             </li>
-          </ul>
-          <ul>
+
             <li>
               {" "}
               <Check />
