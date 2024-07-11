@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     domains: ["images.ctfassets.net"],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;

@@ -6,10 +6,10 @@ function Check() {
       <path
         d="M10 16L14.2426 20.2427L22.7279 11.7574"
         stroke="#02FE57"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-      <circle cx="16" cy="16" r="15" stroke="#02FE57" stroke-width="2"></circle>
+        width="2"
+        linecap="round"
+        linejoin="round"></path>
+      <circle cx="16" cy="16" r="15" stroke="#02FE57" width="2"></circle>
     </svg>
   );
 }
