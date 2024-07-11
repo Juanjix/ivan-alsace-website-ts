@@ -8,10 +8,15 @@ import { Button } from "./Button";
 const StyledPricing = styled.section`
   .pricing-cards-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-top: 40px;
+
+    @media (min-width: 920px) {
+      flex-direction: row;
+    }
 
     .pricing-card {
       max-width: 370px;

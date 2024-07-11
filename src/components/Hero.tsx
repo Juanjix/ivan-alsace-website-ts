@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 // Contentful
-import { AssetLink } from "contentful";
+import { Asset } from "contentful";
 
 import { motion } from "framer-motion";
 
@@ -15,7 +15,7 @@ import styled from "styled-components";
 
 interface HeroProps {
   titulos: string[];
-  imagen: AssetLink;
+  imagen: Asset;
 }
 
 const StyledHero = styled.div<{ $imagen: string }>`
@@ -38,7 +38,7 @@ const titleVariants = {
 
 const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
   const [index, setIndex] = useState(0);
-  const imagenURL = `https:${imagen.fields.file.url}`;
+  const imagenURL = `https:${imagen.fields.file?.url}`;
 
   useEffect(() => {
     const interval = setInterval(() => {

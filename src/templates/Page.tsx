@@ -7,9 +7,9 @@ import React from "react";
 import {
   TypeHeroSkeleton,
   TypePaginasFields,
+  TypePreguntasFrecuentesSkeleton,
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,
-  // TypePreguntasFrecuentesSkeleton,
 } from "@/types/contentful-types";
 
 // Components
@@ -18,40 +18,23 @@ import Seccion from "@/components/Seccion";
 import { Testimonios } from "@/components/Testimonios";
 import { Entry } from "contentful";
 import { Video } from "@/components/Video";
-// import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
-
-// import { resolveLinks } from "@/app/client";
 import Metrics from "@/components/Metrics";
 import Pricing from "@/components/Pricing";
 
+// Define the PageProps interface
 interface PageProps {
-  sections?: TypePaginasFields["sections"];
+  sections?: Entry<
+    | TypeHeroSkeleton
+    | TypePreguntasFrecuentesSkeleton
+    | TypeTestimoniosSkeleton
+    | TypeVideoSkeleton
+  >[];
 }
 
 const Page: React.FC<PageProps> = (props) => {
   const { sections } = props;
 
   const components: React.JSX.Element[] = [];
-
-  // const [resolvedFAQs, setResolvedFAQs] = useState<
-  //   Entry<TypePreguntasFrecuentesSkeleton>[]
-  // >([]);
-
-  // useEffect(() => {
-  //   async function fetchFAQs() {
-  //     const faqsSection = sections?.find(
-  //       (s: { sys: { contentType: { sys: { id: string } } } }) =>
-  //         s.sys.contentType.sys.id === "preguntasFrecuentes"
-  //     ) as Entry<TypePreguntasFrecuentesSkeleton>;
-  //     if (faqsSection) {
-  //       const resolvedLinks = await resolveLinks(
-  //         faqsSection.fields.preguntasFrecuentes
-  //       );
-  //       setResolvedFAQs(resolvedLinks);
-  //     }
-  //   }
-  //   fetchFAQs();
-  // }, [sections]);
 
   sections?.forEach((s) => {
     const seccion = s as Entry;
@@ -75,12 +58,6 @@ const Page: React.FC<PageProps> = (props) => {
         const dataVideos = dataVideo.fields;
         components.push(<Video key={seccion.sys.id} {...dataVideos} />);
         break;
-
-      // case "preguntasFrecuentes":
-      //   components.push(
-      //     <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFAQs} />
-      //   );
-      //   break;
 
       case "secciones":
         components.push(<Seccion key={seccion.sys.id} {...seccion.fields} />);

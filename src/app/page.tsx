@@ -1,26 +1,38 @@
-// Sections
-
-// Chakra UI
-
 // Layout
-import { getPaginaPorRuta } from "@/lib/utils"
-import Page from "@/templates/Page"
-import { notFound } from "next/navigation"
+import { getPaginaPorRuta } from "@/lib/utils";
+import Page from "@/templates/Page";
+import {
+  TypeHeroSkeleton,
+  TypePreguntasFrecuentesSkeleton,
+  TypeTestimoniosSkeleton,
+  TypeVideoSkeleton,
+} from "@/types/contentful-types";
+import { Entry } from "contentful";
+import { notFound } from "next/navigation";
 
 const Home = async () => {
-  const response = await getPaginaPorRuta("/")
+  const response = await getPaginaPorRuta("/");
 
   if (response?.total === 0) {
-    notFound()
+    notFound();
   }
 
-  const data = response?.items[0]
+  const data = response?.items[0];
 
   return (
     <>
-      <Page sections={data?.fields.sections} />
+      <Page
+        sections={
+          data?.fields.sections as Entry<
+            | TypeHeroSkeleton
+            | TypePreguntasFrecuentesSkeleton
+            | TypeTestimoniosSkeleton
+            | TypeVideoSkeleton
+          >[]
+        }
+      />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
