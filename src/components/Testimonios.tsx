@@ -1,8 +1,6 @@
 "use client";
-
-// Props
-import { TestimoniosProps } from "@/types/types";
-
+// Motion
+import { motion } from "framer-motion";
 // Imagen
 import Image from "next/image";
 
@@ -32,7 +30,7 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
 
   return (
     <StyledTestimonios>
-      <h2 className="titulo">{titulo ? titulo : ""}</h2>
+      <motion.h2 className="titulo">{titulo ? titulo : ""}</motion.h2>
       <div className="image-container">
         <Image
           src={imagenURL}
