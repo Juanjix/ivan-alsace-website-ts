@@ -18,6 +18,39 @@ export type TypeHero<
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypeHeroSkeleton, Modifiers, Locales>;
 
+export interface TypeMetricaFields {
+  nombreInterno?: EntryFieldTypes.Symbol;
+  numero?: EntryFieldTypes.Symbol;
+  descripcion?: EntryFieldTypes.Symbol;
+}
+
+export type TypeMetricaSkeleton = EntrySkeletonType<
+  TypeMetricaFields,
+  "metrica"
+>;
+export type TypeMetrica<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeMetricaSkeleton, Modifiers, Locales>;
+
+export interface TypeMetricsFields {
+  nombreInterno?: EntryFieldTypes.Symbol;
+  titulo?: EntryFieldTypes.Symbol;
+  subtitulo?: EntryFieldTypes.Symbol;
+  metrica?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypeMetricaSkeleton>
+  >;
+}
+
+export type TypeMetricsSkeleton = EntrySkeletonType<
+  TypeMetricsFields,
+  "metrics"
+>;
+export type TypeMetrics<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeMetricsSkeleton, Modifiers, Locales>;
+
 export interface TypePaginasFields {
   nombreInterno: EntryFieldTypes.Symbol;
   ruta: EntryFieldTypes.Symbol;
@@ -56,7 +89,7 @@ export type TypePreguntaFrecuente<
 
 export interface TypePreguntasFrecuentesFields {
   nombreInterno?: EntryFieldTypes.Symbol;
-  preguntasFrecuentes?: EntryFieldTypes.Array<
+  preguntaFrecuente?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePreguntaFrecuenteSkeleton>
   >;
 }
@@ -69,11 +102,6 @@ export type TypePreguntasFrecuentes<
   Modifiers extends ChainModifiers,
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypePreguntasFrecuentesSkeleton, Modifiers, Locales>;
-
-export enum BackgroundColor {
-  Negro = "Negro",
-  Verde = "Verde",
-}
 
 export interface TypeSeccionesFields {
   nombreInterno: EntryFieldTypes.Symbol;

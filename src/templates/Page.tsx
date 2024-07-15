@@ -1,11 +1,14 @@
 "use client";
 
 // React
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Types
 import {
   TypeHeroSkeleton,
+  TypeMetricaSkeleton,
+  TypeMetricsSkeleton,
+  TypePreguntaFrecuenteSkeleton,
   TypePreguntasFrecuentesSkeleton,
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,
@@ -17,8 +20,12 @@ import Seccion from "@/components/Seccion";
 import { Testimonios } from "@/components/Testimonios";
 import { Entry } from "contentful";
 import { Video } from "@/components/Video";
-import Metrics from "@/components/Metrics";
+import { Metrics } from "@/components/Metrics";
 import Pricing from "@/components/Pricing";
+import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
+
+// Client
+import { resolveLinks } from "@/app/client";
 
 // Define the PageProps interface
 interface PageProps {
@@ -27,11 +34,63 @@ interface PageProps {
     | TypePreguntasFrecuentesSkeleton
     | TypeTestimoniosSkeleton
     | TypeVideoSkeleton
+    | TypeMetricsSkeleton
   >[];
 }
 
 const Page: React.FC<PageProps> = (props) => {
   const { sections } = props;
+
+  const [resolvedFaqs, setResolvedFaqs] = useState<
+    Entry<TypePreguntaFrecuenteSkeleton>[]
+  >([]);
+
+  const [resolvedMetrics, setResolvedMetrics] = useState<
+    Entry<TypeMetricaSkeleton>[]
+  >([]);
+
+  const [metricsTitulo, setMetricsTitulo] = useState<string>("");
+  const [metricsSubtitulo, setMetricsSubtitulo] = useState<string>("");
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      const faqSection = sections?.find(
+        (s) => s.sys.contentType.sys.id === "preguntasFrecuentes"
+      ) as Entry<TypePreguntasFrecuentesSkeleton> | undefined;
+
+      if (faqSection) {
+        const faqLinks = faqSection.fields.preguntaFrecuente;
+        const resolvedFaqEntries =
+          await resolveLinks<TypePreguntaFrecuenteSkeleton>(
+            faqLinks,
+            "preguntaFrecuente"
+          );
+        setResolvedFaqs(resolvedFaqEntries);
+      }
+    };
+
+    const fetchMetrics = async () => {
+      const metricSection = sections?.find(
+        (s) => s.sys.contentType.sys.id === "metrics"
+      ) as Entry<TypeMetricsSkeleton> | undefined;
+
+      if (metricSection) {
+        const metricLinks = metricSection.fields.metrica;
+        const metricsTitulo = metricSection.fields.titulo;
+        const metricsSubtitulo = metricSection.fields.subtitulo;
+        const resolvedMetricEntries = await resolveLinks<TypeMetricaSkeleton>(
+          metricLinks,
+          "metrica"
+        );
+        setResolvedMetrics(resolvedMetricEntries);
+        setMetricsTitulo(metricsTitulo || "");
+        setMetricsSubtitulo(metricsSubtitulo || "");
+      }
+    };
+
+    fetchFaqs();
+    fetchMetrics();
+  }, [sections]);
 
   const components: React.JSX.Element[] = [];
 
@@ -58,6 +117,24 @@ const Page: React.FC<PageProps> = (props) => {
         components.push(<Video key={seccion.sys.id} {...dataVideos} />);
         break;
 
+      case "preguntasFrecuentes":
+        components.push(
+          <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFaqs} />
+        );
+        break;
+
+      case "metrics":
+        console.log("estas serian las metricas resueltas -> ", resolvedMetrics);
+        components.push(
+          <Metrics
+            key={seccion.sys.id}
+            metricas={resolvedMetrics}
+            titulo={metricsTitulo}
+            subtitulo={metricsSubtitulo}
+          />
+        );
+        break;
+
       case "secciones":
         components.push(<Seccion key={seccion.sys.id} {...seccion.fields} />);
         break;
@@ -70,7 +147,6 @@ const Page: React.FC<PageProps> = (props) => {
   return (
     <main>
       {components.map((component) => component)}
-      <Metrics />
       <Pricing />
     </main>
   );

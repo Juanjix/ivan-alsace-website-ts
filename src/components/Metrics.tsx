@@ -1,7 +1,17 @@
 "use client";
 
+import { TypeMetricaSkeleton } from "@/types/contentful-types";
+import { Entry } from "contentful";
+
 // Style
 import styled from "styled-components";
+
+// Props
+interface MetricsProps {
+  titulo: string;
+  subtitulo: string;
+  metricas: Entry<TypeMetricaSkeleton>[];
+}
 
 const StyledMetrics = styled.section`
   background-color: #051b19;
@@ -54,35 +64,25 @@ const StyledMetrics = styled.section`
   }
 `;
 
-const Metrics = () => {
+export const Metrics: React.FC<MetricsProps> = ({
+  metricas,
+  titulo,
+  subtitulo,
+}) => {
+  console.log("aca vendrian las metricas ---> ", metricas);
   return (
     <StyledMetrics>
-      <h2 className="titulo">Metrics sections + CTA</h2>
-      <p>
-        Our metrics component gives you the inside scoop on your success and
-        helps you stay on top of your game in style.
-      </p>
+      <h2 className="titulo">{titulo && titulo}</h2>
+      <p>{subtitulo && subtitulo}</p>
 
       <div className="cards-container">
-        <div className="metrics-card">
-          <h3>10k+</h3>
-          <p>Website Lounched</p>
-        </div>
-        <div className="metrics-card">
-          <h3>931k+</h3>
-          <p>Projects created with anima</p>
-        </div>
-        <div className="metrics-card white">
-          <h3>240k+</h3>
-          <p>New users joined Anima</p>
-        </div>
-        <div className="metrics-card white">
-          <h3>12k+</h3>
-          <p>Teams used Anima</p>
-        </div>
+        {metricas.map((metrica) => (
+          <div className="metrics-card" key={metrica.sys.id}>
+            <h3>{metrica.fields.numero}</h3>
+            <p>{metrica.fields.descripcion}</p>
+          </div>
+        ))}
       </div>
     </StyledMetrics>
   );
 };
-
-export default Metrics;

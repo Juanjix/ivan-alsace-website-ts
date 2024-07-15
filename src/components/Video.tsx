@@ -13,7 +13,7 @@ interface VideoProps {
   videoCode: string;
 }
 
-const StyledVideo = styled.section`
+const StyledVideo = styled(motion.section)`
   background-color: #051b19;
 
   iframe {
@@ -35,32 +35,33 @@ export const Video: React.FC<VideoProps> = (props) => {
 
   const url = `https://www.youtube.com/embed/${videoCode}`;
   return (
-    <StyledVideo>
-      <motion.div
-        initial={{ y: 32, opacity: 0, scale: 0.99 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-        }}>
+    <StyledVideo
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: 1 }}>
+      <div>
         <h2 className="titulo">{titulo ? titulo : ""}</h2>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 1 }}>
-        <iframe
-          width="560"
-          height="315"
-          src={url}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen></iframe>
-      </motion.div>
-      <Button texto="Give it a try" url="/" />
+      {videoCode ? (
+        <div>
+          <iframe
+            width="560"
+            height="315"
+            src={url}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen></iframe>
+        </div>
+      ) : (
+        ""
+      )}
+      <div>
+        <Button texto="Give it a try" url="/" />
+      </div>
     </StyledVideo>
   );
 };

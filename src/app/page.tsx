@@ -6,6 +6,7 @@ import {
   TypePreguntasFrecuentesSkeleton,
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,
+  TypeMetricsSkeleton,
 } from "@/types/contentful-types";
 import { Entry } from "contentful";
 import { notFound } from "next/navigation";
@@ -28,6 +29,7 @@ const Home = async () => {
             | TypePreguntasFrecuentesSkeleton
             | TypeTestimoniosSkeleton
             | TypeVideoSkeleton
+            | TypeMetricsSkeleton
           >[]
         }
       />

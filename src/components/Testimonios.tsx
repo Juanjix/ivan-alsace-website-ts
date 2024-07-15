@@ -14,7 +14,7 @@ interface TestimonialsProps {
   imagen: Asset;
 }
 
-const StyledTestimonios = styled.section`
+const StyledTestimonios = styled(motion.section)`
   .image-container {
     max-width: 420px;
     margin: 30px auto 100px auto;
@@ -29,8 +29,19 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
     : "";
 
   return (
-    <StyledTestimonios>
-      <motion.h2 className="titulo">{titulo ? titulo : ""}</motion.h2>
+    <StyledTestimonios
+      initial={{ y: 32, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: 1 }}>
+      <motion.h2
+        initial={{ y: 32, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 1 }}
+        className="titulo">
+        {titulo ? titulo : ""}
+      </motion.h2>
       <div className="image-container">
         <Image
           src={imagenURL}
@@ -43,7 +54,9 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
           height={300}
         />
       </div>
-      <Button texto="Give it a try" url="/" />
+      <div>
+        <Button texto="Give it a try" url="/" />
+      </div>
     </StyledTestimonios>
   );
 };

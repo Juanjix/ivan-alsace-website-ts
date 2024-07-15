@@ -1,5 +1,4 @@
-import { TypePreguntasFrecuentesSkeleton } from "@/types/contentful-types";
-import { createClient } from "contentful";
+import { createClient, Entry, EntrySkeletonType } from "contentful";
 
 const spaceId = "n6x6565mhpza";
 const accessToken = "kT-6-ev291NF0w6ryyd_-txXi-6yBne4jVqK5TE8Nfo";
@@ -15,11 +14,27 @@ export const client = createClient({
   accessToken: accessToken,
 });
 
-export async function resolveLinks(links: { sys: { id: string } }[]) {
-  const entries = await Promise.all(
-    links.map((link) =>
-      client.getEntry<TypePreguntasFrecuentesSkeleton>(link.sys.id)
-    )
-  );
-  return entries;
-}
+// export const resolveLinks = async (
+//   links: { sys: { id: string; linkType: string; type: string } }[]
+// ): Promise<Entry<TypePreguntaFrecuenteSkeleton>[]> => {
+//   const ids = links.map((link) => link.sys.id);
+//   const response = await client.getEntries<TypePreguntaFrecuenteSkeleton>({
+//     content_type: "preguntaFrecuente",
+//     "sys.id[in]": ids,
+//   });
+
+//   return response.items;
+// };
+
+export const resolveLinks = async <T extends EntrySkeletonType>(
+  links: { sys: { id: string; linkType: string; type: string } }[],
+  contentType: string
+): Promise<Entry<T>[]> => {
+  const ids = links.map((link) => link.sys.id);
+  const response = await client.getEntries<T>({
+    content_type: contentType,
+    "sys.id[in]": ids,
+  });
+
+  return response.items;
+};
