@@ -57,7 +57,9 @@ export interface TypePaginasFields {
   sections?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<
       | TypeHeroSkeleton
+      | TypeMetricsSkeleton
       | TypePreguntasFrecuentesSkeleton
+      | TypeSwipeSkeleton
       | TypeTestimoniosSkeleton
       | TypeVideoSkeleton
     >
@@ -117,6 +119,20 @@ export type TypeSecciones<
   Modifiers extends ChainModifiers,
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypeSeccionesSkeleton, Modifiers, Locales>;
+
+export interface TypeSwipeFields {
+  nombreInterno?: EntryFieldTypes.Symbol;
+  titulo?: EntryFieldTypes.Symbol;
+  posicinDeLaImagen?: EntryFieldTypes.Symbol<"derecha" | "izquierda">;
+  imagen?: EntryFieldTypes.AssetLink;
+  texto?: EntryFieldTypes.Text;
+}
+
+export type TypeSwipeSkeleton = EntrySkeletonType<TypeSwipeFields, "swipe">;
+export type TypeSwipe<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeSwipeSkeleton, Modifiers, Locales>;
 
 export interface TypeTestimoniosFields {
   nombreInterno?: EntryFieldTypes.Symbol;

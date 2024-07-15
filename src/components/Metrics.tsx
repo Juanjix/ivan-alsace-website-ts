@@ -69,7 +69,6 @@ export const Metrics: React.FC<MetricsProps> = ({
   titulo,
   subtitulo,
 }) => {
-  console.log("aca vendrian las metricas ---> ", metricas);
   return (
     <StyledMetrics>
       <h2 className="titulo">{titulo && titulo}</h2>

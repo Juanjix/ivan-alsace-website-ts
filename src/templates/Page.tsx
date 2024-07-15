@@ -12,6 +12,7 @@ import {
   TypePreguntasFrecuentesSkeleton,
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,
+  TypeSwipeSkeleton,
 } from "@/types/contentful-types";
 
 // Components
@@ -23,6 +24,7 @@ import { Video } from "@/components/Video";
 import { Metrics } from "@/components/Metrics";
 import Pricing from "@/components/Pricing";
 import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
+import Swipe from "@/components/Swipe";
 
 // Client
 import { resolveLinks } from "@/app/client";
@@ -35,6 +37,7 @@ interface PageProps {
     | TypeTestimoniosSkeleton
     | TypeVideoSkeleton
     | TypeMetricsSkeleton
+    | TypeSwipeSkeleton
   >[];
 }
 
@@ -120,6 +123,20 @@ const Page: React.FC<PageProps> = (props) => {
       case "preguntasFrecuentes":
         components.push(
           <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFaqs} />
+        );
+        break;
+
+      case "swipe":
+        const swipe = seccion as Entry<TypeSwipeSkeleton>;
+
+        console.log("Este es el componente Swipe --> ", swipe);
+        components.push(
+          <Swipe
+            titulo={swipe.fields.titulo}
+            texto={swipe.fields.texto}
+            posicionDeLaImagen={swipe.fields.posicinDeLaImagen}
+            imagen={swipe.fields.imagen}
+          />
         );
         break;
 
