@@ -1,5 +1,6 @@
 import { Asset } from "contentful";
 import React from "react";
+import { RenderText } from "@contentful/rich-text-react-renderer";
 
 // Libraries
 import styled from "styled-components";
@@ -13,106 +14,114 @@ interface SwipeProps {
   posicionDeLaImagen: string;
 }
 
-// Components
-
 const StyledSwitchContent = styled.section`
   padding: 48px 0;
+  max-width: 1200px;
+  margin: 0 auto;
 
   .izquierda {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 
     @media screen and (min-width: 920px) {
       flex-direction: row;
-      align-items: center;
+      justify-content: space-between;
     }
   }
 
   .derecha {
     display: flex;
-    justify-content: space-between;
     flex-direction: column-reverse;
     align-items: center;
 
     @media screen and (min-width: 920px) {
       flex-direction: row-reverse;
       align-items: center;
+      justify-content: space-between;
     }
   }
 
   .content {
-    max-width: 500px;
+    max-width: 550px;
+
+    li {
+      margin-bottom: 20px;
+      list-style-type: none;
+      text-align: start;
+    }
   }
 
   @media screen and (min-width: 920px) {
     padding: 64px 0;
   }
 
-  p {
-    margin-bottom: 8px;
-  }
-
   .switch-image {
-    margin-top: 32px;
+    margin: 32px 0;
 
     @media screen and (min-width: 920px) {
-      margin-top: 0;
+      margin: 0;
     }
   }
 `;
 
 const SwitchContent: React.FC<SwipeProps> = (data) => {
-  // console.log("data dentro del componente swipe --->", data);
-
   const imagenURL = data.imagen?.fields?.file?.url
     ? `https:${data.imagen.fields.file.url}`
     : "";
+
+  const parseText = (text: string) => {
+    const lines = text.split("\n").filter((line) => line.trim() !== "");
+    return lines.map((line, index) => {
+      if (line.startsWith("-")) {
+        return <li key={index}>{line.substring(2)}</li>;
+      }
+      return <p key={index}>{line}</p>;
+    });
+  };
   return (
     <StyledSwitchContent>
-      <div className="container">
-        {data.posicionDeLaImagen === "izquierda" ? (
-          <div className="izquierda">
-            <div className="content">
-              <h3>{data.titulo} derecha</h3>
-              <p>{data.texto}</p>
-            </div>
-            <div>
-              <Image
-                src={imagenURL}
-                alt=""
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-                width={600}
-                height={300}
-                loading="lazy"
-              />
-            </div>
+      {data.posicionDeLaImagen === "izquierda" ? (
+        <div className="izquierda">
+          <div className="content">
+            <h3>{data.titulo}</h3>
+            {parseText(data.texto)}
           </div>
-        ) : (
-          <div className="derecha">
-            <div className="content">
-              <h3>{data.titulo}</h3>
-              <p>{data.texto}</p>
-            </div>
-            <div>
-              <Image
-                src={imagenURL}
-                alt=""
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-                width={600}
-                height={300}
-              />
-            </div>
+          <div className="switch-image">
+            <Image
+              src={imagenURL}
+              alt=""
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+              width={320}
+              height={300}
+              loading="lazy"
+            />
           </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="derecha">
+          <div className="content">
+            <h3>{data.titulo}</h3>
+            {parseText(data.texto)}
+          </div>
+          <div className="switch-image">
+            <Image
+              src={imagenURL}
+              alt=""
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+              width={320}
+              height={300}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      )}
     </StyledSwitchContent>
   );
 };

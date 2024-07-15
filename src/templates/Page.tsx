@@ -129,6 +129,8 @@ const Page: React.FC<PageProps> = (props) => {
       case "swipe":
         const swipe = seccion as Entry<TypeSwipeSkeleton>;
 
+        console.log(swipe.fields);
+
         components.push(
           <Swipe
             titulo={swipe.fields.titulo}
@@ -141,7 +143,6 @@ const Page: React.FC<PageProps> = (props) => {
         break;
 
       case "metrics":
-        // console.log("estas serian las metricas resueltas -> ", resolvedMetrics);
         components.push(
           <Metrics
             key={seccion.sys.id}
