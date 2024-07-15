@@ -38,7 +38,7 @@ export const PreguntasFrecuentes: React.FC<PreguntasFrecuentesProps> = ({
             <Acordeon
               pregunta={faq.fields.pregunta || undefined}
               respuesta={faq.fields.respuesta}
-              key={key}
+              key={faq.sys.id}
             />
           );
         })}

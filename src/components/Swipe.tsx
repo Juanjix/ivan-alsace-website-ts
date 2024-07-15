@@ -17,10 +17,12 @@ interface SwipeProps {
 
 const StyledSwitchContent = styled.section`
   padding: 48px 0;
+
   .izquierda {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 
     @media screen and (min-width: 920px) {
       flex-direction: row;
@@ -30,7 +32,7 @@ const StyledSwitchContent = styled.section`
 
   .derecha {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column-reverse;
     align-items: center;
 
@@ -41,8 +43,7 @@ const StyledSwitchContent = styled.section`
   }
 
   .content {
-    max-width: 720px;
-    padding: 0 60px;
+    max-width: 500px;
   }
 
   @media screen and (min-width: 920px) {
@@ -63,52 +64,55 @@ const StyledSwitchContent = styled.section`
 `;
 
 const SwitchContent: React.FC<SwipeProps> = (data) => {
-  console.log("data dentro del componente swipe --->", data);
+  // console.log("data dentro del componente swipe --->", data);
 
   const imagenURL = data.imagen?.fields?.file?.url
     ? `https:${data.imagen.fields.file.url}`
     : "";
   return (
     <StyledSwitchContent>
-      {data.posicionDeLaImagen === "izquierda" ? (
-        <div className="izquierda">
-          <div className="content">
-            <h3>{data.titulo} derecha</h3>
-            <p>{data.texto}</p>
+      <div className="container">
+        {data.posicionDeLaImagen === "izquierda" ? (
+          <div className="izquierda">
+            <div className="content">
+              <h3>{data.titulo} derecha</h3>
+              <p>{data.texto}</p>
+            </div>
+            <div>
+              <Image
+                src={imagenURL}
+                alt=""
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={600}
+                height={300}
+                loading="lazy"
+              />
+            </div>
           </div>
-          <div>
-            <Image
-              src={imagenURL}
-              alt=""
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              width={600}
-              height={300}
-            />
+        ) : (
+          <div className="derecha">
+            <div className="content">
+              <h3>{data.titulo}</h3>
+              <p>{data.texto}</p>
+            </div>
+            <div>
+              <Image
+                src={imagenURL}
+                alt=""
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={600}
+                height={300}
+              />
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="derecha">
-          <div className="content">
-            <h3>{data.titulo}</h3>
-            <p>{data.texto}</p>
-          </div>
-          <div>
-            <Image
-              src={imagenURL}
-              alt=""
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              width={600}
-              height={300}
-            />
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </StyledSwitchContent>
   );
 };

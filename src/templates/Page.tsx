@@ -129,19 +129,19 @@ const Page: React.FC<PageProps> = (props) => {
       case "swipe":
         const swipe = seccion as Entry<TypeSwipeSkeleton>;
 
-        console.log("Este es el componente Swipe --> ", swipe);
         components.push(
           <Swipe
             titulo={swipe.fields.titulo}
             texto={swipe.fields.texto}
             posicionDeLaImagen={swipe.fields.posicinDeLaImagen}
             imagen={swipe.fields.imagen}
+            key={seccion.sys.id}
           />
         );
         break;
 
       case "metrics":
-        console.log("estas serian las metricas resueltas -> ", resolvedMetrics);
+        // console.log("estas serian las metricas resueltas -> ", resolvedMetrics);
         components.push(
           <Metrics
             key={seccion.sys.id}

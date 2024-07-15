@@ -44,7 +44,7 @@ const StyledLayout = styled.div`
   }
 
   .container {
-    max-width: 920px;
+    max-width: 1024px;
     width: 100%;
     margin: 0 auto;
   }
