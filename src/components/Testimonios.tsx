@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 // Icon
-import Icon from "@/../public/icons/Testimonios/icon-testimonios.svg";
+import Icon from "@/../public/icons/testimonios/icon-testimonios.svg";
 
 // Styled
 import styled from "styled-components";
