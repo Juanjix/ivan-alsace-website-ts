@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 // Imagen
 import Image from "next/image";
 
+// Icon
+import Icon from "@/../public/icons/Testimonios/icon-testimonios.svg";
+
 // Styled
 import styled from "styled-components";
 import { Button } from "./Button";
@@ -15,6 +18,14 @@ interface TestimonialsProps {
 }
 
 const StyledTestimonios = styled(motion.section)`
+  background: linear-gradient(180deg, #051b19, #000000);
+  position: relative;
+
+  .icon-testimonios {
+    position: absolute;
+    top: calc(50% - 80px);
+  }
+
   .image-container {
     max-width: 420px;
     margin: 30px auto 100px auto;
@@ -39,9 +50,13 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 1 }}
-        className="titulo">
+        className="">
         {titulo ? titulo : ""}
       </motion.h2>
+      <div className="icon-testimonios">
+        <Image src={Icon} alt="" width={200} height={200} />
+      </div>
+
       <div className="image-container">
         <Image
           src={imagenURL}

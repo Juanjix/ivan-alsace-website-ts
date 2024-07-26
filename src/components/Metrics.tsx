@@ -14,9 +14,9 @@ interface MetricsProps {
 }
 
 const StyledMetrics = styled.section`
-  background-color: #051b19;
-
-
+  // background-color: #051b19;
+  background: linear-gradient(180deg, #051b19, #000000);
+ 
   .cards-container{
     display: flex;
     flex-direction: column;
@@ -71,16 +71,17 @@ export const Metrics: React.FC<MetricsProps> = ({
 }) => {
   return (
     <StyledMetrics>
-      <h2 className="titulo">{titulo && titulo}</h2>
+      <h2 className="">{titulo && titulo}</h2>
       <p>{subtitulo && subtitulo}</p>
 
       <div className="cards-container">
-        {metricas.map((metrica) => (
-          <div className="metrics-card" key={metrica.sys.id}>
-            <h3>{metrica.fields.numero}</h3>
-            <p>{metrica.fields.descripcion}</p>
-          </div>
-        ))}
+        {metricas &&
+          metricas.map((metrica) => (
+            <div className="metrics-card" key={metrica.sys.id}>
+              <h3>{metrica.fields.numero}</h3>
+              <p>{metrica.fields.descripcion}</p>
+            </div>
+          ))}
       </div>
     </StyledMetrics>
   );

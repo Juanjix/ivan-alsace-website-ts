@@ -57,37 +57,64 @@ const Page: React.FC<PageProps> = (props) => {
 
   useEffect(() => {
     const fetchFaqs = async () => {
-      const faqSection = sections?.find(
-        (s) => s.sys.contentType.sys.id === "preguntasFrecuentes"
-      ) as Entry<TypePreguntasFrecuentesSkeleton> | undefined;
+      try {
+        const faqSection = sections?.find(
+          (s) => s.sys.contentType.sys.id === "preguntasFrecuentes"
+        ) as Entry<TypePreguntasFrecuentesSkeleton> | undefined;
 
-      if (faqSection) {
-        const faqLinks = faqSection.fields.preguntaFrecuente;
-        const resolvedFaqEntries =
-          await resolveLinks<TypePreguntaFrecuenteSkeleton>(
-            faqLinks,
-            "preguntaFrecuente"
-          );
-        setResolvedFaqs(resolvedFaqEntries);
+        if (faqSection) {
+          const faqLinks = faqSection.fields.preguntaFrecuente;
+          if (faqLinks) {
+            const validFaqLinks = faqLinks.filter(
+              (
+                link: any
+              ): link is {
+                sys: { id: string; linkType: string; type: string };
+              } => link !== undefined && "sys" in link
+            );
+            const resolvedFaqEntries =
+              await resolveLinks<TypePreguntaFrecuenteSkeleton>(
+                validFaqLinks,
+                "preguntaFrecuente"
+              );
+            setResolvedFaqs(resolvedFaqEntries);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching FAQs:", error);
       }
     };
 
     const fetchMetrics = async () => {
-      const metricSection = sections?.find(
-        (s) => s.sys.contentType.sys.id === "metrics"
-      ) as Entry<TypeMetricsSkeleton> | undefined;
+      try {
+        const metricSection = sections?.find(
+          (s) => s.sys.contentType.sys.id === "metrics"
+        ) as Entry<TypeMetricsSkeleton> | undefined;
 
-      if (metricSection) {
-        const metricLinks = metricSection.fields.metrica;
-        const metricsTitulo = metricSection.fields.titulo;
-        const metricsSubtitulo = metricSection.fields.subtitulo;
-        const resolvedMetricEntries = await resolveLinks<TypeMetricaSkeleton>(
-          metricLinks,
-          "metrica"
-        );
-        setResolvedMetrics(resolvedMetricEntries);
-        setMetricsTitulo(metricsTitulo || "");
-        setMetricsSubtitulo(metricsSubtitulo || "");
+        if (metricSection) {
+          const metricLinks = metricSection.fields.metrica;
+          const metricsTitulo = metricSection.fields.titulo;
+          const metricsSubtitulo = metricSection.fields.subtitulo;
+          if (metricLinks) {
+            const validMetricLinks = metricLinks.filter(
+              (
+                link: any
+              ): link is {
+                sys: { id: string; linkType: string; type: string };
+              } => link !== undefined && "sys" in link
+            );
+            const resolvedMetricEntries =
+              await resolveLinks<TypeMetricaSkeleton>(
+                validMetricLinks,
+                "metrica"
+              );
+            setResolvedMetrics(resolvedMetricEntries);
+            setMetricsTitulo(metricsTitulo || "");
+            setMetricsSubtitulo(metricsSubtitulo || "");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching metrics:", error);
       }
     };
 
@@ -98,67 +125,68 @@ const Page: React.FC<PageProps> = (props) => {
   const components: React.JSX.Element[] = [];
 
   sections?.forEach((s) => {
-    const seccion = s as Entry;
-    const contentType = seccion.sys.contentType.sys.id;
+    try {
+      const seccion = s as Entry;
+      const contentType = seccion.sys.contentType.sys.id;
 
-    switch (contentType) {
-      case "hero":
-        const data = seccion as Entry<TypeHeroSkeleton>;
-        const props = data.fields;
-        components.push(<Hero key={seccion.sys.id} {...props} />);
-        break;
+      switch (contentType) {
+        case "hero":
+          const data = seccion as Entry<TypeHeroSkeleton>;
+          const props = data.fields;
+          components.push(<Hero key={seccion.sys.id} {...props} />);
+          break;
 
-      case "testimonios":
-        const dato = seccion as Entry<TypeTestimoniosSkeleton>;
-        const datos = dato.fields;
-        components.push(<Testimonios key={seccion.sys.id} {...datos} />);
-        break;
+        case "testimonios":
+          const dato = seccion as Entry<TypeTestimoniosSkeleton>;
+          const datos = dato.fields;
+          components.push(<Testimonios key={seccion.sys.id} {...datos} />);
+          break;
 
-      case "video":
-        const dataVideo = seccion as Entry<TypeVideoSkeleton>;
-        const dataVideos = dataVideo.fields;
-        components.push(<Video key={seccion.sys.id} {...dataVideos} />);
-        break;
+        case "video":
+          const dataVideo = seccion as Entry<TypeVideoSkeleton>;
+          const dataVideos = dataVideo.fields;
+          components.push(<Video key={seccion.sys.id} {...dataVideos} />);
+          break;
 
-      case "preguntasFrecuentes":
-        components.push(
-          <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFaqs} />
-        );
-        break;
+        case "preguntasFrecuentes":
+          components.push(
+            <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFaqs} />
+          );
+          break;
 
-      case "swipe":
-        const swipe = seccion as Entry<TypeSwipeSkeleton>;
+        case "swipe":
+          const swipe = seccion as Entry<TypeSwipeSkeleton>;
+          components.push(
+            <Swipe
+              titulo={swipe.fields.titulo}
+              texto={swipe.fields.texto}
+              posicionDeLaImagen={swipe.fields.posicinDeLaImagen}
+              imagen={swipe.fields.imagen}
+              key={seccion.sys.id}
+            />
+          );
+          break;
 
-        console.log(swipe.fields);
+        case "metrics":
+          components.push(
+            <Metrics
+              key={seccion.sys.id}
+              metricas={resolvedMetrics}
+              titulo={metricsTitulo}
+              subtitulo={metricsSubtitulo}
+            />
+          );
+          break;
 
-        components.push(
-          <Swipe
-            titulo={swipe.fields.titulo}
-            texto={swipe.fields.texto}
-            posicionDeLaImagen={swipe.fields.posicinDeLaImagen}
-            imagen={swipe.fields.imagen}
-            key={seccion.sys.id}
-          />
-        );
-        break;
+        case "secciones":
+          components.push(<Seccion key={seccion.sys.id} {...seccion.fields} />);
+          break;
 
-      case "metrics":
-        components.push(
-          <Metrics
-            key={seccion.sys.id}
-            metricas={resolvedMetrics}
-            titulo={metricsTitulo}
-            subtitulo={metricsSubtitulo}
-          />
-        );
-        break;
-
-      case "secciones":
-        components.push(<Seccion key={seccion.sys.id} {...seccion.fields} />);
-        break;
-
-      default:
-        break;
+        default:
+          break;
+      }
+    } catch (error) {
+      console.error("Error processing section:", error);
     }
   });
 

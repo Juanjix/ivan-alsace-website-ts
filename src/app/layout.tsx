@@ -19,7 +19,7 @@ const StyledLayout = styled.div`
   color: white;
 
   h1 {
-    font-size: 40px;
+    font-size: 60px;
   }
 
   h2 {
@@ -36,10 +36,10 @@ const StyledLayout = styled.div`
 
   section {
     text-align: center;
-    padding: 80px 16px;
+    padding: 40px 16px;
 
     @media screen and (min-width: 920px) {
-      padding: 120px 0;
+      padding: 40px 0;
     }
   }
 

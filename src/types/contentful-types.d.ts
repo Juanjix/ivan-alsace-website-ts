@@ -6,6 +6,19 @@ import type {
   LocaleCode,
 } from "contentful";
 
+export interface TypeComponenteDePruebaFields {
+  prueba?: EntryFieldTypes.RichText;
+}
+
+export type TypeComponenteDePruebaSkeleton = EntrySkeletonType<
+  TypeComponenteDePruebaFields,
+  "componenteDePrueba"
+>;
+export type TypeComponenteDePrueba<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeComponenteDePruebaSkeleton, Modifiers, Locales>;
+
 export interface TypeHeroFields {
   nombreInterno: EntryFieldTypes.Symbol;
   titulos: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
@@ -58,6 +71,7 @@ export interface TypePaginasFields {
     EntryFieldTypes.EntryLink<
       | TypeHeroSkeleton
       | TypeMetricsSkeleton
+      | TypePaymentsSkeleton
       | TypePreguntasFrecuentesSkeleton
       | TypeSwipeSkeleton
       | TypeTestimoniosSkeleton
@@ -74,6 +88,39 @@ export type TypePaginas<
   Modifiers extends ChainModifiers,
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypePaginasSkeleton, Modifiers, Locales>;
+
+export interface TypePaymentCardFields {
+  nombreInterno?: EntryFieldTypes.Symbol;
+  titulo?: EntryFieldTypes.Symbol;
+  contenido?: EntryFieldTypes.Text;
+}
+
+export type TypePaymentCardSkeleton = EntrySkeletonType<
+  TypePaymentCardFields,
+  "paymentCard"
+>;
+export type TypePaymentCard<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypePaymentCardSkeleton, Modifiers, Locales>;
+
+export interface TypePaymentsFields {
+  tituloInterno?: EntryFieldTypes.Symbol;
+  titulo?: EntryFieldTypes.Symbol;
+  subtitulo?: EntryFieldTypes.Symbol;
+  payments?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypePaymentCardSkeleton>
+  >;
+}
+
+export type TypePaymentsSkeleton = EntrySkeletonType<
+  TypePaymentsFields,
+  "payments"
+>;
+export type TypePayments<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypePaymentsSkeleton, Modifiers, Locales>;
 
 export interface TypePreguntaFrecuenteFields {
   pregunta?: EntryFieldTypes.Symbol;
@@ -123,7 +170,9 @@ export type TypeSecciones<
 export interface TypeSwipeFields {
   nombreInterno?: EntryFieldTypes.Symbol;
   titulo?: EntryFieldTypes.Symbol;
-  posicinDeLaImagen?: EntryFieldTypes.Symbol<"derecha" | "izquierda">;
+  posicinDeLaImagen?: EntryFieldTypes.Symbol<
+    "centro" | "derecha" | "izquierda"
+  >;
   imagen?: EntryFieldTypes.AssetLink;
   texto?: EntryFieldTypes.Text;
 }

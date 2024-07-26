@@ -9,6 +9,7 @@ import Soundcloud from "@/../public/icons/soundcloud";
 const StyledFooter = styled.footer`
   text-align: center;
   padding: 20px 0;
+  background: linear-gradient(180deg, #051b19, #000000);
 
   .icons {
     display: flex;

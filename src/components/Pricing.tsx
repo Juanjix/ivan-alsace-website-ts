@@ -6,6 +6,7 @@ import Check from "../../public/icons/check/index";
 import { Button } from "./Button";
 
 const StyledPricing = styled.section`
+  background: linear-gradient(180deg, #000000, #051b19);
   .pricing-cards-container {
     display: flex;
     flex-direction: column;
@@ -60,7 +61,7 @@ const StyledPricing = styled.section`
 const Pricing = () => {
   return (
     <StyledPricing>
-      <h2 className="titulo">Select One Of The Payment Options Below Now</h2>
+      <h2 className="">Select One Of The Payment Options Below Now</h2>
       <p>
         To reduce your waiting time and get straight to the point, fill out this
         simple form

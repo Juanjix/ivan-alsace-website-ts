@@ -1,9 +1,9 @@
 import { Asset } from "contentful";
 import React from "react";
-import { RenderText } from "@contentful/rich-text-react-renderer";
 
 // Libraries
 import styled from "styled-components";
+import { TypeSwipeSkeleton } from "@/types/contentful-types";
 
 import Image from "next/image";
 
@@ -16,9 +16,13 @@ interface SwipeProps {
 
 const StyledSwitchContent = styled.section`
   padding: 48px 0;
-  max-width: 1200px;
   margin: 0 auto;
+  background: linear-gradient(180deg, #051b19, #000000);
+  // background: linear-gradient(180deg, #000000, #051b19);
 
+  &:last-of-type {
+    background: linear-gradient(180deg, #051b19, #000000);
+  }
   .izquierda {
     display: flex;
     flex-direction: column;
@@ -39,6 +43,17 @@ const StyledSwitchContent = styled.section`
       flex-direction: row-reverse;
       align-items: center;
       justify-content: space-between;
+    }
+  }
+
+  .centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .content {
+      text-align: center;
     }
   }
 
@@ -65,7 +80,8 @@ const StyledSwitchContent = styled.section`
   }
 `;
 
-const SwitchContent: React.FC<SwipeProps> = (data) => {
+export const SwitchContent: React.FC<SwipeProps> = (data) => {
+  const { titulo, texto } = data;
   const imagenURL = data.imagen?.fields?.file?.url
     ? `https:${data.imagen.fields.file.url}`
     : "";
@@ -79,13 +95,34 @@ const SwitchContent: React.FC<SwipeProps> = (data) => {
       return <p key={index}>{line}</p>;
     });
   };
+
   return (
     <StyledSwitchContent>
       {data.posicionDeLaImagen === "izquierda" ? (
         <div className="izquierda">
           <div className="content">
-            <h3>{data.titulo}</h3>
-            {parseText(data.texto)}
+            <h3>{titulo}</h3>
+            {parseText(texto)}
+          </div>
+          <div className="switch-image">
+            <Image
+              src={imagenURL}
+              alt=""
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+              width={320}
+              height={300}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      ) : data.posicionDeLaImagen === "derecha" ? (
+        <div className="derecha">
+          <div className="content">
+            <h3>{titulo}</h3>
+            {parseText(texto)}
           </div>
           <div className="switch-image">
             <Image
@@ -102,11 +139,7 @@ const SwitchContent: React.FC<SwipeProps> = (data) => {
           </div>
         </div>
       ) : (
-        <div className="derecha">
-          <div className="content">
-            <h3>{data.titulo}</h3>
-            {parseText(data.texto)}
-          </div>
+        <div className="centro">
           <div className="switch-image">
             <Image
               src={imagenURL}
@@ -119,6 +152,10 @@ const SwitchContent: React.FC<SwipeProps> = (data) => {
               height={300}
               loading="lazy"
             />
+          </div>
+          <div className="content">
+            <h3>{titulo}</h3>
+            {parseText(texto)}
           </div>
         </div>
       )}

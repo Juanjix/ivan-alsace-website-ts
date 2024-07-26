@@ -31,7 +31,7 @@ const Seccion: React.FC<TypeSeccionesFields> = (props) => {
           backgroundColor as unknown as string
         ),
       }}>
-      {nombre}
+      <h1>{nombre}</h1>
     </StyledSeccion>
   );
 };

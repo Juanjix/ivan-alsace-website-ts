@@ -31,7 +31,7 @@ const StyledHero = styled.div<{ $imagen: string }>`
 `;
 
 const titleVariants = {
-  initial: { opacity: 0, x: -100 }, // Empieza desde la derecha
+  initial: { opacity: 0, x: 0 },
   animate: { opacity: 1, x: 0 }, // Se posiciona en el centro
   exit: { opacity: 2, x: 100, transition: { duration: 4.5 } }, // Se desvanece hacia la izquierda
 };
@@ -74,11 +74,12 @@ const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
             y: { duration: 1.5, ease: "easeInOut" },
           }}
           style={{
-            background: "linear-gradient(to right, #e6d680 0%, #9f883c 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            color: "transparent",
+            // background: "linear-gradient(to right, #e6d680 0%, #9f883c 100%)",
+
+            // WebkitBackgroundClip: "text",
+            // WebkitTextFillColor: "transparent",
+            // backgroundClip: "text",
+            color: "white",
             marginBottom: "100px",
           }}>
           <h1>{titulos[index]}</h1>

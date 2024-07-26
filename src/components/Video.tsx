@@ -16,6 +16,13 @@ interface VideoProps {
 const StyledVideo = styled(motion.section)`
   background-color: #051b19;
 
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 20%,
+    #051b19 90%,
+    #051b19 100%
+  );
   iframe {
     margin: 20px auto;
     max-width: 720px;
@@ -41,7 +48,7 @@ export const Video: React.FC<VideoProps> = (props) => {
       viewport={{ once: true }}
       transition={{ delay: 1 }}>
       <div>
-        <h2 className="titulo">{titulo ? titulo : ""}</h2>
+        <h2 className="">{titulo ? titulo : ""}</h2>
       </div>
 
       {videoCode ? (
@@ -51,7 +58,6 @@ export const Video: React.FC<VideoProps> = (props) => {
             height="315"
             src={url}
             title="YouTube video player"
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen></iframe>
