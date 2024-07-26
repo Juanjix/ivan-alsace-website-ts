@@ -53,9 +53,13 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
         className="">
         {titulo ? titulo : ""}
       </motion.h2>
-      <div className="icon-testimonios">
-        <Image src={Icon} alt="" width={200} height={200} />
-      </div>
+      {Icon ? (
+        <div className="icon-testimonios">
+          <Image src={Icon} alt="" width={200} height={200} />
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="image-container">
         <Image
