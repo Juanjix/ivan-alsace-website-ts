@@ -11,18 +11,37 @@ import React from "react";
 interface VideoProps {
   titulo: string;
   videoCode: string;
+  backgroundPosition: "arriba" | "abajo";
 }
 
-const StyledVideo = styled(motion.section)`
-  background-color: #051b19;
+const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+  if (position === "arriba") {
+    return `
+      background: linear-gradient(
+        180deg,
+        #051b19 90%,
+        #051b19 100%,
+        #000000 0%,
+        #000000 20%
+      );
+    `;
+  }
+  return `
+    background: linear-gradient(
+      0deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%,
+      #051b19 100%
+    );
+  `;
+};
 
-  background: linear-gradient(
-    180deg,
-    #000000 0%,
-    #000000 20%,
-    #051b19 90%,
-    #051b19 100%
-  );
+const StyledVideo = styled(motion.section)<{
+  backgroundPosition: "arriba" | "abajo";
+}>`
+  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+
   iframe {
     margin: 20px auto;
     max-width: 720px;
@@ -38,11 +57,12 @@ const StyledVideo = styled(motion.section)`
 `;
 
 export const Video: React.FC<VideoProps> = (props) => {
-  const { titulo, videoCode } = props;
+  const { titulo, videoCode, backgroundPosition } = props;
 
   const url = `https://www.youtube.com/embed/${videoCode}`;
   return (
     <StyledVideo
+      backgroundPosition={backgroundPosition}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -66,7 +86,7 @@ export const Video: React.FC<VideoProps> = (props) => {
         ""
       )}
       <div>
-        <Button texto="Give it a try" url="/" />
+        <Button texto="Give it a try" url="/" onClick={undefined} />
       </div>
     </StyledVideo>
   );

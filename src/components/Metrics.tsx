@@ -11,12 +11,36 @@ interface MetricsProps {
   titulo: string;
   subtitulo: string;
   metricas: Entry<TypeMetricaSkeleton>[];
+  backgroundPosition: "arriba" | "abajo";
 }
 
-const StyledMetrics = styled.section`
-  // background-color: #051b19;
-  background: linear-gradient(180deg, #051b19, #000000);
- 
+const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+  if (position === "arriba") {
+    return `
+      background: linear-gradient(
+        180deg,
+        #051b19 90%,
+        #051b19 100%,
+        #000000 0%,
+        #000000 20%
+      );
+    `;
+  }
+  return `
+    background: linear-gradient(
+      180deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%,
+      #051b19 100%
+    );
+  `;
+};
+
+const StyledMetrics = styled.section<{
+  backgroundPosition: "arriba" | "abajo";
+}>`
+ ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
   .cards-container{
     display: flex;
     flex-direction: column;
@@ -68,9 +92,10 @@ export const Metrics: React.FC<MetricsProps> = ({
   metricas,
   titulo,
   subtitulo,
+  backgroundPosition,
 }) => {
   return (
-    <StyledMetrics>
+    <StyledMetrics backgroundPosition={backgroundPosition}>
       <h2 className="">{titulo && titulo}</h2>
       <p>{subtitulo && subtitulo}</p>
 

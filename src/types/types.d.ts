@@ -12,6 +12,7 @@ export interface TestimoniosProps {
 export interface ButtonProps {
   texto: string;
   url: string;
+  onClick: void;
 }
 
 export interface VideoProps {

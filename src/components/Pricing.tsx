@@ -1,6 +1,12 @@
+// src/components/Pricing.tsx
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Check from "../../public/icons/check/index";
+
+import Image from "next/image";
+import PricingImage from "@/../public/icons/icon-pricing.svg";
+import Formulario from "./Formulario";
 
 // Components
 import { Button } from "./Button";
@@ -12,8 +18,9 @@ const StyledPricing = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 40px;
     margin-top: 40px;
+    position: relative;
 
     @media (min-width: 920px) {
       flex-direction: row;
@@ -26,6 +33,15 @@ const StyledPricing = styled.section`
       border: 1px solid grey;
       border-radius: 18px;
       padding: 40px 10px;
+      position: relative;
+      z-index: 1;
+
+      .pricing-image {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 9999;
+      }
 
       h3 {
         margin-bottom: 22px;
@@ -54,14 +70,36 @@ const StyledPricing = styled.section`
       &:hover {
         border: 1px solid #e0c68f;
       }
-    }
+
+      button{
+        background: linear-gradient(102.47deg, #c4b061 -5.34%, #574a4a 106.58%);
+        padding: 20px 48px;
+        border-radius: 8px;
+        transition: all 0.5s ease-out;
+
+        &:hover {
+          border: 1px solid #e0c68f;
+          background-color: transparent;
+          color: white;
+        }
+      }
   }
 `;
 
 const Pricing = () => {
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
   return (
     <StyledPricing>
-      <h2 className="">Select One Of The Payment Options Below Now</h2>
+      <h2>Select One Of The Payment Options Below Now</h2>
       <p>
         To reduce your waiting time and get straight to the point, fill out this
         simple form
@@ -75,59 +113,52 @@ const Pricing = () => {
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-
             <li>
-              {" "}
               <Check />
               ​Destroy beat block once and for all by having infinite
               inspiration at your fingertips
             </li>
-
             <li>
-              {" "}
               <Check />
               Skyrocket your beat sales by producing the hottest beats on the
               market
             </li>
           </ul>
-          <Button texto={"Get the blue print now"} url={""} />
+          <button onClick={handleButtonClick}>Get the blueprint now</button>
         </div>
         <div className="pricing-card">
-          <h3>Profesional</h3>
+          <div className="pricing-image">
+            <Image src={PricingImage} alt="" width={60} height={60} />
+          </div>
+          <h3>Professional</h3>
           <ul>
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-
             <li>
-              {" "}
               <Check />
               ​Destroy beat block once and for all by having infinite
               inspiration at your fingertips
             </li>
-
             <li>
-              {" "}
               <Check />
               Skyrocket your beat sales by producing the hottest beats on the
               market
             </li>
           </ul>
-          <Button texto={"Get the blue print now"} url={""} />
+          <button onClick={handleButtonClick}>Get the blueprint now</button>
         </div>
         <div className="pricing-card">
           <h3>Team</h3>
@@ -137,30 +168,26 @@ const Pricing = () => {
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-
             <li>
-              {" "}
               <Check />
               ​Destroy beat block once and for all by having infinite
               inspiration at your fingertips
             </li>
-
             <li>
-              {" "}
               <Check />
               Skyrocket your beat sales by producing the hottest beats on the
               market
             </li>
           </ul>
-          <Button texto={"Get the blue print now"} url={""} />
+          <button onClick={handleButtonClick}>Get the blueprint now</button>
         </div>
       </div>
+      {isFormVisible && <Formulario onClose={handleCloseForm} />}
     </StyledPricing>
   );
 };

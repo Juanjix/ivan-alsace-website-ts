@@ -85,7 +85,7 @@ const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
           <h1>{titulos[index]}</h1>
         </motion.div>
         <div>
-          <Button texto="Give it a try" url="/" />
+          <Button texto="Give it a try" url="/" onClick={undefined} />
         </div>
       </motion.div>
     </StyledHero>

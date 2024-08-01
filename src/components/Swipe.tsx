@@ -1,10 +1,7 @@
+// src/components/SwitchContent.tsx
 import { Asset } from "contentful";
 import React from "react";
-
-// Libraries
 import styled from "styled-components";
-import { TypeSwipeSkeleton } from "@/types/contentful-types";
-
 import Image from "next/image";
 
 interface SwipeProps {
@@ -12,17 +9,40 @@ interface SwipeProps {
   imagen: Asset;
   titulo: string;
   posicionDeLaImagen: string;
+  backgroundPosition: "arriba" | "abajo";
 }
 
-const StyledSwitchContent = styled.section`
+const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+  if (position === "arriba") {
+    return `
+      background: linear-gradient(
+      0deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%, 
+      #051b19 100%
+      );
+    `;
+  }
+  return `
+    background: linear-gradient(
+      180deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%, 
+      #051b19 100%
+    );
+  `;
+};
+
+const StyledSwitchContent = styled.section<{
+  backgroundPosition: "arriba" | "abajo";
+}>`
   padding: 48px 0;
   margin: 0 auto;
-  background: linear-gradient(180deg, #051b19, #000000);
-  // background: linear-gradient(180deg, #000000, #051b19);
+  // background: linear-gradient(180deg, #051b19, #000000);
+  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
 
-  &:last-of-type {
-    background: linear-gradient(180deg, #051b19, #000000);
-  }
   .izquierda {
     display: flex;
     flex-direction: column;
@@ -59,11 +79,29 @@ const StyledSwitchContent = styled.section`
 
   .content {
     max-width: 550px;
+    text-align: start;
+    position: relative;
+    padding: 20px;
+    z-index: 1;
 
     li {
       margin-bottom: 20px;
       list-style-type: none;
-      text-align: start;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 30%;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(25deg, #e0c68f 60%, black 50%);
+      border-radius: 50%;
+      filter: blur(4rem);
+      height: 20vh;
+      opacity: var(--halo-opacity, 0.7);
+      z-index: -1;
     }
   }
 
@@ -80,10 +118,15 @@ const StyledSwitchContent = styled.section`
   }
 `;
 
-export const SwitchContent: React.FC<SwipeProps> = (data) => {
-  const { titulo, texto } = data;
-  const imagenURL = data.imagen?.fields?.file?.url
-    ? `https:${data.imagen.fields.file.url}`
+export const SwitchContent: React.FC<SwipeProps> = ({
+  titulo,
+  texto,
+  imagen,
+  posicionDeLaImagen,
+  backgroundPosition,
+}) => {
+  const imagenURL = imagen?.fields?.file?.url
+    ? `https:${imagen.fields.file.url}`
     : "";
 
   const parseText = (text: string) => {
@@ -97,68 +140,70 @@ export const SwitchContent: React.FC<SwipeProps> = (data) => {
   };
 
   return (
-    <StyledSwitchContent>
-      {data.posicionDeLaImagen === "izquierda" ? (
-        <div className="izquierda">
-          <div className="content">
-            <h3>{titulo}</h3>
-            {parseText(texto)}
+    <StyledSwitchContent backgroundPosition={backgroundPosition}>
+      <div className="container">
+        {posicionDeLaImagen === "izquierda" ? (
+          <div className="izquierda">
+            <div className="content">
+              <h3>{titulo}</h3>
+              {parseText(texto)}
+            </div>
+            <div className="switch-image">
+              <Image
+                src={imagenURL}
+                alt=""
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={320}
+                height={300}
+                loading="lazy"
+              />
+            </div>
           </div>
-          <div className="switch-image">
-            <Image
-              src={imagenURL}
-              alt=""
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              width={320}
-              height={300}
-              loading="lazy"
-            />
+        ) : posicionDeLaImagen === "derecha" ? (
+          <div className="derecha">
+            <div className="content">
+              <h3>{titulo}</h3>
+              {parseText(texto)}
+            </div>
+            <div className="switch-image">
+              <Image
+                src={imagenURL}
+                alt=""
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={320}
+                height={300}
+                loading="lazy"
+              />
+            </div>
           </div>
-        </div>
-      ) : data.posicionDeLaImagen === "derecha" ? (
-        <div className="derecha">
-          <div className="content">
-            <h3>{titulo}</h3>
-            {parseText(texto)}
+        ) : (
+          <div className="centro">
+            <div className="switch-image">
+              <Image
+                src={imagenURL}
+                alt=""
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={320}
+                height={300}
+                loading="lazy"
+              />
+            </div>
+            <div className="content">
+              <h3>{titulo}</h3>
+              {parseText(texto)}
+            </div>
           </div>
-          <div className="switch-image">
-            <Image
-              src={imagenURL}
-              alt=""
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              width={320}
-              height={300}
-              loading="lazy"
-            />
-          </div>
-        </div>
-      ) : (
-        <div className="centro">
-          <div className="switch-image">
-            <Image
-              src={imagenURL}
-              alt=""
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              width={320}
-              height={300}
-              loading="lazy"
-            />
-          </div>
-          <div className="content">
-            <h3>{titulo}</h3>
-            {parseText(texto)}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </StyledSwitchContent>
   );
 };

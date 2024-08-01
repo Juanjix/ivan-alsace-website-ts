@@ -5,7 +5,7 @@ import { ButtonProps } from "@/types/types";
 import styled from "styled-components";
 
 const StyledButton = styled.a`
-  background-color: #e0c68f;
+  background: linear-gradient(102.47deg, #c4b061 -5.34%, #574a4a 106.58%);
   padding: 20px 48px;
   border-radius: 8px;
   transition: all 0.5s ease-out;
@@ -18,6 +18,10 @@ const StyledButton = styled.a`
 `;
 
 export const Button = (props: ButtonProps) => {
-  const { texto, url } = props;
-  return <StyledButton href={url}>{texto}</StyledButton>;
+  const { texto, url, onClick } = props;
+  return (
+    <StyledButton href={url} onClick={() => {}}>
+      {texto}
+    </StyledButton>
+  );
 };

@@ -15,12 +15,37 @@ import { Asset } from "contentful";
 interface TestimonialsProps {
   titulo: string;
   imagen: Asset;
+  backgroundPosition: "arriba" | "abajo";
 }
 
-const StyledTestimonios = styled(motion.section)`
-  background: linear-gradient(180deg, #051b19, #000000);
-  position: relative;
+const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+  if (position === "arriba") {
+    return `
+      background: linear-gradient(
+      0deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%, 
+      #051b19 100%
+      );
+    `;
+  }
+  return `
+    background: linear-gradient(
+      180deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%, 
+      #051b19 100%
+    );
+  `;
+};
 
+const StyledTestimonios = styled(motion.section)<{
+  backgroundPosition: "arriba" | "abajo";
+}>`
+  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  position: relative;
   .icon-testimonios {
     position: absolute;
     top: calc(50% - 80px);
@@ -33,7 +58,7 @@ const StyledTestimonios = styled(motion.section)`
 `;
 
 export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
-  const { titulo, imagen } = datos;
+  const { titulo, imagen, backgroundPosition } = datos;
 
   const imagenURL = imagen?.fields?.file?.url
     ? `https:${imagen.fields.file.url}`
@@ -41,40 +66,43 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
 
   return (
     <StyledTestimonios
+      backgroundPosition={backgroundPosition}
       initial={{ y: 32, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true }}
       transition={{ delay: 1 }}>
-      <motion.h2
-        initial={{ y: 32, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 1 }}
-        className="">
-        {titulo ? titulo : ""}
-      </motion.h2>
-      {Icon ? (
-        <div className="icon-testimonios">
-          <Image src={Icon} alt="" width={200} height={200} />
-        </div>
-      ) : (
-        ""
-      )}
+      <div className="container">
+        <motion.h2
+          initial={{ y: 32, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1 }}
+          className="">
+          {titulo ? titulo : ""}
+        </motion.h2>
+        {Icon ? (
+          <div className="icon-testimonios">
+            <Image src={Icon} alt="" width={200} height={200} />
+          </div>
+        ) : (
+          ""
+        )}
 
-      <div className="image-container">
-        <Image
-          src={imagenURL}
-          alt=""
-          style={{
-            width: "100%",
-            height: "auto",
-          }}
-          width={600}
-          height={300}
-        />
-      </div>
-      <div>
-        <Button texto="Give it a try" url="/" />
+        <div className="image-container">
+          <Image
+            src={imagenURL}
+            alt=""
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+            width={600}
+            height={300}
+          />
+        </div>
+        <div>
+          <Button texto="Give it a try" url="/" onClick={undefined} />
+        </div>
       </div>
     </StyledTestimonios>
   );

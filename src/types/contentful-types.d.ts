@@ -53,6 +53,7 @@ export interface TypeMetricsFields {
   metrica?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypeMetricaSkeleton>
   >;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
 }
 
 export type TypeMetricsSkeleton = EntrySkeletonType<
@@ -111,6 +112,7 @@ export interface TypePaymentsFields {
   payments?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePaymentCardSkeleton>
   >;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
 }
 
 export type TypePaymentsSkeleton = EntrySkeletonType<
@@ -141,6 +143,7 @@ export interface TypePreguntasFrecuentesFields {
   preguntaFrecuente?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePreguntaFrecuenteSkeleton>
   >;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
 }
 
 export type TypePreguntasFrecuentesSkeleton = EntrySkeletonType<
@@ -175,6 +178,7 @@ export interface TypeSwipeFields {
   >;
   imagen?: EntryFieldTypes.AssetLink;
   texto?: EntryFieldTypes.Text;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
 }
 
 export type TypeSwipeSkeleton = EntrySkeletonType<TypeSwipeFields, "swipe">;
@@ -187,6 +191,7 @@ export interface TypeTestimoniosFields {
   nombreInterno?: EntryFieldTypes.Symbol;
   titulo?: EntryFieldTypes.Symbol;
   imagen?: EntryFieldTypes.AssetLink;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
 }
 
 export type TypeTestimoniosSkeleton = EntrySkeletonType<
@@ -202,6 +207,7 @@ export interface TypeVideoFields {
   nombreInterno: EntryFieldTypes.Symbol;
   titulo?: EntryFieldTypes.Symbol;
   videoCode?: EntryFieldTypes.Symbol;
+  backgroundPosition?: EntryFieldTypes.Symbol<"Abajo" | "Arriba">;
 }
 
 export type TypeVideoSkeleton = EntrySkeletonType<TypeVideoFields, "video">;

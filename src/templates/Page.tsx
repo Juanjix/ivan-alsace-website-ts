@@ -54,6 +54,7 @@ const Page: React.FC<PageProps> = (props) => {
 
   const [metricsTitulo, setMetricsTitulo] = useState<string>("");
   const [metricsSubtitulo, setMetricsSubtitulo] = useState<string>("");
+  const [metricsBackground, setMetricsBackground] = useState<string>("");
 
   useEffect(() => {
     const fetchFaqs = async () => {
@@ -95,6 +96,7 @@ const Page: React.FC<PageProps> = (props) => {
           const metricLinks = metricSection.fields.metrica;
           const metricsTitulo = metricSection.fields.titulo;
           const metricsSubtitulo = metricSection.fields.subtitulo;
+          const metricsBackground = metricSection.fields.backgroundPosition;
           if (metricLinks) {
             const validMetricLinks = metricLinks.filter(
               (
@@ -111,6 +113,7 @@ const Page: React.FC<PageProps> = (props) => {
             setResolvedMetrics(resolvedMetricEntries);
             setMetricsTitulo(metricsTitulo || "");
             setMetricsSubtitulo(metricsSubtitulo || "");
+            setMetricsBackground(metricsBackground || "");
           }
         }
       } catch (error) {
@@ -162,6 +165,7 @@ const Page: React.FC<PageProps> = (props) => {
               texto={swipe.fields.texto}
               posicionDeLaImagen={swipe.fields.posicinDeLaImagen}
               imagen={swipe.fields.imagen}
+              backgroundPosition={swipe.fields.backgroundPosition}
               key={seccion.sys.id}
             />
           );
@@ -174,6 +178,7 @@ const Page: React.FC<PageProps> = (props) => {
               metricas={resolvedMetrics}
               titulo={metricsTitulo}
               subtitulo={metricsSubtitulo}
+              backgroundPosition={metricsBackground}
             />
           );
           break;
