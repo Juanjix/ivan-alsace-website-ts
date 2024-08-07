@@ -19,6 +19,23 @@ export type TypeComponenteDePrueba<
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypeComponenteDePruebaSkeleton, Modifiers, Locales>;
 
+export interface TypeGarantiaFields {
+  tituloInterno?: EntryFieldTypes.Symbol;
+  imagen1?: EntryFieldTypes.AssetLink;
+  texto1?: EntryFieldTypes.Text;
+  imagen2?: EntryFieldTypes.AssetLink;
+  texto2?: EntryFieldTypes.Text;
+}
+
+export type TypeGarantiaSkeleton = EntrySkeletonType<
+  TypeGarantiaFields,
+  "garantia"
+>;
+export type TypeGarantia<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeGarantiaSkeleton, Modifiers, Locales>;
+
 export interface TypeHeroFields {
   nombreInterno: EntryFieldTypes.Symbol;
   titulos: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
@@ -70,6 +87,7 @@ export interface TypePaginasFields {
   ruta: EntryFieldTypes.Symbol;
   sections?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<
+      | TypeGarantiaSkeleton
       | TypeHeroSkeleton
       | TypeMetricsSkeleton
       | TypePaymentsSkeleton

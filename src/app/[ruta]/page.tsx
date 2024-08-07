@@ -42,8 +42,6 @@ const Page = async ({ params }: Params) => {
 
   const data: Pagina = pagina.items[0].fields;
 
-  // console.log(data);
-
   return <h1>{data.ruta}</h1>;
 };
 

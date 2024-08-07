@@ -14,6 +14,7 @@ import {
   TypeVideoSkeleton,
   TypeSwipeSkeleton,
   TypeSwipeSinImagenSkeleton,
+  TypeGarantiaSkeleton,
 } from "@/types/contentful-types";
 
 // Components
@@ -23,6 +24,7 @@ import { Testimonios } from "@/components/Testimonios";
 import { Entry } from "contentful";
 import { Video } from "@/components/Video";
 import { Metrics } from "@/components/Metrics";
+import { Garantia } from "@/components/Garantia";
 import Pricing from "@/components/Pricing";
 import { PreguntasFrecuentes } from "@/components/PreguntasFrecuentes";
 import Swipe from "@/components/Swipe";
@@ -41,6 +43,7 @@ interface PageProps {
     | TypeMetricsSkeleton
     | TypeSwipeSkeleton
     | TypeSwipeSinImagenSkeleton
+    | TypeGarantiaSkeleton
   >[];
 }
 
@@ -180,9 +183,10 @@ const Page: React.FC<PageProps> = (props) => {
             <SwipeSinImagen
               texto1={swipeSinImagen.fields.texto1}
               texto2={swipeSinImagen.fields.texto2}
-              backgroundPosition={"arriba"}
+              backgroundPosition={"abajo"}
             />
           );
+          break;
 
         case "metrics":
           components.push(
@@ -192,6 +196,19 @@ const Page: React.FC<PageProps> = (props) => {
               titulo={metricsTitulo}
               subtitulo={metricsSubtitulo}
               backgroundPosition={metricsBackground}
+            />
+          );
+          break;
+
+        case "garantia":
+          const garantia = seccion as Entry<TypeGarantiaSkeleton>;
+          components.push(
+            <Garantia
+              texto1={garantia.fields.texto1}
+              imagen1={garantia.fields.imagen1}
+              texto2={garantia.fields.texto2}
+              imagen2={garantia.fields.imagen2}
+              backgroundPosition={"arriba"}
             />
           );
           break;
