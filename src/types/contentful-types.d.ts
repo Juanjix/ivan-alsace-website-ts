@@ -74,6 +74,7 @@ export interface TypePaginasFields {
       | TypeMetricsSkeleton
       | TypePaymentsSkeleton
       | TypePreguntasFrecuentesSkeleton
+      | TypeSwipeSinImagenSkeleton
       | TypeSwipeSkeleton
       | TypeTestimoniosSkeleton
       | TypeVideoSkeleton
@@ -186,6 +187,22 @@ export type TypeSwipe<
   Modifiers extends ChainModifiers,
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypeSwipeSkeleton, Modifiers, Locales>;
+
+export interface TypeSwipeSinImagenFields {
+  tituloInterno?: EntryFieldTypes.Symbol;
+  texto1?: EntryFieldTypes.Text;
+  texto2?: EntryFieldTypes.Text;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+}
+
+export type TypeSwipeSinImagenSkeleton = EntrySkeletonType<
+  TypeSwipeSinImagenFields,
+  "swipeSinImagen"
+>;
+export type TypeSwipeSinImagen<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeSwipeSinImagenSkeleton, Modifiers, Locales>;
 
 export interface TypeTestimoniosFields {
   nombreInterno?: EntryFieldTypes.Symbol;

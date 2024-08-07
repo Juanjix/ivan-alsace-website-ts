@@ -47,8 +47,13 @@ const StyledTestimonios = styled(motion.section)<{
   ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
   position: relative;
   .icon-testimonios {
+    display: none;
     position: absolute;
     top: calc(50% - 80px);
+
+    @media screen and (min-width: 920px) {
+      display: block;
+    }
   }
 
   .image-container {

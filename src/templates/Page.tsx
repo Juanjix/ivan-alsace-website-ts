@@ -13,6 +13,7 @@ import {
   TypeTestimoniosSkeleton,
   TypeVideoSkeleton,
   TypeSwipeSkeleton,
+  TypeSwipeSinImagenSkeleton,
 } from "@/types/contentful-types";
 
 // Components
@@ -28,6 +29,7 @@ import Swipe from "@/components/Swipe";
 
 // Client
 import { resolveLinks } from "@/app/client";
+import { SwipeSinImagen } from "@/components/SwipeSinImagen";
 
 // Define the PageProps interface
 interface PageProps {
@@ -38,6 +40,7 @@ interface PageProps {
     | TypeVideoSkeleton
     | TypeMetricsSkeleton
     | TypeSwipeSkeleton
+    | TypeSwipeSinImagenSkeleton
   >[];
 }
 
@@ -170,6 +173,16 @@ const Page: React.FC<PageProps> = (props) => {
             />
           );
           break;
+
+        case "swipeSinImagen":
+          const swipeSinImagen = seccion as Entry<TypeSwipeSinImagenSkeleton>;
+          components.push(
+            <SwipeSinImagen
+              texto1={swipeSinImagen.fields.texto1}
+              texto2={swipeSinImagen.fields.texto2}
+              backgroundPosition={"arriba"}
+            />
+          );
 
         case "metrics":
           components.push(
