@@ -63,7 +63,6 @@ const StyledForm = styled.form`
 
     input,
     textarea {
-      width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 4px;
@@ -81,6 +80,11 @@ const StyledForm = styled.form`
   .checkbox-group {
     display: flex;
     flex-wrap: wrap;
+    text-align: start;
+    margin: 0 auto;
+    justify-content: center !important;
+    width: 198px;
+    white-space: nowrap;
 
     label {
       display: block;
@@ -93,6 +97,11 @@ const StyledForm = styled.form`
         margin-right: 10px;
         color: black;
       }
+    }
+
+    .ejemplo {
+      display: flex;
+      flex-direction: column;
     }
   }
 
@@ -259,12 +268,6 @@ const Formulario: React.FC<FormularioProps> = ({ onClose }) => {
             <label>
               <input type="checkbox" name="category" value="other" />
               Other
-              <input
-                type="text"
-                name="other_category"
-                value={otherCategory}
-                onChange={(e) => setOtherCategory(e.target.value)}
-              />
             </label>
           </div>
         </div>
