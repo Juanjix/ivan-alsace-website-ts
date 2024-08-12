@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     // Aquí va la lógica para enviar el correo
     const { data, error } = await resend.emails.send({
-      from: "sender@example.com",
+      from: "onboarding@resend.dev",
       to: "juanjose.peralta92@gmail.com",
       subject: `New Project Submission - ${selectedCategory}`,
       html: `

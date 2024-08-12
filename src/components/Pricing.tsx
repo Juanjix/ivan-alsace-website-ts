@@ -2,9 +2,44 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Check from "../../public/icons/check/index";
 import Formulario from "./Formulario";
+import { Entry } from "contentful";
+import { TypePaymentCardSkeleton } from "@/types/contentful-types";
 
-const StyledPricing = styled.section`
+interface PrincingProps {
+  titulo: string;
+  payments: Entry<TypePaymentCardSkeleton>[];
+  subtitulo: string;
+  backgroundPosition: "arriba" | "abajo";
+}
+
+const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+  if (position === "arriba") {
+    return `
+      background: linear-gradient(
+      0deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%, 
+      #051b19 100%
+      );
+    `;
+  }
+  return `
+    background: linear-gradient(
+      180deg,
+      #000000 0%,
+      #000000 20%,
+      #051b19 90%, 
+      #051b19 100%
+    );
+  `;
+};
+
+const StyledPricing = styled.section<{
+  backgroundPosition: "arriba" | "abajo";
+}>`
   background: linear-gradient(180deg, #000000, #051b19);
+  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
   .pricing-cards-container {
     display: flex;
     flex-direction: column;
@@ -21,7 +56,6 @@ const StyledPricing = styled.section`
     .pricing-card {
       max-width: 370px;
       width: 100%;
-      height: auto;
       border: 1px solid grey;
       border-radius: 18px;
       padding: 40px 10px;
@@ -30,6 +64,11 @@ const StyledPricing = styled.section`
 
       h3 {
         margin-bottom: 22px;
+      }
+
+      svg {
+        width: 30px;
+        height: 30px;
       }
 
       ul {
@@ -43,11 +82,6 @@ const StyledPricing = styled.section`
 
           &:last-of-type {
             margin-bottom: 45px;
-          }
-
-          svg {
-            width: 30px;
-            height: 30px;
           }
         }
       }
@@ -72,7 +106,12 @@ const StyledPricing = styled.section`
   }
 `;
 
-const Pricing = () => {
+const Pricing: React.FC<PrincingProps> = ({
+  titulo,
+  subtitulo,
+  backgroundPosition,
+  payments,
+}) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -85,16 +124,52 @@ const Pricing = () => {
     setIsFormVisible(false);
     setSelectedCategory(null);
   };
-
+  const parseText = (text: string) => {
+    const lines = text.split("\n").filter((line) => line.trim() !== "");
+    return lines.map((line, index) => {
+      if (line.startsWith(`${(<Check />)}`)) {
+        return <li key={index}>{line.substring(2)}</li>;
+      }
+      return <p key={index}>{line}</p>;
+    });
+  };
   return (
-    <StyledPricing>
-      <h2>Select One Of The Payment Options Below Now</h2>
-      <p>
-        To reduce your waiting time and get straight to the point, fill out this
-        simple form
-      </p>
+    <StyledPricing backgroundPosition={backgroundPosition}>
+      <h2>{titulo}</h2>
+      <p>{subtitulo}</p>
       <div className="pricing-cards-container">
-        <div className="pricing-card">
+        {payments &&
+          payments.map((payment) => (
+            <div className="pricing-card">
+              <h3>{payment.fields.titulo}</h3>
+              <ul>
+                <li>
+                  <Check />
+                  {payment.fields.contenido}
+                </li>
+              </ul>
+              <button onClick={() => handleButtonClick(payment.fields.titulo)}>
+                Select {payment.fields.titulo}
+              </button>
+            </div>
+          ))}
+        {/* {payments &&
+          payments.map((payments) => {
+            <div className="pricing-card">
+              <h3>{payments.fields.titulo}</h3>
+              <ul>
+                <li>
+                  <Check />
+                  {payments.fields.contenido}
+                </li>
+              </ul>
+              <button onClick={() => handleButtonClick(titulo)}>
+                Select Started
+              </button>
+            </div>;
+          })} */}
+
+        {/* <div className="pricing-card">
           <h3>Started</h3>
           <ul>
             <li>
@@ -111,8 +186,8 @@ const Pricing = () => {
           <button onClick={() => handleButtonClick("Started")}>
             Select Started
           </button>
-        </div>
-        <div className="pricing-card">
+        </div> */}
+        {/* <div className="pricing-card">
           <h3>Professional</h3>
           <ul>
             <li>
@@ -128,8 +203,8 @@ const Pricing = () => {
           <button onClick={() => handleButtonClick("Professional")}>
             Select Professional
           </button>
-        </div>
-        <div className="pricing-card">
+        </div> */}
+        {/* <div className="pricing-card">
           <h3>Team</h3>
           <ul>
             <li>
@@ -143,7 +218,7 @@ const Pricing = () => {
             </li>
           </ul>
           <button onClick={() => handleButtonClick("Team")}>Select Team</button>
-        </div>
+        </div> */}
       </div>
       {isFormVisible && (
         <Formulario

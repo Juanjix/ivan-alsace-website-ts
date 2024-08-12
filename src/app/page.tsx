@@ -13,6 +13,7 @@ import {
 } from "@/types/contentful-types";
 import { Entry } from "contentful";
 import { notFound } from "next/navigation";
+import { TypePaymentsSkeleton } from "../types/contentful-types";
 
 const Home = async () => {
   const response = await getPaginaPorRuta("/");
@@ -36,6 +37,7 @@ const Home = async () => {
             | TypeSwipeSkeleton
             | TypeSwipeSinImagenSkeleton
             | TypeGarantiaSkeleton
+            | TypePaymentsSkeleton
           >[]
         }
       />

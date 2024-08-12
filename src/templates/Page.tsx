@@ -15,6 +15,7 @@ import {
   TypeSwipeSkeleton,
   TypeSwipeSinImagenSkeleton,
   TypeGarantiaSkeleton,
+  TypePaymentsSkeleton,
 } from "@/types/contentful-types";
 
 // Components
@@ -44,6 +45,7 @@ interface PageProps {
     | TypeSwipeSkeleton
     | TypeSwipeSinImagenSkeleton
     | TypeGarantiaSkeleton
+    | TypePaymentsSkeleton
   >[];
 }
 
@@ -58,11 +60,44 @@ const Page: React.FC<PageProps> = (props) => {
     Entry<TypeMetricaSkeleton>[]
   >([]);
 
+  const [resolvedPayments, setResolvedPayments] = useState<
+    Entry<TypePaymentsSkeleton>[]
+  >([]);
+
   const [metricsTitulo, setMetricsTitulo] = useState<string>("");
   const [metricsSubtitulo, setMetricsSubtitulo] = useState<string>("");
   const [metricsBackground, setMetricsBackground] = useState<string>("");
 
   useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        const paymentsSection = sections?.find(
+          (s) => s.sys.contentType.sys.id === "payments"
+        ) as Entry<TypePaymentsSkeleton> | undefined;
+
+        if (paymentsSection) {
+          const paymentsLinks = paymentsSection.fields.payments;
+          if (paymentsLinks) {
+            const validPaymentsLinks = paymentsLinks.filter(
+              (
+                link: any
+              ): link is {
+                sys: { id: string; linkType: string; type: string };
+              } => link !== undefined && "sys" in link
+            );
+            const resolvedPaymentsEntries =
+              await resolveLinks<TypePaymentsSkeleton>(
+                validPaymentsLinks,
+                "paymentCard"
+              );
+            setResolvedPayments(resolvedPaymentsEntries);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching FAQs:", error);
+      }
+    };
+
     const fetchFaqs = async () => {
       try {
         const faqSection = sections?.find(
@@ -129,6 +164,7 @@ const Page: React.FC<PageProps> = (props) => {
 
     fetchFaqs();
     fetchMetrics();
+    fetchPayments();
   }, [sections]);
 
   const components: React.JSX.Element[] = [];
@@ -209,6 +245,19 @@ const Page: React.FC<PageProps> = (props) => {
               texto2={garantia.fields.texto2}
               imagen2={garantia.fields.imagen2}
               backgroundPosition={"arriba"}
+            />
+          );
+          break;
+
+        case "payments":
+          const payments = seccion as Entry<TypePaymentsSkeleton>;
+          console.log(resolvedPayments);
+          components.push(
+            <Pricing
+              titulo={payments.fields.titulo}
+              payments={resolvedPayments}
+              subtitulo={payments.fields.subtitulo}
+              backgroundPosition={payments.fields.backgroundPosition}
             />
           );
           break;
