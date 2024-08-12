@@ -44,13 +44,13 @@ const StyledPricing = styled.section<{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     gap: 40px;
     margin-top: 40px;
-    position: relative;
 
     @media (min-width: 920px) {
       flex-direction: row;
+      align-items: stretch;
     }
 
     .pricing-card {
@@ -61,6 +61,10 @@ const StyledPricing = styled.section<{
       padding: 40px 10px;
       position: relative;
       z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Ajuste importante */
 
       h3 {
         margin-bottom: 22px;
@@ -69,16 +73,19 @@ const StyledPricing = styled.section<{
       svg {
         width: 30px;
         height: 30px;
+        margin-right: 12px;
       }
 
       ul {
         list-style: none;
         padding-left: 0;
+        // margin-bottom: 100px;
 
         li {
           margin-bottom: 25px;
           display: flex;
           justify-content: center;
+          text-align: start;
 
           &:last-of-type {
             margin-bottom: 45px;
@@ -95,6 +102,9 @@ const StyledPricing = styled.section<{
         padding: 20px 48px;
         border-radius: 8px;
         transition: all 0.5s ease-out;
+        align-self: center;
+        margin-top: auto;
+        white-space: nowrap;
 
         &:hover {
           border: 1px solid #e0c68f;
@@ -130,7 +140,12 @@ const Pricing: React.FC<PrincingProps> = ({
       if (line.startsWith(`${(<Check />)}`)) {
         return <li key={index}>{line.substring(2)}</li>;
       }
-      return <p key={index}>{line}</p>;
+      return (
+        <li key={index}>
+          <Check />
+          {line}
+        </li>
+      );
     });
   };
   return (
@@ -142,83 +157,12 @@ const Pricing: React.FC<PrincingProps> = ({
           payments.map((payment) => (
             <div className="pricing-card" key={payment.sys.id}>
               <h3>{payment.fields.titulo}</h3>
-              <ul>
-                <li>
-                  <Check />
-                  {payment.fields.contenido}
-                </li>
-              </ul>
+              <ul>{parseText(payment.fields.contenido)}</ul>
               <button onClick={() => handleButtonClick(payment.fields.titulo)}>
                 Select {payment.fields.titulo}
               </button>
             </div>
           ))}
-        {/* {payments &&
-          payments.map((payments) => {
-            <div className="pricing-card">
-              <h3>{payments.fields.titulo}</h3>
-              <ul>
-                <li>
-                  <Check />
-                  {payments.fields.contenido}
-                </li>
-              </ul>
-              <button onClick={() => handleButtonClick(titulo)}>
-                Select Started
-              </button>
-            </div>;
-          })} */}
-
-        {/* <div className="pricing-card">
-          <h3>Started</h3>
-          <ul>
-            <li>
-              <Check />
-              The only sample pack you need to finally produce placement-worthy
-              beats
-            </li>
-            <li>
-              <Check />
-              The only sample pack you need to finally produce placement-worthy
-              beats
-            </li>
-          </ul>
-          <button onClick={() => handleButtonClick("Started")}>
-            Select Started
-          </button>
-        </div> */}
-        {/* <div className="pricing-card">
-          <h3>Professional</h3>
-          <ul>
-            <li>
-              <Check />
-              All the tools you need to create professional-sounding tracks
-            </li>
-            <li>
-              <Check />
-              The only sample pack you need to finally produce placement-worthy
-              beats
-            </li>
-          </ul>
-          <button onClick={() => handleButtonClick("Professional")}>
-            Select Professional
-          </button>
-        </div> */}
-        {/* <div className="pricing-card">
-          <h3>Team</h3>
-          <ul>
-            <li>
-              <Check />
-              The ultimate toolkit for teams and collaborators
-            </li>
-            <li>
-              <Check />
-              The only sample pack you need to finally produce placement-worthy
-              beats
-            </li>
-          </ul>
-          <button onClick={() => handleButtonClick("Team")}>Select Team</button>
-        </div> */}
       </div>
       {isFormVisible && (
         <Formulario
