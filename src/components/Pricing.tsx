@@ -105,12 +105,17 @@ const StyledPricing = styled.section<{
         align-self: center;
         margin-top: auto;
         white-space: nowrap;
+        border: 1px solid black;
 
         &:hover {
           border: 1px solid #e0c68f;
           background-color: transparent;
           color: white;
         }
+      }
+
+      .deshabilitado {
+        cursor: not-allowed;
       }
     }
   }
@@ -158,9 +163,14 @@ const Pricing: React.FC<PrincingProps> = ({
             <div className="pricing-card" key={payment.sys.id}>
               <h3>{payment.fields.titulo}</h3>
               <ul>{parseText(payment.fields.contenido)}</ul>
-              <button onClick={() => handleButtonClick(payment.fields.titulo)}>
-                Select {payment.fields.titulo}
-              </button>
+              {payment.fields.deshabilitarBoton ? (
+                <button className="deshabilitado">Not available</button>
+              ) : (
+                <button
+                  onClick={() => handleButtonClick(payment.fields.titulo)}>
+                  Select {payment.fields.titulo}
+                </button>
+              )}
             </div>
           ))}
       </div>

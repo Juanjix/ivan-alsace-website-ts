@@ -274,12 +274,7 @@ const Page: React.FC<PageProps> = (props) => {
     }
   });
 
-  return (
-    <main>
-      {components.map((component) => component)}
-      <Pricing />
-    </main>
-  );
+  return <main>{components.map((component) => component)}</main>;
 };
 
 export default Page;

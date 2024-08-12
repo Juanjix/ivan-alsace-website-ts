@@ -6,6 +6,19 @@ import type {
   LocaleCode,
 } from "contentful";
 
+export interface TypeBotonFields {
+  tituloInterno?: EntryFieldTypes.Symbol;
+  url?: EntryFieldTypes.Symbol;
+  external?: EntryFieldTypes.Boolean;
+  label?: EntryFieldTypes.Symbol;
+}
+
+export type TypeBotonSkeleton = EntrySkeletonType<TypeBotonFields, "boton">;
+export type TypeBoton<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeBotonSkeleton, Modifiers, Locales>;
+
 export interface TypeComponenteDePruebaFields {
   prueba?: EntryFieldTypes.RichText;
 }
@@ -40,6 +53,7 @@ export interface TypeHeroFields {
   nombreInterno: EntryFieldTypes.Symbol;
   titulos: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
   imagen?: EntryFieldTypes.AssetLink;
+  botn?: EntryFieldTypes.EntryLink<TypeBotonSkeleton>;
 }
 
 export type TypeHeroSkeleton = EntrySkeletonType<TypeHeroFields, "hero">;
@@ -113,6 +127,7 @@ export interface TypePaymentCardFields {
   nombreInterno?: EntryFieldTypes.Symbol;
   titulo?: EntryFieldTypes.Symbol;
   contenido?: EntryFieldTypes.Text;
+  deshabilitarBoton?: EntryFieldTypes.Boolean;
 }
 
 export type TypePaymentCardSkeleton = EntrySkeletonType<

@@ -9,6 +9,7 @@ const StyledButton = styled.a`
   padding: 20px 48px;
   border-radius: 8px;
   transition: all 0.5s ease-out;
+  border: 1px solid black;
 
   &:hover {
     border: 1px solid #e0c68f;
