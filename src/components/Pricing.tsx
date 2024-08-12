@@ -140,7 +140,7 @@ const Pricing: React.FC<PrincingProps> = ({
       <div className="pricing-cards-container">
         {payments &&
           payments.map((payment) => (
-            <div className="pricing-card">
+            <div className="pricing-card" key={payment.sys.id}>
               <h3>{payment.fields.titulo}</h3>
               <ul>
                 <li>
