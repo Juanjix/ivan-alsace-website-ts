@@ -1,15 +1,7 @@
-// src/components/Pricing.tsx
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import Check from "../../public/icons/check/index";
-
-import Image from "next/image";
-import PricingImage from "@/../public/icons/icon-pricing.svg";
 import Formulario from "./Formulario";
-
-// Components
-import { Button } from "./Button";
 
 const StyledPricing = styled.section`
   background: linear-gradient(180deg, #000000, #051b19);
@@ -35,13 +27,6 @@ const StyledPricing = styled.section`
       padding: 40px 10px;
       position: relative;
       z-index: 1;
-
-      .pricing-image {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        z-index: 9999;
-      }
 
       h3 {
         margin-bottom: 22px;
@@ -71,7 +56,7 @@ const StyledPricing = styled.section`
         border: 1px solid #e0c68f;
       }
 
-      button{
+      button {
         background: linear-gradient(102.47deg, #c4b061 -5.34%, #574a4a 106.58%);
         padding: 20px 48px;
         border-radius: 8px;
@@ -83,18 +68,22 @@ const StyledPricing = styled.section`
           color: white;
         }
       }
+    }
   }
 `;
 
 const Pricing = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const handleButtonClick = () => {
-    setIsFormVisible(!isFormVisible);
+  const handleButtonClick = (category: string) => {
+    setSelectedCategory(category);
+    setIsFormVisible(true);
   };
 
   const handleCloseForm = () => {
-    setIsFormVisible(!isFormVisible);
+    setIsFormVisible(false);
+    setSelectedCategory(null);
   };
 
   return (
@@ -118,76 +107,50 @@ const Pricing = () => {
               The only sample pack you need to finally produce placement-worthy
               beats
             </li>
-            <li>
-              <Check />
-              ​Destroy beat block once and for all by having infinite
-              inspiration at your fingertips
-            </li>
-            <li>
-              <Check />
-              Skyrocket your beat sales by producing the hottest beats on the
-              market
-            </li>
           </ul>
-          <button onClick={handleButtonClick}>Get the blueprint now</button>
+          <button onClick={() => handleButtonClick("Started")}>
+            Select Started
+          </button>
         </div>
         <div className="pricing-card">
-          <div className="pricing-image">
-            <Image src={PricingImage} alt="" width={60} height={60} />
-          </div>
           <h3>Professional</h3>
           <ul>
             <li>
               <Check />
-              The only sample pack you need to finally produce placement-worthy
-              beats
+              All the tools you need to create professional-sounding tracks
             </li>
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
-            </li>
-            <li>
-              <Check />
-              ​Destroy beat block once and for all by having infinite
-              inspiration at your fingertips
-            </li>
-            <li>
-              <Check />
-              Skyrocket your beat sales by producing the hottest beats on the
-              market
             </li>
           </ul>
-          <button onClick={handleButtonClick}>Get the blueprint now</button>
+          <button onClick={() => handleButtonClick("Professional")}>
+            Select Professional
+          </button>
         </div>
         <div className="pricing-card">
           <h3>Team</h3>
           <ul>
             <li>
               <Check />
-              The only sample pack you need to finally produce placement-worthy
-              beats
+              The ultimate toolkit for teams and collaborators
             </li>
             <li>
               <Check />
               The only sample pack you need to finally produce placement-worthy
               beats
-            </li>
-            <li>
-              <Check />
-              ​Destroy beat block once and for all by having infinite
-              inspiration at your fingertips
-            </li>
-            <li>
-              <Check />
-              Skyrocket your beat sales by producing the hottest beats on the
-              market
             </li>
           </ul>
-          <button onClick={handleButtonClick}>Get the blueprint now</button>
+          <button onClick={() => handleButtonClick("Team")}>Select Team</button>
         </div>
       </div>
-      {isFormVisible && <Formulario onClose={handleCloseForm} />}
+      {isFormVisible && (
+        <Formulario
+          onClose={handleCloseForm}
+          selectedCategory={selectedCategory}
+        />
+      )}
     </StyledPricing>
   );
 };

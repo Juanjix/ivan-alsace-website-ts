@@ -1,26 +1,45 @@
-// src/pages/api/send.ts
-import { NextApiRequest, NextApiResponse } from "next";
+import { Resend } from "resend";
+import { NextResponse } from "next/server";
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "POST") {
-    const { name } = req.body;
+// Asegúrate de configurar tu API key de Resend en las variables de entorno.
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-    if (!name) {
-      return res.status(400).json({ error: "Name is required" });
+export async function POST(req: Request) {
+  try {
+    const {
+      name,
+      email,
+      projectTitle,
+      projectDescription,
+      musicReferences,
+      otherCategory,
+      selectedCategory,
+    } = await req.json();
+
+    // Aquí va la lógica para enviar el correo
+    const { data, error } = await resend.emails.send({
+      from: "sender@example.com",
+      to: "juanjose.peralta92@gmail.com",
+      subject: `New Project Submission - ${selectedCategory}`,
+      html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Project Title:</strong> ${projectTitle}</p>
+        <p><strong>Project Description:</strong> ${projectDescription}</p>
+        <p><strong>Music References:</strong> ${musicReferences}</p>
+        <p><strong>Other Category:</strong> ${otherCategory || "N/A"}</p>
+      `,
+    });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    try {
-      // Aquí puedes agregar la lógica para enviar el email
-      // Por ejemplo, utilizando un servicio de email como SendGrid, Nodemailer, etc.
-      // Simularemos una respuesta exitosa por ahora
-
-      res.status(200).json({ message: "Email sent successfully" });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to send email" });
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return NextResponse.json(data, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || "An error occurred" },
+      { status: 500 }
+    );
   }
-};
+}

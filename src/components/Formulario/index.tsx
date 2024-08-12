@@ -142,9 +142,13 @@ const StyledForm = styled.form`
 
 interface FormularioProps {
   onClose: () => void;
+  selectedCategory: string | null;
 }
 
-const Formulario: React.FC<FormularioProps> = ({ onClose }) => {
+const Formulario: React.FC<FormularioProps> = ({
+  onClose,
+  selectedCategory,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [projectTitle, setProjectTitle] = useState("");
@@ -175,15 +179,18 @@ const Formulario: React.FC<FormularioProps> = ({ onClose }) => {
           projectDescription,
           musicReferences,
           otherCategory,
+          selectedCategory,
         }),
       });
 
-      const data = await response.json();
+      const textResponse = await response.text();
+      // const data = await response.json();
+      console.log("Server Response:", textResponse);
 
       if (!response.ok) {
-        throw new Error(data.error || "Something went wrong");
+        throw new Error("Error al enviar el correo.");
       }
-
+      const data = await JSON.parse(textResponse);
       alert("Email sent successfully");
     } catch (error: any) {
       alert(`Error: ${error.message || error}`);
