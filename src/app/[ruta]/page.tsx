@@ -1,20 +1,9 @@
 import { getPaginaPorRuta, initClient } from "@/lib/utils";
 import { Pagina } from "@/types/types";
 
-import { Entry, EntrySkeletonType } from "contentful";
+import { EntrySkeletonType } from "contentful";
 
 import { notFound } from "next/navigation";
-import {
-  TypeHeroSkeleton,
-  TypePreguntasFrecuentesSkeleton,
-  TypeTestimoniosSkeleton,
-  TypeVideoSkeleton,
-  TypeMetricsSkeleton,
-  TypeSwipeSkeleton,
-  TypeSwipeSinImagenSkeleton,
-  TypeGarantiaSkeleton,
-  TypePaymentsSkeleton,
-} from "@/types/contentful-types";
 
 interface Params {
   params: {
@@ -45,34 +34,15 @@ export const generateStaticParams = async (): Promise<{ ruta: string }[]> => {
 };
 
 const Page = async ({ params }: Params) => {
-  const response = await getPaginaPorRuta(params.ruta);
+  const pagina = await getPaginaPorRuta(params.ruta);
 
-  if (response?.total === 0) {
+  if (!pagina || pagina.total === 0) {
     notFound();
   }
 
-  const data = response?.items[0];
+  const data: Pagina = pagina.items[0].fields;
 
-  return (
-    <>
-      <h1>{data.ruta}</h1>
-      <Page
-        sections={
-          data?.fields.sections as Entry<
-            | TypeHeroSkeleton
-            | TypePreguntasFrecuentesSkeleton
-            | TypeTestimoniosSkeleton
-            | TypeVideoSkeleton
-            | TypeMetricsSkeleton
-            | TypeSwipeSkeleton
-            | TypeSwipeSinImagenSkeleton
-            | TypeGarantiaSkeleton
-            | TypePaymentsSkeleton
-          >[]
-        }
-      />
-    </>
-  );
+  return <h1>{data.ruta}</h1>;
 };
 
 export default Page;
