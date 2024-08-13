@@ -164,7 +164,7 @@ const Pricing: React.FC<PrincingProps> = ({
               <h3>{payment.fields.titulo}</h3>
               <ul>{parseText(payment.fields.contenido)}</ul>
               {payment.fields.deshabilitarBoton ? (
-                <button className="deshabilitado">Not available</button>
+                <button className="deshabilitado">SOLD OUT</button>
               ) : (
                 <button
                   onClick={() => handleButtonClick(payment.fields.titulo)}>

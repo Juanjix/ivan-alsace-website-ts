@@ -173,6 +173,7 @@ export type TypePreguntaFrecuente<
 > = Entry<TypePreguntaFrecuenteSkeleton, Modifiers, Locales>;
 
 export interface TypePreguntasFrecuentesFields {
+  titulo?: EntryFieldTypes.Symbol;
   nombreInterno?: EntryFieldTypes.Symbol;
   preguntaFrecuente?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePreguntaFrecuenteSkeleton>

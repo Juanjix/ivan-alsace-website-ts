@@ -14,12 +14,14 @@ export async function POST(req: Request) {
       musicReferences,
       otherCategory,
       selectedCategory,
+      selectedCategories,
+      selectedRight,
     } = await req.json();
 
     // Aquí va la lógica para enviar el correo
     const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "juanjose.peralta92@gmail.com",
+      to: "elsasserivan@gmail.com",
       subject: `New Project Submission - ${selectedCategory}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
@@ -27,7 +29,10 @@ export async function POST(req: Request) {
         <p><strong>Project Title:</strong> ${projectTitle}</p>
         <p><strong>Project Description:</strong> ${projectDescription}</p>
         <p><strong>Music References:</strong> ${musicReferences}</p>
+         <p><strong>Category:</strong> ${selectedCategories}</p>
+         <p><strong>Rights and Ownership:</strong> ${selectedRight}</p>
         <p><strong>Other Category:</strong> ${otherCategory || "N/A"}</p>
+       
       `,
     });
 

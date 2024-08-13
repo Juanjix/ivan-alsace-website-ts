@@ -52,9 +52,13 @@ interface PageProps {
 const Page: React.FC<PageProps> = (props) => {
   const { sections } = props;
 
-  const [resolvedFaqs, setResolvedFaqs] = useState<
-    Entry<TypePreguntaFrecuenteSkeleton>[]
-  >([]);
+  const [resolvedFaqs, setResolvedFaqs] = useState<{
+    [key: string]: Entry<TypePreguntaFrecuenteSkeleton>[];
+  }>({});
+
+  const [faqBackgrounds, setFaqBackgrounds] = useState<{
+    [key: string]: string;
+  }>({});
 
   const [resolvedMetrics, setResolvedMetrics] = useState<
     Entry<TypeMetricaSkeleton>[]
@@ -100,27 +104,58 @@ const Page: React.FC<PageProps> = (props) => {
 
     const fetchFaqs = async () => {
       try {
-        const faqSection = sections?.find(
+        // Filtra todas las secciones de FAQs
+        const faqSections = sections?.filter(
           (s) => s.sys.contentType.sys.id === "preguntasFrecuentes"
-        ) as Entry<TypePreguntasFrecuentesSkeleton> | undefined;
+        ) as Entry<TypePreguntasFrecuentesSkeleton>[] | undefined;
 
-        if (faqSection) {
-          const faqLinks = faqSection.fields.preguntaFrecuente;
-          if (faqLinks) {
-            const validFaqLinks = faqLinks.filter(
-              (
-                link: any
-              ): link is {
-                sys: { id: string; linkType: string; type: string };
-              } => link !== undefined && "sys" in link
-            );
-            const resolvedFaqEntries =
-              await resolveLinks<TypePreguntaFrecuenteSkeleton>(
-                validFaqLinks,
-                "preguntaFrecuente"
-              );
-            setResolvedFaqs(resolvedFaqEntries);
-          }
+        if (faqSections) {
+          const faqEntries = await Promise.all(
+            faqSections.map(async (faqSection) => {
+              const faqLinks = faqSection.fields.preguntaFrecuente;
+              const backgroundPosition =
+                faqSection.fields.backgroundPosition || "";
+
+              if (faqLinks) {
+                const validFaqLinks = faqLinks.filter(
+                  (
+                    link: any
+                  ): link is {
+                    sys: { id: string; linkType: string; type: string };
+                  } => link !== undefined && "sys" in link
+                );
+                const resolvedFaqEntries =
+                  await resolveLinks<TypePreguntaFrecuenteSkeleton>(
+                    validFaqLinks,
+                    "preguntaFrecuente"
+                  );
+                return {
+                  id: faqSection.sys.id,
+                  faqs: resolvedFaqEntries,
+                  backgroundPosition: backgroundPosition,
+                };
+              }
+              return {
+                id: faqSection.sys.id,
+                faqs: [],
+                backgroundPosition: backgroundPosition,
+              };
+            })
+          );
+
+          // Actualiza el estado con los FAQs resueltos y backgroundPositions
+          const faqsMap = faqEntries.reduce((acc, entry) => {
+            acc[entry.id] = entry.faqs;
+            return acc;
+          }, {} as { [key: string]: Entry<TypePreguntaFrecuenteSkeleton>[] });
+
+          const backgroundMap = faqEntries.reduce((acc, entry) => {
+            acc[entry.id] = entry.backgroundPosition;
+            return acc;
+          }, {} as { [key: string]: string });
+
+          setResolvedFaqs(faqsMap);
+          setFaqBackgrounds(backgroundMap);
         }
       } catch (error) {
         console.error("Error fetching FAQs:", error);
@@ -195,7 +230,11 @@ const Page: React.FC<PageProps> = (props) => {
 
         case "preguntasFrecuentes":
           components.push(
-            <PreguntasFrecuentes key={seccion.sys.id} faqs={resolvedFaqs} />
+            <PreguntasFrecuentes
+              key={seccion.sys.id}
+              faqs={resolvedFaqs[seccion.sys.id] || []}
+              backgroundPosition={faqBackgrounds[seccion.sys.id] || ""}
+            />
           );
           break;
 

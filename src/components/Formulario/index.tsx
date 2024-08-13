@@ -155,6 +155,8 @@ const Formulario: React.FC<FormularioProps> = ({
   const [projectDescription, setProjectDescription] = useState("");
   const [musicReferences, setMusicReferences] = useState("");
   const [otherCategory, setOtherCategory] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedRights, setSelectedRights] = useState<string[]>([]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -162,6 +164,31 @@ const Formulario: React.FC<FormularioProps> = ({
       document.body.style.overflow = "";
     };
   }, []);
+
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(value)) {
+        // Si la categoría ya está seleccionada, la removemos
+        return prevCategories.filter((category) => category !== value);
+      } else {
+        // Si la categoría no está seleccionada, la agregamos
+        return [...prevCategories, value];
+      }
+    });
+  };
+  const handleRightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSelectedRights((prevRight) => {
+      if (prevRight.includes(value)) {
+        // Si la categoría ya está seleccionada, la removemos
+        return prevRight.filter((category) => category !== value);
+      } else {
+        // Si la categoría no está seleccionada, la agregamos
+        return [...prevRight, value];
+      }
+    });
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -180,6 +207,8 @@ const Formulario: React.FC<FormularioProps> = ({
           musicReferences,
           otherCategory,
           selectedCategory,
+          selectedCategories,
+          selectedRights,
         }),
       });
 
@@ -229,19 +258,39 @@ const Formulario: React.FC<FormularioProps> = ({
           <h3>Project Category:</h3>
           <div className="checkbox-group">
             <label>
-              <input type="checkbox" name="category" value="standard_film" />
+              <input
+                type="checkbox"
+                name="category"
+                value="standard_film"
+                onChange={handleCategoryChange}
+              />
               Standard Film (60 minutes or more)
             </label>
             <label>
-              <input type="checkbox" name="category" value="indie_film" />
+              <input
+                type="checkbox"
+                name="category"
+                value="indie_film"
+                onChange={handleCategoryChange}
+              />
               Indie Film (60 minutes or more)
             </label>
             <label>
-              <input type="checkbox" name="category" value="short_film" />
+              <input
+                type="checkbox"
+                name="category"
+                value="short_film"
+                onChange={handleCategoryChange}
+              />
               Short Film
             </label>
             <label>
-              <input type="checkbox" name="category" value="series" />
+              <input
+                type="checkbox"
+                name="category"
+                value="series"
+                onChange={handleCategoryChange}
+              />
               Series
             </label>
             <label>
@@ -249,19 +298,35 @@ const Formulario: React.FC<FormularioProps> = ({
                 type="checkbox"
                 name="category"
                 value="standard_video_game"
+                onChange={handleCategoryChange}
               />
               Standard Video Game
             </label>
             <label>
-              <input type="checkbox" name="category" value="indie_video_game" />
+              <input
+                type="checkbox"
+                name="category"
+                value="indie_video_game"
+                onChange={handleCategoryChange}
+              />
               Indie Video Game
             </label>
             <label>
-              <input type="checkbox" name="category" value="major_ads" />
+              <input
+                type="checkbox"
+                name="category"
+                value="major_ads"
+                onChange={handleCategoryChange}
+              />
               Major Ads
             </label>
             <label>
-              <input type="checkbox" name="category" value="indie_ads" />
+              <input
+                type="checkbox"
+                name="category"
+                value="indie_ads"
+                onChange={handleCategoryChange}
+              />
               Indie Ads
             </label>
             <label>
@@ -269,11 +334,17 @@ const Formulario: React.FC<FormularioProps> = ({
                 type="checkbox"
                 name="category"
                 value="social_media_content"
+                onChange={handleCategoryChange}
               />
               Content for Social Media
             </label>
             <label>
-              <input type="checkbox" name="category" value="other" />
+              <input
+                type="checkbox"
+                name="category"
+                value="other"
+                onChange={handleCategoryChange}
+              />
               Other
             </label>
           </div>
@@ -310,11 +381,21 @@ const Formulario: React.FC<FormularioProps> = ({
           <h3>Rights and Ownership</h3>
           <div className="checkbox-group">
             <label>
-              <input type="checkbox" name="rights" value="exclusive_use" />
+              <input
+                type="checkbox"
+                name="rights"
+                value="exclusive_use"
+                onChange={handleRightChange}
+              />
               Exclusive Use
             </label>
             <label>
-              <input type="checkbox" name="rights" value="broadcast_rights" />
+              <input
+                type="checkbox"
+                name="rights"
+                value="broadcast_rights"
+                onChange={handleRightChange}
+              />
               Broadcast Rights
             </label>
           </div>
