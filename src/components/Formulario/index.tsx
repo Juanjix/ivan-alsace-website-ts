@@ -42,12 +42,6 @@ const StyledForm = styled.form`
   overflow-y: auto; /* Permite el scroll vertical */
   position: relative;
 
-  h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    color: #e0c68f;
-  }
-
   .close-button {
     position: absolute;
     top: 10px;
@@ -229,7 +223,6 @@ const Formulario: React.FC<FormularioProps> = ({
 
   return (
     <Overlay>
-      <h3 className="titulo">COMPLETA EL SIGUIENTE FORMULARIO</h3>
       <StyledForm onSubmit={handleSubmit}>
         <button type="button" className="close-button" onClick={onClose}>
           &times;
