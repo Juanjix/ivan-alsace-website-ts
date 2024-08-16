@@ -32,6 +32,18 @@ export type TypeComponenteDePrueba<
   Locales extends LocaleCode = LocaleCode
 > = Entry<TypeComponenteDePruebaSkeleton, Modifiers, Locales>;
 
+export interface TypeFooterFields {
+  tituloInterno?: EntryFieldTypes.Symbol;
+  icono?: EntryFieldTypes.AssetLink;
+  link?: EntryFieldTypes.Symbol;
+}
+
+export type TypeFooterSkeleton = EntrySkeletonType<TypeFooterFields, "footer">;
+export type TypeFooter<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode
+> = Entry<TypeFooterSkeleton, Modifiers, Locales>;
+
 export interface TypeGarantiaFields {
   tituloInterno?: EntryFieldTypes.Symbol;
   imagen1?: EntryFieldTypes.AssetLink;
@@ -112,6 +124,7 @@ export interface TypePaginasFields {
       | TypeVideoSkeleton
     >
   >;
+  footer?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeFooterSkeleton>>;
 }
 
 export type TypePaginasSkeleton = EntrySkeletonType<

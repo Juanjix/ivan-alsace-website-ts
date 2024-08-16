@@ -1,4 +1,4 @@
-// Layout
+import { Footer } from "@/components/Footer";
 import { getPaginaPorRuta } from "@/lib/utils";
 import Page from "@/templates/Page";
 import {
@@ -10,10 +10,22 @@ import {
   TypeSwipeSkeleton,
   TypeSwipeSinImagenSkeleton,
   TypeGarantiaSkeleton,
+  TypeFooterSkeleton,
+  TypePaymentsSkeleton,
 } from "@/types/contentful-types";
+
 import { Entry } from "contentful";
 import { notFound } from "next/navigation";
-import { TypePaymentsSkeleton } from "../types/contentful-types";
+
+// Función para obtener la URL y ALT del icono
+const resolveIcon = (icono: Entry<TypeFooterSkeleton>["fields"]["icono"]) => {
+  if (!icono || !icono.sys.id) return null;
+
+  const url = icono.fields.file.url;
+  const alt = icono.fields.title || "Icon";
+
+  return { url, alt };
+};
 
 const Home = async () => {
   const response = await getPaginaPorRuta("/");
@@ -23,6 +35,10 @@ const Home = async () => {
   }
 
   const data = response?.items[0];
+  const footerData = data?.fields.footer?.[0];
+
+  const icon = footerData ? resolveIcon(footerData.fields.icono) : null;
+  const link = footerData?.fields.link || "#";
 
   return (
     <>
@@ -41,6 +57,11 @@ const Home = async () => {
           >[]
         }
       />
+      {icon && (
+        <Footer
+          footers={data?.fields.footer as unknown as Entry<TypeFooterSkeleton>}
+        />
+      )}
     </>
   );
 };

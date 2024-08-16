@@ -16,6 +16,7 @@ import {
   TypeSwipeSinImagenSkeleton,
   TypeGarantiaSkeleton,
   TypePaymentsSkeleton,
+  TypeFooterSkeleton,
 } from "@/types/contentful-types";
 
 // Components
@@ -46,6 +47,7 @@ interface PageProps {
     | TypeSwipeSinImagenSkeleton
     | TypeGarantiaSkeleton
     | TypePaymentsSkeleton
+    | TypeFooterSkeleton
   >[];
 }
 

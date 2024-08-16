@@ -1,3 +1,5 @@
+"use client";
+
 // Styled
 import styled from "styled-components";
 
@@ -5,6 +7,10 @@ import styled from "styled-components";
 import Facebook from "@/../public/icons/facebook";
 import Twitter from "@/../public/icons/twitter";
 import Soundcloud from "@/../public/icons/soundcloud";
+import Image from "next/image";
+import { Entry } from "contentful";
+import React from "react";
+import { TypeFooterSkeleton } from "@/types/contentful-types";
 
 const StyledFooter = styled.footer`
   text-align: center;
@@ -15,10 +21,18 @@ const StyledFooter = styled.footer`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: row;
+    list-style-type: none;
 
-    svg {
+    img {
       margin-left: 12px;
       margin-right: 12px;
+
+      &:hover {
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        -webkit-transform: scale(0.9);
+        border-radius: 18px;
+      }
     }
   }
 
@@ -30,18 +44,36 @@ const StyledFooter = styled.footer`
   }
 `;
 
-export const Footer = () => {
+interface FooterProps {
+  footers: Entry<TypeFooterSkeleton>[];
+}
+
+export const Footer: React.FC<FooterProps> = ({ footers }) => {
+  console.log(" Esta es la data que viene del footer ---> ", footers);
   return (
     <StyledFooter>
       <div className="icons">
-        <Facebook />
-        <Facebook />
-        <Facebook />
-        <Twitter />
-        <Soundcloud />
-        <Twitter />
-        <Soundcloud />
+        <ul className="icons">
+          {footers &&
+            footers.map((footer) => (
+              <li key={footer.sys.id}>
+                {footer.fields.link && (
+                  <a href={footer.fields.link} target="_black" rel="noreferrer">
+                    {footer.fields.icono && (
+                      <Image
+                        src={`https:${footer.fields.icono.fields.file.url}`}
+                        alt={footer.fields.icono.fields.title || "Icon"}
+                        width={30}
+                        height={30}
+                      />
+                    )}
+                  </a>
+                )}
+              </li>
+            ))}
+        </ul>
       </div>
+
       <span className="line" />
       <p>© 2024. All rights reserved.</p>
     </StyledFooter>

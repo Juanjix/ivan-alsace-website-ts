@@ -12,7 +12,6 @@ import { Providers } from "./providers";
 
 // Animations
 import AOS from "aos";
-import { Footer } from "@/components/Footer";
 
 const StyledLayout = styled.div`
   background-color: black;
@@ -76,7 +75,6 @@ const RootLayout: React.FC<PropsWithChildren> = (props) => {
         <StyledLayout>
           <Providers>
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-            <Footer />
           </Providers>
         </StyledLayout>
       </body>
