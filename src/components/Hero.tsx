@@ -50,8 +50,6 @@ const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
     return () => clearInterval(interval);
   }, [titulos]);
 
-  // Extraer la URL de la imagen desde el objeto AssetLink
-
   return (
     <StyledHero $imagen={imagenURL}>
       <motion.div
@@ -74,18 +72,17 @@ const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
             y: { duration: 1.5, ease: "easeInOut" },
           }}
           style={{
-            // background: "linear-gradient(to right, #e6d680 0%, #9f883c 100%)",
-
-            // WebkitBackgroundClip: "text",
-            // WebkitTextFillColor: "transparent",
-            // backgroundClip: "text",
             color: "white",
             marginBottom: "100px",
           }}>
           <h1>{titulos[index]}</h1>
         </motion.div>
         <div>
-          <Button texto="Give it a try" url="/" onClick={undefined} />
+          <Button
+            texto="Give it a try"
+            url="#pricing-section"
+            onClick={undefined}
+          />
         </div>
       </motion.div>
     </StyledHero>

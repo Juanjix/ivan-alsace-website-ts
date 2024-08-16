@@ -86,7 +86,11 @@ export const Video: React.FC<VideoProps> = (props) => {
         ""
       )}
       <div>
-        <Button texto="Give it a try" url="/" onClick={undefined} />
+        <Button
+          texto="Give it a try"
+          url="#pricing-section"
+          onClick={undefined}
+        />
       </div>
     </StyledVideo>
   );

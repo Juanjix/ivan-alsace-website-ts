@@ -5,6 +5,9 @@ import Formulario from "./Formulario";
 import { Entry } from "contentful";
 import { TypePaymentCardSkeleton } from "@/types/contentful-types";
 
+// Icons
+import IconPricing from "../../public/icons/icon-pricing";
+
 interface PrincingProps {
   titulo: string;
   payments: Entry<TypePaymentCardSkeleton>[];
@@ -44,11 +47,11 @@ const StyledPricing = styled.section<{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     gap: 40px;
     margin-top: 40px;
 
-    @media (min-width: 920px) {
+    @media (min-width: 1024px) {
       flex-direction: row;
       align-items: stretch;
     }
@@ -58,7 +61,7 @@ const StyledPricing = styled.section<{
       width: 100%;
       border: 1px solid grey;
       border-radius: 18px;
-      padding: 40px 10px;
+      padding: 40px 20px;
       position: relative;
       z-index: 1;
       flex: 1;
@@ -66,29 +69,36 @@ const StyledPricing = styled.section<{
       flex-direction: column;
       justify-content: space-between; /* Ajuste importante */
 
-      h3 {
-        margin-bottom: 22px;
+      .icon-pricing {
+        position: absolute;
+        top: 10px; /* Ajusta según sea necesario */
+        right: 10px; /* Ajusta según sea necesario */
       }
 
-      svg {
-        width: 30px;
-        height: 30px;
-        margin-right: 12px;
+      h3 {
+        margin-bottom: 22px;
       }
 
       ul {
         list-style: none;
         padding-left: 0;
-        // margin-bottom: 100px;
+        text-align: start;
 
         li {
           margin-bottom: 25px;
           display: flex;
-          justify-content: center;
-          text-align: start;
+          width: 300px;
+          height: auto;
+          margin-left: 40px;
 
           &:last-of-type {
             margin-bottom: 45px;
+          }
+
+          svg {
+            margin-right: 12px;
+            position: absolute;
+            left: 10px;
           }
         }
       }
@@ -154,13 +164,18 @@ const Pricing: React.FC<PrincingProps> = ({
     });
   };
   return (
-    <StyledPricing backgroundPosition={backgroundPosition}>
+    <StyledPricing backgroundPosition={backgroundPosition} id="pricing-section">
       <h2>{titulo}</h2>
       <p>{subtitulo}</p>
       <div className="pricing-cards-container">
         {payments &&
           payments.map((payment) => (
             <div className="pricing-card" key={payment.sys.id}>
+              {payment.fields.titulo === "Profesional" && (
+                <div className="icon-pricing">
+                  <IconPricing />
+                </div>
+              )}
               <h3>{payment.fields.titulo}</h3>
               <ul>{parseText(payment.fields.contenido)}</ul>
               {payment.fields.deshabilitarBoton ? (

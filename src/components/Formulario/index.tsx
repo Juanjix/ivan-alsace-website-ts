@@ -68,6 +68,7 @@ const StyledForm = styled.form`
     textarea {
       resize: vertical;
       height: 100px;
+      width: 100%;
     }
   }
 
@@ -254,6 +255,15 @@ const Formulario: React.FC<FormularioProps> = ({
               <input
                 type="checkbox"
                 name="category"
+                value="social_media_content"
+                onChange={handleCategoryChange}
+              />
+              Content for social media (e.g., YouTube)
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="category"
                 value="standard_film"
                 onChange={handleCategoryChange}
               />
@@ -323,22 +333,13 @@ const Formulario: React.FC<FormularioProps> = ({
               Indie Ads
             </label>
             <label>
+              Other{"  "}
               <input
-                type="checkbox"
+                type="text"
                 name="category"
-                value="social_media_content"
-                onChange={handleCategoryChange}
+                value={otherCategory}
+                onChange={(e) => setOtherCategory(e.target.value)}
               />
-              Content for Social Media
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="category"
-                value="other"
-                onChange={handleCategoryChange}
-              />
-              Other
             </label>
           </div>
         </div>

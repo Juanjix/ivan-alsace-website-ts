@@ -106,7 +106,11 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
           />
         </div>
         <div>
-          <Button texto="Give it a try" url="/" onClick={undefined} />
+          <Button
+            texto="Give it a try"
+            url="#pricing-section"
+            onClick={undefined}
+          />
         </div>
       </div>
     </StyledTestimonios>

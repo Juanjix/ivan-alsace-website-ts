@@ -17,6 +17,7 @@ import { Footer } from "@/components/Footer";
 const StyledLayout = styled.div`
   background-color: black;
   color: white;
+  scroll-behavior: smooth;
 
   h1 {
     font-size: 60px;
@@ -39,7 +40,7 @@ const StyledLayout = styled.div`
     padding: 40px 16px;
 
     @media screen and (min-width: 920px) {
-      padding: 40px 0;
+      padding: 80px 0;
     }
   }
 
@@ -48,6 +49,7 @@ const StyledLayout = styled.div`
     width: 100%;
     margin: 0 auto;
     padding: 0 10px;
+    scroll-behavior: smooth;
   }
 
   a {
@@ -70,7 +72,7 @@ const RootLayout: React.FC<PropsWithChildren> = (props) => {
 
   return (
     <html lang="es">
-      <body data-aos="fade-in" data-aos-duration="600">
+      <body>
         <StyledLayout>
           <Providers>
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
