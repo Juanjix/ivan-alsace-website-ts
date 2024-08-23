@@ -62,6 +62,9 @@ const Page: React.FC<PageProps> = (props) => {
     [key: string]: string;
   }>({});
 
+  const [faqBackgroundColor, setFaqBackgroundColor] = useState<{
+    [key: string]: string;
+  }>({});
   const [resolvedMetrics, setResolvedMetrics] = useState<
     Entry<TypeMetricaSkeleton>[]
   >([]);
@@ -73,6 +76,8 @@ const Page: React.FC<PageProps> = (props) => {
   const [metricsTitulo, setMetricsTitulo] = useState<string>("");
   const [metricsSubtitulo, setMetricsSubtitulo] = useState<string>("");
   const [metricsBackground, setMetricsBackground] = useState<string>("");
+  const [metricsBackgroundColor, setMetricsBackgroundColor] =
+    useState<string>("");
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -117,6 +122,7 @@ const Page: React.FC<PageProps> = (props) => {
               const faqLinks = faqSection.fields.preguntaFrecuente;
               const backgroundPosition =
                 faqSection.fields.backgroundPosition || "";
+              const backgroundColor = faqSection.fields.backgroundColor || "";
 
               if (faqLinks) {
                 const validFaqLinks = faqLinks.filter(
@@ -135,12 +141,14 @@ const Page: React.FC<PageProps> = (props) => {
                   id: faqSection.sys.id,
                   faqs: resolvedFaqEntries,
                   backgroundPosition: backgroundPosition,
+                  backgroundColor: backgroundColor,
                 };
               }
               return {
                 id: faqSection.sys.id,
                 faqs: [],
                 backgroundPosition: backgroundPosition,
+                backgroundColor: backgroundColor,
               };
             })
           );
@@ -156,8 +164,14 @@ const Page: React.FC<PageProps> = (props) => {
             return acc;
           }, {} as { [key: string]: string });
 
+          const backgroundColor = faqEntries.reduce((acc, entry) => {
+            acc[entry.id] = entry.backgroundColor;
+            return acc;
+          }, {} as { [key: string]: string });
+
           setResolvedFaqs(faqsMap);
           setFaqBackgrounds(backgroundMap);
+          setFaqBackgroundColor(backgroundColor);
         }
       } catch (error) {
         console.error("Error fetching FAQs:", error);
@@ -175,6 +189,7 @@ const Page: React.FC<PageProps> = (props) => {
           const metricsTitulo = metricSection.fields.titulo;
           const metricsSubtitulo = metricSection.fields.subtitulo;
           const metricsBackground = metricSection.fields.backgroundPosition;
+          const metricsBackgroundColor = metricSection.fields.backgroundColor;
           if (metricLinks) {
             const validMetricLinks = metricLinks.filter(
               (
@@ -192,6 +207,7 @@ const Page: React.FC<PageProps> = (props) => {
             setMetricsTitulo(metricsTitulo || "");
             setMetricsSubtitulo(metricsSubtitulo || "");
             setMetricsBackground(metricsBackground || "");
+            setMetricsBackgroundColor(metricsBackgroundColor || "");
           }
         }
       } catch (error) {
@@ -221,12 +237,19 @@ const Page: React.FC<PageProps> = (props) => {
         case "testimonios":
           const dato = seccion as Entry<TypeTestimoniosSkeleton>;
           const datos = dato.fields;
-          components.push(<Testimonios key={seccion.sys.id} {...datos} />);
+          components.push(
+            <Testimonios
+              key={seccion.sys.id}
+              {...datos}
+              backgroundColor="#6B0000"
+            />
+          );
           break;
 
         case "video":
           const dataVideo = seccion as Entry<TypeVideoSkeleton>;
           const dataVideos = dataVideo.fields;
+          console.log("a ver que viene aca ---> ", dataVideos);
           components.push(<Video key={seccion.sys.id} {...dataVideos} />);
           break;
 
@@ -236,6 +259,7 @@ const Page: React.FC<PageProps> = (props) => {
               key={seccion.sys.id}
               faqs={resolvedFaqs[seccion.sys.id] || []}
               backgroundPosition={faqBackgrounds[seccion.sys.id] || ""}
+              backgroundColor={faqBackgroundColor[seccion.sys.id] || ""}
             />
           );
           break;
@@ -260,7 +284,7 @@ const Page: React.FC<PageProps> = (props) => {
             <SwipeSinImagen
               texto1={swipeSinImagen.fields.texto1}
               texto2={swipeSinImagen.fields.texto2}
-              backgroundPosition={"abajo"}
+              backgroundPosition={swipeSinImagen.fields.backgroundPosition}
             />
           );
           break;
@@ -273,6 +297,7 @@ const Page: React.FC<PageProps> = (props) => {
               titulo={metricsTitulo}
               subtitulo={metricsSubtitulo}
               backgroundPosition={metricsBackground}
+              backgroundColor={metricsBackgroundColor}
             />
           );
           break;
@@ -292,7 +317,7 @@ const Page: React.FC<PageProps> = (props) => {
 
         case "payments":
           const payments = seccion as Entry<TypePaymentsSkeleton>;
-          console.log(resolvedPayments);
+
           components.push(
             <Pricing
               titulo={payments.fields.titulo}

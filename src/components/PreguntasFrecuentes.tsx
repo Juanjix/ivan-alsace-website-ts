@@ -14,17 +14,21 @@ import Accordion from "./Accordion/Accordion";
 interface PreguntasFrecuentesProps {
   faqs: Entry<TypePreguntaFrecuenteSkeleton>[];
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }
 
-const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+const getBackgroundPositionStyles = (
+  position: "arriba" | "abajo",
+  backgroundColor: string
+) => {
   if (position === "arriba") {
     return `
       background: linear-gradient(
-        180deg,
-        #051b19 90%,
-        #051b19 100%,
-        #000000 0%,
-        #000000 20%
+      0deg,
+      #000000 0%,
+      #000000 20%,
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
       );
     `;
   }
@@ -33,16 +37,18 @@ const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
       180deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%,
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
     );
   `;
 };
 
 const StyledPreguntasFrecuentes = styled.section<{
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }>`
-  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  ${({ backgroundPosition, backgroundColor }) =>
+    getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
   .faq-container {
     border: 1px solid white;
     padding: 20px;
@@ -53,9 +59,12 @@ const StyledPreguntasFrecuentes = styled.section<{
 export const PreguntasFrecuentes: React.FC<PreguntasFrecuentesProps> = ({
   faqs,
   backgroundPosition,
+  backgroundColor,
 }) => {
   return (
-    <StyledPreguntasFrecuentes backgroundPosition={backgroundPosition}>
+    <StyledPreguntasFrecuentes
+      backgroundPosition={backgroundPosition}
+      backgroundColor={backgroundColor}>
       <div className="container">
         <motion.h2
           initial={{ y: 32, opacity: 0, scale: 0.99 }}

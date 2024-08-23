@@ -12,35 +12,41 @@ interface VideoProps {
   titulo: string;
   videoCode: string;
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor?: string; // Agregamos backgroundColor como prop opcional
 }
 
-const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+const getBackgroundPositionStyles = (
+  position: "arriba" | "abajo",
+  backgroundColor: string = "#051b19" // Valor por defecto si no se proporciona
+) => {
   if (position === "arriba") {
     return `
       background: linear-gradient(
-        180deg,
-        #051b19 90%,
-        #051b19 100%,
-        #000000 0%,
-        #000000 20%
+      0deg,
+      #000000 0%,
+      #000000 20%,
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
       );
     `;
   }
   return `
     background: linear-gradient(
-      0deg,
+      180deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%,
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
     );
   `;
 };
 
 const StyledVideo = styled(motion.section)<{
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor?: string;
 }>`
-  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  ${({ backgroundPosition, backgroundColor }) =>
+    getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
 
   iframe {
     margin: 20px auto;
@@ -57,18 +63,15 @@ const StyledVideo = styled(motion.section)<{
 `;
 
 export const Video: React.FC<VideoProps> = (props) => {
-  const { titulo, videoCode, backgroundPosition } = props;
+  const { titulo, videoCode, backgroundPosition, backgroundColor } = props;
 
   const url = `https://www.youtube.com/embed/${videoCode}`;
   return (
     <StyledVideo
       backgroundPosition={backgroundPosition}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: 1 }}>
+      backgroundColor={backgroundColor}>
       <div>
-        <h2 className="">{titulo ? titulo : ""}</h2>
+        <h2>{titulo || ""}</h2>
       </div>
 
       {videoCode ? (
@@ -82,9 +85,7 @@ export const Video: React.FC<VideoProps> = (props) => {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen></iframe>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
       <div>
         <Button
           texto="Give it a try"

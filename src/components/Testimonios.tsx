@@ -25,8 +25,8 @@ const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
       0deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      #6B0000 90%, 
+      #6B0000 100%
       );
     `;
   }

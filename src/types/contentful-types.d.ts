@@ -50,6 +50,8 @@ export interface TypeGarantiaFields {
   texto1?: EntryFieldTypes.Text;
   imagen2?: EntryFieldTypes.AssetLink;
   texto2?: EntryFieldTypes.Text;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypeGarantiaSkeleton = EntrySkeletonType<
@@ -97,6 +99,7 @@ export interface TypeMetricsFields {
     EntryFieldTypes.EntryLink<TypeMetricaSkeleton>
   >;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypeMetricsSkeleton = EntrySkeletonType<
@@ -192,6 +195,7 @@ export interface TypePreguntasFrecuentesFields {
     EntryFieldTypes.EntryLink<TypePreguntaFrecuenteSkeleton>
   >;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypePreguntasFrecuentesSkeleton = EntrySkeletonType<
@@ -227,6 +231,7 @@ export interface TypeSwipeFields {
   imagen?: EntryFieldTypes.AssetLink;
   texto?: EntryFieldTypes.Text;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypeSwipeSkeleton = EntrySkeletonType<TypeSwipeFields, "swipe">;
@@ -240,6 +245,7 @@ export interface TypeSwipeSinImagenFields {
   texto1?: EntryFieldTypes.Text;
   texto2?: EntryFieldTypes.Text;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypeSwipeSinImagenSkeleton = EntrySkeletonType<
@@ -256,6 +262,7 @@ export interface TypeTestimoniosFields {
   titulo?: EntryFieldTypes.Symbol;
   imagen?: EntryFieldTypes.AssetLink;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypeTestimoniosSkeleton = EntrySkeletonType<
@@ -271,7 +278,8 @@ export interface TypeVideoFields {
   nombreInterno: EntryFieldTypes.Symbol;
   titulo?: EntryFieldTypes.Symbol;
   videoCode?: EntryFieldTypes.Symbol;
-  backgroundPosition?: EntryFieldTypes.Symbol<"Abajo" | "Arriba">;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundColor?: EntryFieldTypes.Symbol;
 }
 
 export type TypeVideoSkeleton = EntrySkeletonType<TypeVideoFields, "video">;

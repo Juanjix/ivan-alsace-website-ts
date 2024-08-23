@@ -49,7 +49,6 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ footers }) => {
-  console.log(" Esta es la data que viene del footer ---> ", footers);
   return (
     <StyledFooter>
       <div className="icons">
