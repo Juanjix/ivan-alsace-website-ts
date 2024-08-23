@@ -18,15 +18,18 @@ interface TestimonialsProps {
   backgroundPosition: "arriba" | "abajo";
 }
 
-const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+const getBackgroundPositionStyles = (
+  position: "arriba" | "abajo",
+  backgroundColor: string
+) => {
   if (position === "arriba") {
     return `
       background: linear-gradient(
       0deg,
       #000000 0%,
       #000000 20%,
-      #6B0000 90%, 
-      #6B0000 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
       );
     `;
   }
@@ -35,16 +38,18 @@ const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
       180deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
     );
   `;
 };
 
 const StyledTestimonios = styled(motion.section)<{
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }>`
-  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  ${({ backgroundPosition, backgroundColor }) =>
+    getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
   position: relative;
   .icon-testimonios {
     display: none;
@@ -63,7 +68,7 @@ const StyledTestimonios = styled(motion.section)<{
 `;
 
 export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
-  const { titulo, imagen, backgroundPosition } = datos;
+  const { titulo, imagen, backgroundPosition, backgroundColor } = datos;
 
   const imagenURL = imagen?.fields?.file?.url
     ? `https:${imagen.fields.file.url}`
@@ -72,6 +77,7 @@ export const Testimonios: React.FC<TestimonialsProps> = (datos) => {
   return (
     <StyledTestimonios
       backgroundPosition={backgroundPosition}
+      backgroundColor={backgroundColor}
       initial={{ y: 32, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true }}

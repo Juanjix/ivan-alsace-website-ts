@@ -237,13 +237,7 @@ const Page: React.FC<PageProps> = (props) => {
         case "testimonios":
           const dato = seccion as Entry<TypeTestimoniosSkeleton>;
           const datos = dato.fields;
-          components.push(
-            <Testimonios
-              key={seccion.sys.id}
-              {...datos}
-              backgroundColor="#6B0000"
-            />
-          );
+          components.push(<Testimonios key={seccion.sys.id} {...datos} />);
           break;
 
         case "video":
