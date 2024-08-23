@@ -267,6 +267,7 @@ const Page: React.FC<PageProps> = (props) => {
               posicionDeLaImagen={swipe.fields.posicinDeLaImagen}
               imagen={swipe.fields.imagen}
               backgroundPosition={swipe.fields.backgroundPosition}
+              backgroundColor={swipe.fields.backgroundColor}
               key={seccion.sys.id}
             />
           );
@@ -279,6 +280,7 @@ const Page: React.FC<PageProps> = (props) => {
               texto1={swipeSinImagen.fields.texto1}
               texto2={swipeSinImagen.fields.texto2}
               backgroundPosition={swipeSinImagen.fields.backgroundPosition}
+              backgroundColor={swipeSinImagen.fields.backgroundColor}
             />
           );
           break;

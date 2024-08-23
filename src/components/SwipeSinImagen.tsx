@@ -5,17 +5,21 @@ interface MetricsSinImagenProps {
   texto1: string;
   texto2: string;
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }
 
-const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+const getBackgroundPositionStyles = (
+  position: "arriba" | "abajo",
+  backgroundColor: string
+) => {
   if (position === "arriba") {
     return `
       background: linear-gradient(
       0deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
       );
     `;
   }
@@ -24,16 +28,18 @@ const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
       180deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
     );
   `;
 };
 
 const StypedSwipeSinImagen = styled.section<{
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }>`
-  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  ${({ backgroundPosition, backgroundColor }) =>
+    getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
 
   .swipe {
     display: flex;
@@ -55,9 +61,12 @@ export const SwipeSinImagen: React.FC<MetricsSinImagenProps> = ({
   texto1,
   texto2,
   backgroundPosition,
+  backgroundColor,
 }) => {
   return (
-    <StypedSwipeSinImagen backgroundPosition={backgroundPosition}>
+    <StypedSwipeSinImagen
+      backgroundPosition={backgroundPosition}
+      backgroundColor={backgroundColor}>
       <div className="container">
         <div className="swipe">
           <div className="texto-1">

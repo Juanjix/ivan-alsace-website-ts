@@ -3,6 +3,7 @@ import { Asset } from "contentful";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { background } from "@chakra-ui/react";
 
 interface SwipeProps {
   texto: string;
@@ -10,17 +11,21 @@ interface SwipeProps {
   titulo: string;
   posicionDeLaImagen: string;
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }
 
-const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+const getBackgroundPositionStyles = (
+  position: "arriba" | "abajo",
+  backgroundColor: string
+) => {
   if (position === "arriba") {
     return `
       background: linear-gradient(
       0deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
       );
     `;
   }
@@ -29,19 +34,21 @@ const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
       180deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
     );
   `;
 };
 
 const StyledSwitchContent = styled.section<{
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }>`
   padding: 48px 0;
   margin: 0 auto;
   // background: linear-gradient(180deg, #051b19, #000000);
-  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  ${({ backgroundPosition, backgroundColor }) =>
+    getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
 
   .izquierda {
     display: flex;
@@ -124,6 +131,7 @@ export const SwitchContent: React.FC<SwipeProps> = ({
   imagen,
   posicionDeLaImagen,
   backgroundPosition,
+  backgroundColor,
 }) => {
   const imagenURL = imagen?.fields?.file?.url
     ? `https:${imagen.fields.file.url}`
@@ -140,7 +148,9 @@ export const SwitchContent: React.FC<SwipeProps> = ({
   };
 
   return (
-    <StyledSwitchContent backgroundPosition={backgroundPosition}>
+    <StyledSwitchContent
+      backgroundPosition={backgroundPosition}
+      backgroundColor={backgroundColor}>
       <div className="container">
         {posicionDeLaImagen === "izquierda" ? (
           <div className="izquierda">
