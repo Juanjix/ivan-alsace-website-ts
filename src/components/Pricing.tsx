@@ -87,7 +87,7 @@ const StyledPricing = styled.section<{
         li {
           margin-bottom: 25px;
           display: flex;
-          width: 300px;
+          max-width: 300px;
           height: auto;
           margin-left: 40px;
 
