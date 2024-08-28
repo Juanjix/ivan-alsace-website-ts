@@ -49,6 +49,7 @@ const StypedSwipeSinImagen = styled.section<{
       flex-direction: row;
       text-align: left;
       justify-content: space-between;
+      padding: 0 50px;
 
       p {
         max-width: 520px;

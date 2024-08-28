@@ -232,6 +232,7 @@ export interface TypeSwipeFields {
   texto?: EntryFieldTypes.Text;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba" | "centro">;
   backgroundColor?: EntryFieldTypes.Symbol;
+  imagenGradient?: EntryFieldTypes.Boolean;
 }
 
 export type TypeSwipeSkeleton = EntrySkeletonType<TypeSwipeFields, "swipe">;

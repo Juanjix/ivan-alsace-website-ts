@@ -49,10 +49,19 @@ const StyledPreguntasFrecuentes = styled.section<{
 }>`
   ${({ backgroundPosition, backgroundColor }) =>
     getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
+  @media screen and (min-width: 920px) {
+    padding: px 50px;
+  }
   .faq-container {
     border: 1px solid white;
     padding: 20px;
     margin-top: 50px;
+  }
+
+  .container {
+    @media screen and (min-width: 920px) {
+      padding: 0px 50px;
+    }
   }
 `;
 

@@ -47,6 +47,7 @@ const StyledGarantia = styled.section<{
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      padding: 0px 50px;
     }
 
     .swipe {

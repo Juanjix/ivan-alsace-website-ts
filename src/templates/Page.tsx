@@ -268,6 +268,7 @@ const Page: React.FC<PageProps> = (props) => {
               imagen={swipe.fields.imagen}
               backgroundPosition={swipe.fields.backgroundPosition}
               backgroundColor={swipe.fields.backgroundColor}
+              imagenGradient={swipe.fields.imagenGradient}
               key={seccion.sys.id}
             />
           );

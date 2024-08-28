@@ -11,6 +11,7 @@ interface SwipeProps {
   posicionDeLaImagen: "izquierda" | "derecha" | "centro";
   backgroundPosition: "arriba" | "abajo";
   backgroundColor: string;
+  imagenGradient: boolean;
 }
 
 const getBackgroundPositionStyles = (
@@ -31,6 +32,7 @@ const StyledSwitchContent = styled.section<{
   backgroundPosition: "arriba" | "abajo";
   backgroundColor: string;
   posicionDeLaImagen: "izquierda" | "derecha" | "centro";
+  imagenGradient: boolean;
 }>`
   padding: 48px 0;
   margin: 0 auto;
@@ -39,8 +41,12 @@ const StyledSwitchContent = styled.section<{
 
   @media screen and (min-width: 920px) {
     background-repeat: no-repeat;
-    background-size: ${({ posicionDeLaImagen }) =>
-      posicionDeLaImagen === "centro" ? "100vw" : "50vw 500px"};
+    background-size: ${({ posicionDeLaImagen, imagenGradient }) =>
+      posicionDeLaImagen === "centro"
+        ? "100vw"
+        : (posicionDeLaImagen === "derecha" || "izquierda") && imagenGradient
+        ? "50vw 500px"
+        : ""};
   }
 
   background-position: ${({ posicionDeLaImagen }) =>
@@ -49,6 +55,12 @@ const StyledSwitchContent = styled.section<{
   .container {
     display: flex;
     align-items: center;
+    flex-direction: ${({ posicionDeLaImagen }) =>
+      posicionDeLaImagen === "izquierda"
+        ? "column-reverse"
+        : posicionDeLaImagen === "derecha"
+        ? "column"
+        : "column-reverse"};
 
     @media screen and (min-width: 920px) {
       flex-direction: ${({ posicionDeLaImagen }) =>
@@ -64,8 +76,26 @@ const StyledSwitchContent = styled.section<{
   .content {
     text-align: start;
     position: relative;
-    padding: 20px;
+
     z-index: 1;
+
+    @media screen and (min-width: 920px) {
+      padding: 0px 40px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px; /* Ajusta el tamaño según sea necesario */
+        height: 500px; /* Ajusta el tamaño según sea necesario */
+        background: ${({ backgroundColor }) =>
+          `radial-gradient(circle, ${backgroundColor}4D 0%, ${backgroundColor}00 60%)`};
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
+    }
 
     li {
       margin-bottom: 20px;
@@ -98,6 +128,7 @@ export const SwitchContent: React.FC<SwipeProps> = ({
   posicionDeLaImagen,
   backgroundPosition,
   backgroundColor,
+  imagenGradient,
 }) => {
   const imagenURL = imagen?.fields?.file?.url
     ? `https:${imagen.fields.file.url}`
@@ -117,7 +148,8 @@ export const SwitchContent: React.FC<SwipeProps> = ({
     <StyledSwitchContent
       backgroundPosition={backgroundPosition}
       backgroundColor={backgroundColor}
-      posicionDeLaImagen={posicionDeLaImagen}>
+      posicionDeLaImagen={posicionDeLaImagen}
+      imagenGradient={imagenGradient}>
       <div className="container">
         {posicionDeLaImagen !== "centro" ? (
           <>
