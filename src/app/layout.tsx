@@ -39,7 +39,7 @@ const StyledLayout = styled.div`
     padding: 40px 16px;
 
     @media screen and (min-width: 920px) {
-      padding: 80px 0;
+      padding: 80px 0px;
     }
   }
 

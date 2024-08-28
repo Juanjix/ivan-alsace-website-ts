@@ -36,6 +36,7 @@ const StyledSwitchContent = styled.section<{
   margin: 0 auto;
   ${({ backgroundPosition, backgroundColor }) =>
     getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
+
   @media screen and (min-width: 920px) {
     background-repeat: no-repeat;
     background-size: ${({ posicionDeLaImagen }) =>
@@ -43,26 +44,24 @@ const StyledSwitchContent = styled.section<{
   }
 
   background-position: ${({ posicionDeLaImagen }) =>
-    posicionDeLaImagen === "izquierda" ? "top right" : ""};
+    posicionDeLaImagen === "derecha" ? "top right" : ""};
 
   .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
 
     @media screen and (min-width: 920px) {
       flex-direction: ${({ posicionDeLaImagen }) =>
         posicionDeLaImagen === "izquierda"
-          ? "row"
-          : posicionDeLaImagen === "derecha"
           ? "row-reverse"
+          : posicionDeLaImagen === "derecha"
+          ? "row"
           : "column"};
       justify-content: space-between;
     }
   }
 
   .content {
-    // width: calc(40vw);
     text-align: start;
     position: relative;
     padding: 20px;
