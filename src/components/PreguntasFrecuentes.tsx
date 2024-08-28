@@ -60,7 +60,7 @@ const StyledPreguntasFrecuentes = styled.section<{
 
   .container {
     @media screen and (min-width: 920px) {
-      padding: 0px 77px;
+      padding: 0px 75px !important;
     }
   }
 `;
