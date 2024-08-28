@@ -3,13 +3,12 @@ import { Asset } from "contentful";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { background } from "@chakra-ui/react";
 
 interface SwipeProps {
   texto: string;
   imagen: Asset;
   titulo: string;
-  posicionDeLaImagen: string;
+  posicionDeLaImagen: "izquierda" | "derecha" | "centro";
   backgroundPosition: "arriba" | "abajo";
   backgroundColor: string;
 }
@@ -17,75 +16,53 @@ interface SwipeProps {
 const getBackgroundPositionStyles = (
   position: "arriba" | "abajo",
   backgroundColor: string
-) => {
-  if (position === "arriba") {
-    return `
-      background: linear-gradient(
-      0deg,
-      #000000 0%,
-      #000000 20%,
-      ${backgroundColor} 90%, 
-      ${backgroundColor} 100%
-      );
-    `;
-  }
-  return `
-    background: linear-gradient(
-      180deg,
-      #000000 0%,
-      #000000 20%,
-      ${backgroundColor} 90%, 
-      ${backgroundColor} 100%
-    );
-  `;
-};
+) => `
+  background: linear-gradient(
+    ${position === "arriba" ? "0deg" : "180deg"},
+
+    #000000 0%,
+    #000000 60%,
+    ${backgroundColor} 90%, 
+    ${backgroundColor} 100%
+  );
+`;
 
 const StyledSwitchContent = styled.section<{
   backgroundPosition: "arriba" | "abajo";
   backgroundColor: string;
+  posicionDeLaImagen: "izquierda" | "derecha" | "centro";
 }>`
   padding: 48px 0;
   margin: 0 auto;
-  // background: linear-gradient(180deg, #051b19, #000000);
   ${({ backgroundPosition, backgroundColor }) =>
     getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
+  @media screen and (min-width: 920px) {
+    background-repeat: no-repeat;
+    background-size: ${({ posicionDeLaImagen }) =>
+      posicionDeLaImagen === "centro" ? "100vw" : "50vw 500px"};
+  }
 
-  .izquierda {
+  background-position: ${({ posicionDeLaImagen }) =>
+    posicionDeLaImagen === "izquierda" ? "top right" : ""};
+
+  .container {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     @media screen and (min-width: 920px) {
-      flex-direction: row;
+      flex-direction: ${({ posicionDeLaImagen }) =>
+        posicionDeLaImagen === "izquierda"
+          ? "row"
+          : posicionDeLaImagen === "derecha"
+          ? "row-reverse"
+          : "column"};
       justify-content: space-between;
-    }
-  }
-
-  .derecha {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-
-    @media screen and (min-width: 920px) {
-      flex-direction: row-reverse;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  .centro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .content {
-      text-align: center;
     }
   }
 
   .content {
-    max-width: 550px;
+    // width: calc(40vw);
     text-align: start;
     position: relative;
     padding: 20px;
@@ -95,29 +72,19 @@ const StyledSwitchContent = styled.section<{
       margin-bottom: 20px;
       list-style-type: none;
     }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 30%;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(25deg, #e0c68f 60%, black 50%);
-      border-radius: 50%;
-      filter: blur(4rem);
-      height: 20vh;
-      opacity: var(--halo-opacity, 0.7);
-      z-index: -1;
-    }
-  }
-
-  @media screen and (min-width: 920px) {
-    padding: 64px 0;
   }
 
   .switch-image {
     margin: 32px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+
+    img {
+      display: flex;
+      justify-content: center;
+    }
 
     @media screen and (min-width: 920px) {
       margin: 0;
@@ -150,10 +117,11 @@ export const SwitchContent: React.FC<SwipeProps> = ({
   return (
     <StyledSwitchContent
       backgroundPosition={backgroundPosition}
-      backgroundColor={backgroundColor}>
+      backgroundColor={backgroundColor}
+      posicionDeLaImagen={posicionDeLaImagen}>
       <div className="container">
-        {posicionDeLaImagen === "izquierda" ? (
-          <div className="izquierda">
+        {posicionDeLaImagen !== "centro" ? (
+          <>
             <div className="content">
               <h3>{titulo}</h3>
               {parseText(texto)}
@@ -163,7 +131,7 @@ export const SwitchContent: React.FC<SwipeProps> = ({
                 src={imagenURL}
                 alt=""
                 style={{
-                  width: "100%",
+                  width: "400px",
                   height: "auto",
                 }}
                 width={320}
@@ -171,35 +139,15 @@ export const SwitchContent: React.FC<SwipeProps> = ({
                 loading="lazy"
               />
             </div>
-          </div>
-        ) : posicionDeLaImagen === "derecha" ? (
-          <div className="derecha">
-            <div className="content">
-              <h3>{titulo}</h3>
-              {parseText(texto)}
-            </div>
-            <div className="switch-image">
-              <Image
-                src={imagenURL}
-                alt=""
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-                width={320}
-                height={300}
-                loading="lazy"
-              />
-            </div>
-          </div>
+          </>
         ) : (
-          <div className="centro">
+          <>
             <div className="switch-image">
               <Image
                 src={imagenURL}
                 alt=""
                 style={{
-                  width: "100%",
+                  width: "400px",
                   height: "auto",
                 }}
                 width={320}
@@ -211,7 +159,7 @@ export const SwitchContent: React.FC<SwipeProps> = ({
               <h3>{titulo}</h3>
               {parseText(texto)}
             </div>
-          </div>
+          </>
         )}
       </div>
     </StyledSwitchContent>

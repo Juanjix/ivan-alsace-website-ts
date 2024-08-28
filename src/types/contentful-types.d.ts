@@ -230,7 +230,7 @@ export interface TypeSwipeFields {
   >;
   imagen?: EntryFieldTypes.AssetLink;
   texto?: EntryFieldTypes.Text;
-  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
+  backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba" | "centro">;
   backgroundColor?: EntryFieldTypes.Symbol;
 }
 
