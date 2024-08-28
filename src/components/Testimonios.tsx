@@ -58,6 +58,8 @@ const StyledTestimonios = styled(motion.section)<{
 
     @media screen and (min-width: 920px) {
       display: block;
+
+      padding: 0 50px;
     }
   }
 
