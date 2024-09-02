@@ -97,12 +97,8 @@ export const SwipeSinImagen: React.FC<MetricsSinImagenProps> = ({
       backgroundColor={backgroundColor}>
       <div className="container">
         <div className="swipe">
-          <div className="texto-1">
-            <p>{parseText(texto1)}</p>
-          </div>
-          <div className="texto-2">
-            <p>{parseText(texto2)}</p>
-          </div>
+          <div className="texto-1">{parseText(texto1)}</div>
+          <div className="texto-2">{parseText(texto2)}</div>
         </div>
       </div>
     </StypedSwipeSinImagen>
