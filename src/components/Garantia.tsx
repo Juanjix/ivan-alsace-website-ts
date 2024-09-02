@@ -9,17 +9,22 @@ interface GarantiaProps {
   texto2: string;
   imagen2: Asset;
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
+  color: string;
 }
 
-const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
+const getBackgroundPositionStyles = (
+  position: "arriba" | "abajo",
+  backgroundColor: string
+) => {
   if (position === "arriba") {
     return `
       background: linear-gradient(
       0deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
       );
     `;
   }
@@ -28,16 +33,18 @@ const getBackgroundPositionStyles = (position: "arriba" | "abajo") => {
       180deg,
       #000000 0%,
       #000000 20%,
-      #051b19 90%, 
-      #051b19 100%
+      ${backgroundColor} 90%, 
+      ${backgroundColor} 100%
     );
   `;
 };
 
 const StyledGarantia = styled.section<{
   backgroundPosition: "arriba" | "abajo";
+  backgroundColor: string;
 }>`
-  ${({ backgroundPosition }) => getBackgroundPositionStyles(backgroundPosition)}
+  ${({ backgroundPosition, backgroundColor }) =>
+    getBackgroundPositionStyles(backgroundPosition, backgroundColor)}
   .garantia {
     display: flex;
     flex-direction: column;
@@ -68,6 +75,10 @@ const StyledGarantia = styled.section<{
         max-width: 320px;
         margin-left: 30px;
       }
+
+      strong {
+        color: ${({ color }) => (color ? color : "#c4b061")};
+      }
     }
   }
 `;
@@ -78,6 +89,8 @@ export const Garantia: React.FC<GarantiaProps> = ({
   imagen1,
   imagen2,
   backgroundPosition,
+  backgroundColor,
+  color,
 }) => {
   const imagenURL1 = imagen1?.fields?.file?.url
     ? `https:${imagen1.fields.file.url}`
@@ -86,9 +99,34 @@ export const Garantia: React.FC<GarantiaProps> = ({
   const imagenURL2 = imagen2?.fields?.file?.url
     ? `https:${imagen2.fields.file.url}`
     : "";
+  const parseText = (text: string) => {
+    const lines = text.split("\n").filter((line) => line.trim() !== "");
 
+    return lines.map((line, index) => {
+      // Reemplazar **texto** por <strong>texto</strong>
+      const boldText = line.replace(/__(.*?)__/g, "<strong>$1</strong>");
+
+      // Dividir la línea en partes de texto y HTML
+      const content = boldText
+        .split(/(<strong>.*?<\/strong>)/g)
+        .map((part, i) => {
+          if (part.startsWith("<strong>")) {
+            // Si es una etiqueta <strong>, renderizar como JSX
+            return <strong key={i}>{part.replace(/<\/?strong>/g, "")}</strong>;
+          } else {
+            // Si es texto normal, simplemente renderizar
+            return part;
+          }
+        });
+
+      return <p key={index}>{content}</p>;
+    });
+  };
   return (
-    <StyledGarantia backgroundPosition={backgroundPosition}>
+    <StyledGarantia
+      backgroundPosition={backgroundPosition}
+      color={color}
+      backgroundColor={backgroundColor}>
       <div className="container">
         <div className="garantia">
           <div className="swipe">
@@ -105,9 +143,7 @@ export const Garantia: React.FC<GarantiaProps> = ({
                 loading="lazy"
               />
             </div>
-            <div className="texto-2">
-              <p>{texto1}</p>
-            </div>
+            <div className="texto-2">{parseText(texto1)}</div>
           </div>
           <div className="swipe">
             <div className="imagen-2">
@@ -123,9 +159,7 @@ export const Garantia: React.FC<GarantiaProps> = ({
                 loading="lazy"
               />
             </div>
-            <div className="texto-2">
-              <p>{texto2}</p>
-            </div>
+            <div className="texto-2">{parseText(texto2)}</div>
           </div>
         </div>
       </div>

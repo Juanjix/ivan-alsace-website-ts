@@ -52,6 +52,7 @@ export interface TypeGarantiaFields {
   texto2?: EntryFieldTypes.Text;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
   backgroundColor?: EntryFieldTypes.Symbol;
+  color?: EntryFieldTypes.Symbol;
 }
 
 export type TypeGarantiaSkeleton = EntrySkeletonType<
@@ -100,6 +101,7 @@ export interface TypeMetricsFields {
   >;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
   backgroundColor?: EntryFieldTypes.Symbol;
+  boton?: EntryFieldTypes.EntryLink<TypeBotonSkeleton>;
 }
 
 export type TypeMetricsSkeleton = EntrySkeletonType<
@@ -228,11 +230,13 @@ export interface TypeSwipeFields {
   posicinDeLaImagen?: EntryFieldTypes.Symbol<
     "centro" | "derecha" | "izquierda"
   >;
+  imagenGradient?: EntryFieldTypes.Boolean;
   imagen?: EntryFieldTypes.AssetLink;
   texto?: EntryFieldTypes.Text;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba" | "centro">;
   backgroundColor?: EntryFieldTypes.Symbol;
-  imagenGradient?: EntryFieldTypes.Boolean;
+  boton?: EntryFieldTypes.EntryLink<TypeBotonSkeleton>;
+  color?: EntryFieldTypes.Symbol;
 }
 
 export type TypeSwipeSkeleton = EntrySkeletonType<TypeSwipeFields, "swipe">;
@@ -247,6 +251,8 @@ export interface TypeSwipeSinImagenFields {
   texto2?: EntryFieldTypes.Text;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
   backgroundColor?: EntryFieldTypes.Symbol;
+  boton?: EntryFieldTypes.EntryLink<TypeBotonSkeleton>;
+  color?: EntryFieldTypes.Symbol;
 }
 
 export type TypeSwipeSinImagenSkeleton = EntrySkeletonType<
@@ -264,6 +270,7 @@ export interface TypeTestimoniosFields {
   imagen?: EntryFieldTypes.AssetLink;
   backgroundPosition?: EntryFieldTypes.Symbol<"abajo" | "arriba">;
   backgroundColor?: EntryFieldTypes.Symbol;
+  boton?: EntryFieldTypes.EntryLink<TypeBotonSkeleton>;
 }
 
 export type TypeTestimoniosSkeleton = EntrySkeletonType<

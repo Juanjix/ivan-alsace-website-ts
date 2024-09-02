@@ -12,6 +12,7 @@ interface SwipeProps {
   backgroundPosition: "arriba" | "abajo";
   backgroundColor: string;
   imagenGradient: boolean;
+  color: string;
 }
 
 const getBackgroundPositionStyles = (
@@ -33,6 +34,7 @@ const StyledSwitchContent = styled.section<{
   backgroundColor: string;
   posicionDeLaImagen: "izquierda" | "derecha" | "centro";
   imagenGradient: boolean;
+  color: string;
 }>`
   padding: 48px 0;
   margin: 0 auto;
@@ -79,6 +81,7 @@ const StyledSwitchContent = styled.section<{
 
     strong {
       color: #c4b061;
+      color: ${({ color }) => (color ? color : "#c4b061")};
     }
     z-index: 1;
 
@@ -132,6 +135,7 @@ export const SwitchContent: React.FC<SwipeProps> = ({
   backgroundPosition,
   backgroundColor,
   imagenGradient,
+  color,
 }) => {
   const imagenURL = imagen?.fields?.file?.url
     ? `https:${imagen.fields.file.url}`
@@ -167,7 +171,8 @@ export const SwitchContent: React.FC<SwipeProps> = ({
       backgroundPosition={backgroundPosition}
       backgroundColor={backgroundColor}
       posicionDeLaImagen={posicionDeLaImagen}
-      imagenGradient={imagenGradient}>
+      imagenGradient={imagenGradient}
+      color={color}>
       <div className="container">
         {posicionDeLaImagen !== "centro" ? (
           <>

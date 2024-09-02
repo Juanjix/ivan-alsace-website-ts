@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 // Contentful
-import { Asset } from "contentful";
+import { Asset, Entry, Link } from "contentful";
 
 import { motion } from "framer-motion";
 
@@ -12,10 +12,12 @@ import { Button } from "./Button";
 
 // Styles
 import styled from "styled-components";
+import { TypeBotonSkeleton } from "@/types/contentful-types";
 
 interface HeroProps {
   titulos: string[];
   imagen: Asset;
+  botn?: Entry<TypeBotonSkeleton>; // Actualiza aquí para incluir el botón
 }
 
 const StyledHero = styled.div<{ $imagen: string }>`
@@ -36,7 +38,7 @@ const titleVariants = {
   exit: { opacity: 2, x: 100, transition: { duration: 4.5 } }, // Se desvanece hacia la izquierda
 };
 
-const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
+const Hero: React.FC<HeroProps> = ({ titulos, imagen, botn }) => {
   const [index, setIndex] = useState(0);
   const imagenURL = `https:${imagen.fields.file?.url}`;
 
@@ -81,8 +83,26 @@ const Hero: React.FC<HeroProps> = ({ titulos, imagen }) => {
           <Button
             texto="Give it a try"
             url="#pricing-section"
-            onClick={undefined}
+            // onClick={undefined}
+            onClick={() => undefined}
           />
+          {/* {botn && (
+            <Button
+              texto={
+                typeof botn.fields.label === "string"
+                  ? botn.fields.label
+                  : "Default Button Text"
+              }
+              url={typeof botn.fields.url === "string" ? botn.fields.url : "#"}
+              onClick={() => {
+                if (botn.fields.external) {
+                  window.open(botn.fields.url as string, "_blank");
+                } else {
+                  window.location.href = botn.fields.url as string;
+                }
+              }}
+            />
+          )} */}
         </div>
       </motion.div>
     </StyledHero>

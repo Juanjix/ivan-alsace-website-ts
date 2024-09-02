@@ -6,6 +6,7 @@ interface MetricsSinImagenProps {
   texto2: string;
   backgroundPosition: "arriba" | "abajo";
   backgroundColor: string;
+  color: string;
 }
 
 const getBackgroundPositionStyles = (
@@ -58,6 +59,7 @@ const StypedSwipeSinImagen = styled.section<{
 
     strong {
       color: #c4b061;
+      color: ${({ color }) => (color ? color : "#c4b061")};
     }
   }
 `;
@@ -67,6 +69,7 @@ export const SwipeSinImagen: React.FC<MetricsSinImagenProps> = ({
   texto2,
   backgroundPosition,
   backgroundColor,
+  color,
 }) => {
   const parseText = (text: string) => {
     const lines = text.split("\n").filter((line) => line.trim() !== "");
@@ -94,7 +97,8 @@ export const SwipeSinImagen: React.FC<MetricsSinImagenProps> = ({
   return (
     <StypedSwipeSinImagen
       backgroundPosition={backgroundPosition}
-      backgroundColor={backgroundColor}>
+      backgroundColor={backgroundColor}
+      color={color}>
       <div className="container">
         <div className="swipe">
           <div className="texto-1">{parseText(texto1)}</div>

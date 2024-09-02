@@ -231,6 +231,7 @@ const Page: React.FC<PageProps> = (props) => {
         case "hero":
           const data = seccion as Entry<TypeHeroSkeleton>;
           const props = data.fields;
+          console.log(" aca viene la data del hero ---> ", props);
           components.push(<Hero key={seccion.sys.id} {...props} />);
           break;
 
@@ -269,6 +270,7 @@ const Page: React.FC<PageProps> = (props) => {
               backgroundPosition={swipe.fields.backgroundPosition}
               backgroundColor={swipe.fields.backgroundColor}
               imagenGradient={swipe.fields.imagenGradient}
+              color={swipe.fields.color}
               key={seccion.sys.id}
             />
           );
@@ -282,6 +284,7 @@ const Page: React.FC<PageProps> = (props) => {
               texto2={swipeSinImagen.fields.texto2}
               backgroundPosition={swipeSinImagen.fields.backgroundPosition}
               backgroundColor={swipeSinImagen.fields.backgroundColor}
+              color={swipeSinImagen.fields.color}
             />
           );
           break;
@@ -307,7 +310,9 @@ const Page: React.FC<PageProps> = (props) => {
               imagen1={garantia.fields.imagen1}
               texto2={garantia.fields.texto2}
               imagen2={garantia.fields.imagen2}
-              backgroundPosition={"arriba"}
+              backgroundPosition={garantia.fields.backgroundPosition}
+              backgroundColor={garantia.fields.backgroundColor}
+              color={garantia.fields.color}
             />
           );
           break;
