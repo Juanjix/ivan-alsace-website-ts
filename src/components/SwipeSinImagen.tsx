@@ -52,8 +52,12 @@ const StypedSwipeSinImagen = styled.section<{
       padding: 0 50px;
 
       p {
-        max-width: 520px;
+        max-width: 530px;
       }
+    }
+
+    strong {
+      color: #c4b061;
     }
   }
 `;
@@ -64,6 +68,29 @@ export const SwipeSinImagen: React.FC<MetricsSinImagenProps> = ({
   backgroundPosition,
   backgroundColor,
 }) => {
+  const parseText = (text: string) => {
+    const lines = text.split("\n").filter((line) => line.trim() !== "");
+
+    return lines.map((line, index) => {
+      // Reemplazar **texto** por <strong>texto</strong>
+      const boldText = line.replace(/__(.*?)__/g, "<strong>$1</strong>");
+
+      // Dividir la línea en partes de texto y HTML
+      const content = boldText
+        .split(/(<strong>.*?<\/strong>)/g)
+        .map((part, i) => {
+          if (part.startsWith("<strong>")) {
+            // Si es una etiqueta <strong>, renderizar como JSX
+            return <strong key={i}>{part.replace(/<\/?strong>/g, "")}</strong>;
+          } else {
+            // Si es texto normal, simplemente renderizar
+            return part;
+          }
+        });
+
+      return <p key={index}>{content}</p>;
+    });
+  };
   return (
     <StypedSwipeSinImagen
       backgroundPosition={backgroundPosition}
@@ -71,10 +98,10 @@ export const SwipeSinImagen: React.FC<MetricsSinImagenProps> = ({
       <div className="container">
         <div className="swipe">
           <div className="texto-1">
-            <p>{texto1}</p>
+            <p>{parseText(texto1)}</p>
           </div>
           <div className="texto-2">
-            <p>{texto2}</p>
+            <p>{parseText(texto2)}</p>
           </div>
         </div>
       </div>

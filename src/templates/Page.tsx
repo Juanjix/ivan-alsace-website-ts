@@ -260,6 +260,7 @@ const Page: React.FC<PageProps> = (props) => {
 
         case "swipe":
           const swipe = seccion as Entry<TypeSwipeSkeleton>;
+          console.log("aca viene el texto ---> ", swipe.fields.texto);
           components.push(
             <Swipe
               titulo={swipe.fields.titulo}

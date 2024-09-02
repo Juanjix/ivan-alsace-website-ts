@@ -77,6 +77,9 @@ const StyledSwitchContent = styled.section<{
     text-align: start;
     position: relative;
 
+    strong {
+      color: #c4b061;
+    }
     z-index: 1;
 
     @media screen and (min-width: 920px) {
@@ -134,13 +137,28 @@ export const SwitchContent: React.FC<SwipeProps> = ({
     ? `https:${imagen.fields.file.url}`
     : "";
 
+  // Función para parsear el texto con soporte básico para markdown
   const parseText = (text: string) => {
     const lines = text.split("\n").filter((line) => line.trim() !== "");
+
     return lines.map((line, index) => {
-      if (line.startsWith("-")) {
-        return <li key={index}>{line.substring(2)}</li>;
-      }
-      return <p key={index}>{line}</p>;
+      // Reemplazar **texto** por <strong>texto</strong>
+      const boldText = line.replace(/__(.*?)__/g, "<strong>$1</strong>");
+
+      // Dividir la línea en partes de texto y HTML
+      const content = boldText
+        .split(/(<strong>.*?<\/strong>)/g)
+        .map((part, i) => {
+          if (part.startsWith("<strong>")) {
+            // Si es una etiqueta <strong>, renderizar como JSX
+            return <strong key={i}>{part.replace(/<\/?strong>/g, "")}</strong>;
+          } else {
+            // Si es texto normal, simplemente renderizar
+            return part;
+          }
+        });
+
+      return <p key={index}>{content}</p>;
     });
   };
 
