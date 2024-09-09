@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 
 // Contentful
-import { Asset, Entry, Link } from "contentful";
+import { Asset } from "contentful";
+import Link from "next/link";
 
 import { motion } from "framer-motion";
 
@@ -12,12 +13,14 @@ import { Button } from "./Button";
 
 // Styles
 import styled from "styled-components";
-import { TypeBotonSkeleton } from "@/types/contentful-types";
 
 interface HeroProps {
   titulos: string[];
   imagen: Asset;
-  botn?: Entry<TypeBotonSkeleton>; // Actualiza aquí para incluir el botón
+  button: boolean;
+  external: boolean;
+  url: string;
+  label: string;
 }
 
 const StyledHero = styled.div<{ $imagen: string }>`
@@ -30,6 +33,20 @@ const StyledHero = styled.div<{ $imagen: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .link {
+    background: linear-gradient(102.47deg, #c4b061 -5.34%, #574a4a 106.58%);
+    padding: 20px 48px;
+    border-radius: 8px;
+    transition: all 0.5s ease-out;
+    border: 1px solid black;
+
+    &:hover {
+      border: 1px solid #e0c68f;
+      background-color: transparent;
+      color: white;
+    }
+  }
 `;
 
 const titleVariants = {
@@ -38,7 +55,14 @@ const titleVariants = {
   exit: { opacity: 2, x: 100, transition: { duration: 4.5 } }, // Se desvanece hacia la izquierda
 };
 
-const Hero: React.FC<HeroProps> = ({ titulos, imagen, botn }) => {
+const Hero: React.FC<HeroProps> = ({
+  titulos,
+  imagen,
+  button,
+  external,
+  url,
+  label,
+}) => {
   const [index, setIndex] = useState(0);
   const imagenURL = `https:${imagen.fields.file?.url}`;
 
@@ -80,29 +104,13 @@ const Hero: React.FC<HeroProps> = ({ titulos, imagen, botn }) => {
           <h1>{titulos[index]}</h1>
         </motion.div>
         <div>
-          <Button
-            texto="Give it a try"
-            url="#pricing-section"
-            // onClick={undefined}
-            onClick={() => undefined}
-          />
-          {/* {botn && (
-            <Button
-              texto={
-                typeof botn.fields.label === "string"
-                  ? botn.fields.label
-                  : "Default Button Text"
-              }
-              url={typeof botn.fields.url === "string" ? botn.fields.url : "#"}
-              onClick={() => {
-                if (botn.fields.external) {
-                  window.open(botn.fields.url as string, "_blank");
-                } else {
-                  window.location.href = botn.fields.url as string;
-                }
-              }}
-            />
-          )} */}
+          {button && external ? (
+            <Button texto={label} url={url} onClick={() => undefined} />
+          ) : (
+            <Link className="link" href={url}>
+              {label}
+            </Link>
+          )}
         </div>
       </motion.div>
     </StyledHero>

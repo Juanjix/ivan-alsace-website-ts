@@ -214,7 +214,6 @@ const Page: React.FC<PageProps> = (props) => {
         console.error("Error fetching metrics:", error);
       }
     };
-
     fetchFaqs();
     fetchMetrics();
     fetchPayments();
@@ -231,7 +230,7 @@ const Page: React.FC<PageProps> = (props) => {
         case "hero":
           const data = seccion as Entry<TypeHeroSkeleton>;
           const props = data.fields;
-          console.log(" aca viene la data del hero ---> ", props);
+
           components.push(<Hero key={seccion.sys.id} {...props} />);
           break;
 

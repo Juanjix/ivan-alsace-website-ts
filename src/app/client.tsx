@@ -14,18 +14,6 @@ export const client = createClient({
   accessToken: accessToken,
 });
 
-// export const resolveLinks = async (
-//   links: { sys: { id: string; linkType: string; type: string } }[]
-// ): Promise<Entry<TypePreguntaFrecuenteSkeleton>[]> => {
-//   const ids = links.map((link) => link.sys.id);
-//   const response = await client.getEntries<TypePreguntaFrecuenteSkeleton>({
-//     content_type: "preguntaFrecuente",
-//     "sys.id[in]": ids,
-//   });
-
-//   return response.items;
-// };
-
 export const resolveLinks = async <T extends EntrySkeletonType>(
   links: { sys: { id: string; linkType: string; type: string } }[],
   contentType: string

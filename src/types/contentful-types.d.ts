@@ -68,7 +68,10 @@ export interface TypeHeroFields {
   nombreInterno: EntryFieldTypes.Symbol;
   titulos: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
   imagen?: EntryFieldTypes.AssetLink;
-  botn?: EntryFieldTypes.EntryLink<TypeBotonSkeleton>;
+  button?: EntryFieldTypes.Boolean;
+  external?: EntryFieldTypes.Boolean;
+  url?: EntryFieldTypes.Symbol;
+  label?: EntryFieldTypes.Symbol;
 }
 
 export type TypeHeroSkeleton = EntrySkeletonType<TypeHeroFields, "hero">;
